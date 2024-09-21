@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+nav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#menu-toggle {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#menu-toggle:hover {
+    background-color: #777; /* Cor ao passar o mouse no botão */
+}
+
+#menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: #444;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(85, 83, 83, 0.1);
+    z-index: 1000;
+    transform: scale(0); /* Menu invisível */
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#menu li {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+#menu li:last-child {
+    border-bottom: none;
+}
+
+#menu li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu-aberto {
+    transform: scale(1); /* Mostra o menu */
+    opacity: 1;
+    pointer-events: auto; /* Habilita interação */
+}
+
+.menu-fechado {
+    transform: scale(0); /* Esconde o menu */
+    opacity: 0;
+    pointer-events: none; /* Desabilita interação */
+}
+
+section {
+    padding: 2rem;
+    background-color: #fff;
+    margin: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.carro {
+    display: inline-block;
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.carro img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilo básico do link */
+.map-link {
+    display: inline-block;        /* Para permitir padding */
+    background-color: #4285F4;    /* Cor de fundo (azul similar ao Google Maps) */
+    color: white;                 /* Cor do texto */
+    padding: 10px 20px;           /* Espaçamento interno */
+    text-decoration: none;        /* Remove o sublinhado padrão do link */
+    border-radius: 5px;           /* Bordas arredondadas */
+    font-weight: bold;            /* Texto em negrito */
+    transition: background-color 0.3s ease;  /* Transição suave para o hover */
+}
+
+/* Estilo quando o usuário passar o mouse sobre o link */
+.map-link:hover {
+    background-color: #2c6ef2;    /* Cor de fundo ao passar o mouse */
+    color: #fff;                  /* Cor do texto (caso queira mudar no hover) */
+    text-decoration: underline;   /* Sublinha o texto no hover */
+}
+
+/* Estilo quando o link for clicado */
+.map-link:active {
+    background-color: #1a4dab;    /* Cor ao clicar no link */
+}
+
