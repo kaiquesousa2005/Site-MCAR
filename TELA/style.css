@@ -1,54 +1,173 @@
+/* Estilo Global */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #eeee20;
+    color: #333333;
+    overflow-x: hidden;
 }
 
+/* Estilo do Header */
 header {
-    background-color: #333;
+    background-color: #050b7d;
     color: #fff;
-    text-align: center;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; /* Centraliza os elementos no header */
     position: relative;
 }
 
+/* Ajustes na imagem do logotipo */
+.mcar {
+    width: 300px;
+    height: auto;
+    position: relative;
+    top: 10px;  
+    right: 50px;  
+    cursor: pointer;
+}
+
+/* Estilo da Seção de Contato */
+.contato {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o botão de menu */
+    background: linear-gradient(135deg, #4952f5, #1118aa);
+    padding: 20px 40px;
+    width: calc(65% - 80px); 
+    border-radius: 10px;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contato p {
+    font-size: 20px;
+    color: #fff; /* Cor do texto */
+    margin-right: 10px;
+}
+
+/* Estilo dos Ícones da Contato */
+.icones-redes-sociais {
+    gap: 10px;
+    margin-top: 5px;
+}
+
+
+.icones-redes-sociais a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Ícones circulares */
+    background-color: #fff; /* Fundo branco para ícones */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+.icones-redes-sociais a:hover {
+    transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+/* Estilo dos Ícones Laterais */
+.icones-lateral {
+    position: absolute;  /* Mantém a posição fixa na lateral */
+    top: 10px;       /* Distância do topo da tela */
+    right: 15px;      /* Distância da borda direita */
+    display: flex;
+    flex-direction: column; /* Organiza os ícones em coluna */
+    gap: 5px;        /* Espaço entre os ícones */
+    z-index: 9999;    /* Garante que os ícones fiquem sobre outros elementos */
+}
+
+.icones-lateral a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icones-lateral a:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 5px #00c6ff; }
+    50% { box-shadow: 0 0 20px #0072ff; }
+    100% { box-shadow: 0 0 5px #00c6ff; }
+}
+
+@keyframes slide {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+/* Estilo do Navegador */
 nav {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    overflow: visible;
+    top: 0; /* Alinha com o topo do botão */
+    left: 73%; /* Posiciona ao lado direito do botão */
+    z-index: 1001;
+    padding: 10px;
+    white-space: nowrap; /* Impede que os itens quebrem linha */
+    cursor: pointer;
 }
 
 #menu-toggle {
     background-color: #555;
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease-in-out;
+    margin-left: auto;
+    z-index: 1002;
 }
 
 #menu-toggle:hover {
-    background-color: #777; /* Cor ao passar o mouse no botão */
+    background-color: #777; 
 }
 
+/* Estilo do menu com animação */
 #menu {
     list-style: none;
     padding: 0;
     margin: 0;
     position: relative;
-    top: 0;
-    right: 0;
-    background-color: #444;
+    top: 100%; /* Abaixo da caixa de contato */
+    right: 20px;  /* Alinhado à direita */
+    width: 200px;
+    background-color: #cd2020;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(85, 83, 83, 0.1);
-    z-index: 9999;;
-    transform: scale(0); /* Menu invisível */
+    pointer-events: none; /* Impede a interação com o menu quando está fechado */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+/* Menu Aberto */
+.menu-aberto {
+    transform: translateX(0); /* Move o menu para dentro da tela */
+    opacity: 1;               /* Torna o menu visível */
+    pointer-events: auto;      /* Permite interação com o menu */
+    display: flex;
+    flex-direction: row; /* Coloca os itens em linha */
+    z-index: 1001;
+}
+
+/* Menu Fechado (caso precise garantir que ele seja fechado novamente) */
+.menu-fechado {
+    transform: translateX(100%); /* Volta o menu para fora da tela */
     opacity: 0;
-    pointer-events: none;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    pointer-events: none;        /* Bloqueia interação com o menu fechado */
 }
 
 #menu li {
@@ -63,25 +182,19 @@ nav {
 #menu li a {
     color: #fff;
     text-decoration: none;
+    display: block;
 }
 
-.menu-fechado {
-    display: none; /* Esconde o menu */
-}
-
-.menu-aberto {
-    display: block; /* Mostra o menu */
-}
-
-
+/* Estilo das Seções */
 section {
     padding: 2rem;
-    background-color: #fff;
+    background-color: #ffffff;
     margin: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo dos Carros */
 .carro {
     display: inline-block;
     width: 200px;
@@ -93,9 +206,10 @@ section {
     width: 100%;
     height: auto;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo do Footer */
 footer {
     background-color: #333;
     color: #fff;
@@ -105,33 +219,56 @@ footer {
     width: 100%;
 }
 
-/* Estilo básico do link */
+/* Estilo Básico do Link do Mapa */
 .map-link {
-    display: inline-block;        /* Para permitir padding */
-    background-color: #4285F4;    /* Cor de fundo (azul similar ao Google Maps) */
-    color: white;                 /* Cor do texto */
-    padding: 10px 20px;           /* Espaçamento interno */
-    text-decoration: none;        /* Remove o sublinhado padrão do link */
-    border-radius: 5px;           /* Bordas arredondadas */
-    font-weight: bold;            /* Texto em negrito */
-    transition: background-color 0.3s ease;  /* Transição suave para o hover */
+    display: inline-block;        
+    background-color: #4285F4;  
+    color: white;                 
+    padding: 10px 20px;           
+    text-decoration: none;        
+    border-radius: 5px;           
+    font-weight: bold;            
+    transition: background-color 0.3s ease;  
 }
 
-/* Estilo quando o usuário passar o mouse sobre o link */
 .map-link:hover {
-    background-color: #2c6ef2;    /* Cor de fundo ao passar o mouse */
-    color: #fff;                  /* Cor do texto (caso queira mudar no hover) */
-    text-decoration: underline;   /* Sublinha o texto no hover */
+    background-color: #2c6ef2;    
+    color: #fff;                  
+    text-decoration: underline;   
 }
 
-/* Estilo quando o link for clicado */
 .map-link:active {
-    background-color: #1a4dab;    /* Cor ao clicar no link */
+    background-color: #1a4dab;    
 }
 
-.mcar {
-    position: relative;
-    right: 30%;
-    width: 300px;
-    height: auto;
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px; /* Ajusta o padding em dispositivos menores */
+    }
+
+    .mcar {
+        width: 250px;              
+        margin-right: 0;
+    }
+
+    .contato {
+        align-items: center;        
+        margin-left: 0;
+        flex-direction: column; 
+        padding: 20px 20px;    
+    }
+
+    .contato p {
+        margin-right: 0;
+        margin-bottom: 5px;        
+    }
+    #menu-toggle {
+        margin-top: 10px; /* Adiciona espaço acima do botão para que não fique grudado */
+    }
+
+    #menu {
+        right: 0; /* Garante que o menu esteja visível e ajustado ao layout menor */
+    }
 }
