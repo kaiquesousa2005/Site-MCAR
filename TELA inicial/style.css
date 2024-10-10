@@ -1,0 +1,151 @@
+/* Estilo Global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eeee20;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+/* Estilo do Header */
+header {
+    background-color: #050b7d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribui os itens no espaço disponível */
+    padding: 10px 20px;
+}
+
+/* Ajustes na imagem do logotipo */
+.mcar {
+    width: 200px;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Estilo dos Ícones da Contato */
+.icones-redes-sociais {
+    gap: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.icones-redes-sociais a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Ícones circulares */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+.icones-redes-sociais a:hover {
+    transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 5px #00c6ff; }
+    50% { box-shadow: 0 0 20px #0072ff; }
+    100% { box-shadow: 0 0 5px #00c6ff; }
+}
+
+@keyframes slide {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+/* Estilo do Navegador */
+nav {
+    display: flex; /* Usa flexbox para alinhar os itens horizontalmente */
+    justify-content: center;
+    gap: 20px; /* Espaçamento entre os itens do menu */
+}
+
+nav li {
+    list-style: none; /* Remove os marcadores das listas */
+    display: inline;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #cccccc; /* Cor de hover nos links do menu */
+}
+
+/* Estilo das Seções */
+section {
+    padding: 2rem;
+    background-color: #ffffff;
+    margin: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilo do Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+}
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Largura máxima do carrossel */
+    margin: 20px auto; /* Centraliza o carrossel */
+    overflow: hidden; /* Oculta partes das imagens que estão fora do contêiner */
+    
+    /* Estilos para o enquadramento */
+    padding: 10px; /* Espaçamento interno entre as bordas e o conteúdo */
+    border: 5px solid #050b7d; /* Borda ao redor do carrossel */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para efeito de profundidade */
+}
+
+.carousel-images {
+    display: flex; /* Exibe as imagens em linha */
+    transition: transform 0.5s ease; /* Transição suave para a mudança de imagens */
+}
+
+.carousel img {
+    width: 100%; /* Faz com que as imagens ocupem toda a largura do carrossel */
+    height: auto; /* Mantém a proporção das imagens */
+}
+
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .mcar {
+        width: 250px;
+        margin-right: 0;
+    }
+
+    .contato {
+        align-items: center;
+        margin-left: 0;
+        flex-direction: column;
+        padding: 20px 20px;
+    }
+
+}
