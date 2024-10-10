@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eeee20;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #050b7d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribui os itens no espaço disponível */
+    padding: 10px 20px;
+}
+
+/* Ajustes na imagem do logotipo */
+.mcar {
+    width: 200px;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Estilo Básico do Link do Mapa */
+.map-link {
+    display: inline-block;
+    background-color: #4285F4;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.map-link:hover {
+    background-color: #2c6ef2;
+    color: #fff;
+    text-decoration: underline;
+}
+
+.map-link:active {
+    background-color: #1a4dab;
+}
+
+/* Estilo das Seções */
+section {
+    padding: 2rem;
+    background-color: #ffffff;
+    margin: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex; /* Usa flexbox para alinhar os itens horizontalmente */
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os itens do menu */
+    margin: 0 auto; /* Centraliza o nav */
+}
+
+nav li {
+    list-style: none; /* Remove os marcadores das listas */
+    display: inline;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #cccccc; /* Cor de hover nos links do menu */
+}
+
+/* Estilo dos Ícones da Contato */
+.icones-redes-sociais {
+    gap: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.icones-redes-sociais a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Ícones circulares */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+.icones-redes-sociais a:hover {
+    transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+/* Estilo dos Carros */
+.carro {
+    display: inline-block;
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.carro img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}

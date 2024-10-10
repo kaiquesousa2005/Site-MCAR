@@ -1,15 +1,3 @@
-document.getElementById('menu-toggle').addEventListener('click', function() {
-    var menu = document.getElementById('menu');
-    
-    if (menu.classList.contains('menu-fechado')) {
-        menu.classList.remove('menu-fechado');
-        menu.classList.add('menu-aberto');
-    } else {
-        menu.classList.remove('menu-aberto');
-        menu.classList.add('menu-fechado');
-    }
-});
-
 
 document.getElementById('form-contato').addEventListener('submit', function(event) {
     event.preventDefault();
