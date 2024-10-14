@@ -14,18 +14,27 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     }
 });
 
-const carouselImages = document.querySelector('.carousel-images');
-const images = document.querySelectorAll('.carousel-images img');
+let currentIndex = 0;
+const images = document.querySelector('.carousel-images');
+const totalImages = images.querySelectorAll('img').length;
 
-let index = 0;
-const totalImages = images.length;
-
-function showNextImage() {
-    index = (index + 1) % totalImages; // Atualiza o índice para o próximo
-    const offset = -index * 100; // Calcula o deslocamento
-    carouselImages.style.transform = `translateX(${offset}%)`; // Aplica o deslocamento
+// Função para deslizar para a próxima imagem
+function slideNext() {
+  currentIndex = (currentIndex + 1) % totalImages;
+  const offset = -currentIndex * (800 + 20); // 800px largura da imagem + 20px do gap
+  images.style.transform = `translateX(${offset}px)`;
 }
 
-// Muda a imagem a cada 3 segundos
-setInterval(showNextImage, 3000);
+// Função para deslizar para a imagem anterior
+function slidePrev() {
+  currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+  const offset = -currentIndex * (800 + 20);
+  images.style.transform = `translateX(${offset}px)`;
+}
+
+// Muda de imagem automaticamente a cada 5 segundos
+setInterval(slideNext, 5000);
+
+
+
 

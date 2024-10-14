@@ -2,14 +2,13 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eeee20;
+    background-color: #ffff75;
     color: #333333;
     overflow-x: hidden;
 }
 
 header {
     background-color: #050b7d;
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between; /* Distribui os itens no espaço disponível */
@@ -18,41 +17,46 @@ header {
 
 /* Ajustes na imagem do logotipo */
 .mcar {
-    width: 200px;
+    padding: 10px 0px;
+    width: 250px;
     height: auto;
     position: relative;
     cursor: pointer;
 }
 
-/* Estilo Básico do Link do Mapa */
-.map-link {
-    display: inline-block;
-    background-color: #4285F4;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.map-link:hover {
-    background-color: #2c6ef2;
-    color: #fff;
-    text-decoration: underline;
-}
-
-.map-link:active {
-    background-color: #1a4dab;
-}
-
 /* Estilo das Seções */
 section {
     padding: 2rem;
-    background-color: #ffffff;
-    margin: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+/* Efeito de hover nas seções */
+section:hover {
+    transform: translateY(-10px); /* Levanta levemente a seção ao passar o mouse */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Sombra mais forte no hover */
+}
+
+/* Estilo dos títulos das seções */
+section h2 {
+    font-size: 2.2rem;
+    color: #050b7d; /* Cor destacada para o título */
+    margin-bottom: 1rem;
+    text-transform: uppercase; /* Tudo em maiúsculo para mais impacto */
+    letter-spacing: 2px; /* Espaçamento entre letras para elegância */
+    text-align: center; /* Centraliza os títulos */
+}
+
+/* Parágrafos dentro das seções */
+section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333; /* Cor de texto padrão */
+    text-align: justify; /* Alinha o texto justificado */
+    margin-bottom: 2rem; /* Espaçamento maior após o parágrafo */
 }
 
 nav {
@@ -104,16 +108,95 @@ nav a:hover {
 }
 
 /* Estilo dos Carros */
+
+.carros {
+    display: flex; /* Para alinhar os carros em linha */
+    flex-wrap: wrap; /* Permite que os carros mudem de linha se não houver espaço */
+    justify-content: center; /* Centraliza os carros horizontalmente */
+    gap: 20px; /* Espaço entre os carros */
+    padding: 20px; /* Espaçamento interno da seção */
+}
+
 .carro {
-    display: inline-block;
-    width: 200px;
-    margin: 10px;
-    text-align: center;
+    position: relative; /* Para posicionar os botões corretamente */
+    border: 2px solid #050b7d; /* Borda ao redor do carro */
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    overflow: hidden; /* Para evitar que o conteúdo exceda os limites */
+    width: 350px; /* Largura fixa para o contêiner do carro */
+    background-color: #fff; /* Fundo branco para contraste */
+    padding: 10px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+}
+
+.carro:hover {
+    transform: scale(1.05); /* Aumenta levemente o carro ao passar o mouse */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
 }
 
 .carro img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Faz a imagem ocupar toda a largura do contêiner */
+    max-width: 500px; /* Limita a largura da imagem ao máximo de 600px */
+    height: 250px; /* Define a altura para manter a proporção */
+    object-fit: cover; /* Faz a imagem preencher o espaço do contêiner sem distorção */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+    margin-bottom: 10px; /* Espaço abaixo da imagem */
 }
+
+.carousel-btn {
+    background-color: #050b7d; /* Cor de fundo dos botões */
+    color: white; /* Cor do texto dos botões */
+    border: none; /* Remove a borda padrão dos botões */
+    border-radius: 50%; /* Botões circulares */
+    cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+    padding: 10px; /* Espaçamento interno do botão */
+    position: absolute; /* Para posicionar os botões corretamente */
+    top: calc(50% - 15px); /* Centraliza verticalmente e move 20px para cima */
+    transform: translateY(-50%); /* Ajusta a posição vertical do botão */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+
+.carousel-btn:hover {
+    background-color: #1e3a8a; /* Cor de fundo ao passar o mouse */
+}
+
+.carousel-btn.left {
+    left: 10px; /* Posiciona o botão à esquerda */
+}
+
+.carousel-btn.right {
+    right: 10px; /* Posiciona o botão à direita */
+}
+.car-description {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 15px; /* Espaço entre a descrição e as imagens */
+    font-size: 16px; /* Tamanho da fonte para a descrição */
+    color: #333333; /* Cor do texto */
+    line-height: 1.5; /* Altura da linha para melhor legibilidade */
+    font-weight: 500; /* Peso médio da fonte */
+    background-color: #e4e4e4; /* Fundo suave para destacar a descrição */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas para o fundo da descrição */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311); /* Sombra suave para destacar */
+    text-align: center; /* Centraliza o texto da descrição */
+}
+.car-name {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 15px; /* Espaço entre a descrição e as imagens */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #333333; /* Cor do texto */
+    line-height: 1.5; /* Altura da linha */
+    font-weight: 500; /* Peso da fonte */
+    background-color: #e4e4e4; /* Fundo suave */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311); /* Sombra suave */
+    text-align: center; /* Centraliza o texto */
+    display: inline-block; /* Ajusta o tamanho da box ao tamanho do texto */
+    max-width: 100%; /* Impede que a caixa fique maior que o contêiner pai */
+}
+
+

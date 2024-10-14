@@ -1,15 +1,16 @@
+/* Estilo do Body */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eeee20;
+    background-color: #ffff75;
     color: #333333;
     overflow-x: hidden;
 }
 
+/* Estilo do Cabeçalho (Header) */
 header {
     background-color: #050b7d;
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between; /* Distribui os itens no espaço disponível */
@@ -18,7 +19,8 @@ header {
 
 /* Ajustes na imagem do logotipo */
 .mcar {
-    width: 200px;
+    padding: 10px 0px;
+    width: 250px;
     height: auto;
     position: relative;
     cursor: pointer;
@@ -48,13 +50,41 @@ header {
 
 /* Estilo das Seções */
 section {
-    padding: 2rem;
-    background-color: #ffffff;
-    margin: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    margin: 2rem auto; /* Ajusta o espaço entre seções e centraliza */
+    max-width: 1200px; /* Limita a largura máxima para um layout mais contido */
+    background-color: #f9f9f9; /* Fundo claro para contraste suave */
+    border-radius: 12px; /* Bordas mais arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra maior para profundidade */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
 }
 
+/* Efeito de hover nas seções */
+section:hover {
+    transform: translateY(-10px); /* Levanta levemente a seção ao passar o mouse */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Sombra mais forte no hover */
+}
+
+/* Estilo dos títulos das seções */
+section h2 {
+    font-size: 2.4rem;
+    color: #050b7d; /* Cor destacada para o título */
+    margin-bottom: 1.5rem;
+    text-transform: uppercase; /* Tudo em maiúsculo para mais impacto */
+    letter-spacing: 2px; /* Espaçamento entre letras para elegância */
+    text-align: center; /* Centraliza os títulos */
+}
+
+/* Parágrafos dentro das seções */
+section p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #333; /* Cor de texto padrão */
+    text-align: justify; /* Alinha o texto justificado */
+    margin-bottom: 2.5rem; /* Espaçamento maior após o parágrafo */
+}
+
+/* Estilo da navegação */
 nav {
     display: flex; /* Usa flexbox para alinhar os itens horizontalmente */
     justify-content: center;
@@ -101,4 +131,19 @@ nav a:hover {
 .icones-redes-sociais a:hover {
     transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    section {
+        padding: 1.5rem;
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+
+    #form-contato {
+        max-width: 100%;
+    }
 }
