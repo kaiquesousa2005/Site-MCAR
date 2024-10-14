@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eeee20;
+    background-color: #ffff75;
     color: #333333;
     overflow-x: hidden;
 }
@@ -11,7 +11,6 @@ body {
 /* Estilo do Header */
 header {
     background-color: #050b7d;
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between; /* Distribui os itens no espaço disponível */
@@ -20,7 +19,8 @@ header {
 
 /* Ajustes na imagem do logotipo */
 .mcar {
-    width: 200px;
+    padding: 10px 0px;
+    width: 250px;
     height: auto;
     position: relative;
     cursor: pointer;
@@ -88,10 +88,82 @@ nav a:hover {
 /* Estilo das Seções */
 section {
     padding: 2rem;
-    background-color: #ffffff;
-    margin: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto; /* Ajusta o espaço entre seções e centraliza */
+    max-width: 1200px; /* Limita a largura máxima para um layout mais contido */
+    background-color: #f9f9f9; /* Fundo claro para contraste suave */
+    border-radius: 10px; /* Bordas mais arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra maior para profundidade */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+/* Efeito de hover nas seções */
+section:hover {
+    transform: translateY(-10px); /* Levanta levemente a seção ao passar o mouse */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Sombra mais forte no hover */
+}
+
+/* Estilo dos títulos das seções */
+section h2 {
+    font-size: 2.2rem;
+    color: #050b7d; /* Cor destacada para o título */
+    margin-bottom: 1rem;
+    text-transform: uppercase; /* Tudo em maiúsculo para mais impacto */
+    letter-spacing: 2px; /* Espaçamento entre letras para elegância */
+    text-align: center; /* Centraliza os títulos */
+}
+
+/* Parágrafos dentro das seções */
+section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333; /* Cor de texto padrão */
+    text-align: justify; /* Alinha o texto justificado */
+    margin-bottom: 2rem; /* Espaçamento maior após o parágrafo */
+}
+
+/* Estilo do formulário de contato */
+#form-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaço entre os campos do formulário */
+    max-width: 600px;
+    margin: 0 auto; /* Centraliza o formulário */
+}
+
+/* Estilo dos campos do formulário */
+#form-contato input,
+#form-contato textarea {
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Efeito de profundidade interna */
+    transition: border-color 0.3s ease;
+}
+
+/* Muda a cor da borda ao focar */
+#form-contato input:focus,
+#form-contato textarea:focus {
+    border-color: #050b7d; /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
+}
+
+/* Estilo do botão de enviar */
+#form-contato button {
+    padding: 1rem 2rem;
+    background-color: #050b7d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de hover no botão */
+#form-contato button:hover {
+    background-color: #063dc9; /* Cor mais escura ao passar o mouse */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra no hover */
 }
 
 
@@ -104,28 +176,61 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
 .carousel {
     position: relative;
     width: 100%;
     max-width: 800px; /* Largura máxima do carrossel */
-    margin: 20px auto; /* Centraliza o carrossel */
-    overflow: hidden; /* Oculta partes das imagens que estão fora do contêiner */
-    
-    /* Estilos para o enquadramento */
-    padding: 10px; /* Espaçamento interno entre as bordas e o conteúdo */
-    border: 5px solid #050b7d; /* Borda ao redor do carrossel */
-    border-radius: 10px; /* Bordas arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para efeito de profundidade */
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 10px;
+    border: 5px solid #050b7d;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .carousel-images {
-    display: flex; /* Exibe as imagens em linha */
-    transition: transform 0.5s ease; /* Transição suave para a mudança de imagens */
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
 }
 
 .carousel img {
-    width: 100%; /* Faz com que as imagens ocupem toda a largura do carrossel */
-    height: auto; /* Mantém a proporção das imagens */
+    width: 800px;
+    height: 500px;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+/* Estilos para as setas de controle */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 50%;
+}
+
+/* Seta à esquerda */
+.carousel-control.prev {
+    left: 10px;
+}
+
+/* Seta à direita */
+.carousel-control.next {
+    right: 10px;
+}
+
+/* Efeito hover nas setas */
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 
