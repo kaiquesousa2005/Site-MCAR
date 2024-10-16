@@ -18,7 +18,7 @@
             <li><a href="/TELA inicial/index.html">Inicio</a></li>
             <li><a href="/TELAS DO NAV/sobre.html" >Sobre Nós</a></li>
             <li><a href="/TELAS DO NAV/carros.html">Carros Disponíveis</a></li>
-            <li><a href="/TELAS DO NAV/contato.html">Simular</a></li>
+            <li><a href="/TELAS DO NAV/contato.html">Simulação</a></li>
         </nav>
 
         <div class="icones-redes-sociais">
@@ -32,37 +32,100 @@
                     <img src="/imagens/facebook-icone.png" alt="Facebook" style="width: 50px;height: 50px;">
                 </a> 
         </div>
-</header>
+    </header>
 
-<section>
-    <h2>Simulação de Financiamento</h2>
-    <form id="form-simulacao">
-        <label for="nome">Nome Completo:</label>
-        <input type="text" id="nome" name="nome">
+    <section class="simulacao-explicacao">
+        <h2>Como Funciona a Simulação de Financiamento</h2>
+        <p>
+            Ao preencher o formulário de simulação de financiamento, você nos fornece informações essenciais
+            que nos ajudam a entender suas necessidades e a encontrar a melhor opção de financiamento para você.
+            Abaixo, explicamos cada campo do formulário:
+        </p>
+        <ul>
+            <li>
+                <strong>Nome Completo:</strong> Informe seu nome completo para que nós possamos identificar para quem estamos fazendo o atendimento.
+            </li>
+            <li>
+                <strong>Data de Nascimento:</strong> A idade é um fator importante na avaliação do crédito.
+            </li>
+            <li>
+                <strong>CPF:</strong> Precisamos do seu CPF para o banco verificar sua situação e oferecer as melhores condições.
+            </li>
+            <li>
+                <strong>Qual carro você possui interesse?</strong> Informe o modelo e o ano do carro que você deseja fazer a simulação de financiamento.
+            </li>
+            <li>
+                <strong>Possui CNH?</strong> Essa informação é necessária para a simulação ser feita, mas não é obrigatório ter a CNH para fazer uma simulação.
+            </li>
+            <li>
+                <strong>WhatsApp para contato:</strong> Insira seu número de WhatsApp para que possamos entrar em contato com você facilmente.
+            </li>
+        </ul>
+        <p>
+            Após preencher todas as informações, clique no botão "Enviar Simulação" para receber as opções de
+            financiamento disponíveis. Nossa equipe entrará em contato com você o mais breve possível!
+        </p>
+    </section>
 
-        <label for="data-nascimento">Data de Nascimento:</label>
-        <input type="date" id="data-nascimento" name="data-nascimento" required>
+    <section>
+        <h2>Simulação de Financiamento</h2>
+        <form id="form-simulacao">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
 
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" placeholder="xxx.xxx.xxx-xx" required>
+            <label for="data-nascimento">Data de Nascimento:</label>
+            <input type="date" id="data-nascimento" name="data-nascimento" required>
 
-        <label for="carro-interesse">Qual carro você possui interesse?</label>
-        <input type="text" id="carro-interesse" name="carro-interesse" placeholder="Ex: Fiat Mobi 2024" required>
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" placeholder="xxx.xxx.xxx-xx" required>
 
-        <label for="cnh">Possui CNH?</label>
-        <select id="cnh" name="cnh" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="sim">Sim</option>
-            <option value="nao">Não</option>
-        </select>
+            <label for="carro-interesse">Qual carro você possui interesse?</label>
+            <input type="text" id="carro-interesse" name="carro-interesse" placeholder="Ex: Fiat Mobi 2024" required>
 
-        <label for="whatsapp">WhatsApp para contato:</label>
-        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(xx) xxxx-xxxx" required>
+            <label for="cnh">Possui CNH?</label>
+            <select id="cnh" name="cnh" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
 
-        <button type="submit">Enviar Simulação</button>
-    </form>
-</section>
+            <label for="whatsapp">WhatsApp para contato:</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(xx) xxxx-xxxx" required>
 
-<script src="contato.js" defer></script>
+            <button type="submit">Enviar Simulação</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 MCar Veículos. Todos os direitos reservados.</p>
+            
+            <div class="contact-info">
+                <p>Telefone: (85) 3232-4632</p>
+                <p>Email: mcarveiculos2015@gmail.com</p>
+                <p>Endereço: Avenida Americo Barreira, 5626 - Democrito Rocha - Fortaleza, CE</p>
+            </div>
+
+            <div class="nav-links">
+                <a href="/TELAS DO NAV/sobre.html">Sobre Nós</a>
+                <a href="/TELA inicial/index.html#contato">Contato</a>
+                <a href="/footer/politica.html">Política de Privacidade</a>
+                <a href="/footer/termos.html">Termos de Uso</a>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://www.olx.com.br/perfil/mcar-veiculos-3db64f60" target="_blank" class="icone-olx" aria-label="Perfil OLX">
+                    <img src="/imagens/icone-olx.png" alt="OLX" class="social-icon">
+                </a>
+                <a href="https://www.facebook.com/mcarveiculos3/?ref=pages_you_manage" target="_blank" aria-label="Facebook">
+                    <img src="/imagens/facebook-icone.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://www.instagram.com/mcarveiculos/" target="_blank" aria-label="Instagram">
+                    <img src="/imagens/instagram-icone.png" alt="Instagram" class="social-icon">
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="contato.js" defer></script>
 </body>
 </html>

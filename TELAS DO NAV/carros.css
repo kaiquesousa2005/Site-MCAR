@@ -199,4 +199,60 @@ nav a:hover {
     max-width: 100%; /* Impede que a caixa fique maior que o contêiner pai */
 }
 
+/* Estilo do Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 1rem; /* Mais espaço vertical */
+    position: relative; /* Ajusta a posição se necessário */
+    width: 100%;
+}
 
+.footer-container {
+    max-width: 1200px; /* Limita a largura do conteúdo */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.footer-container p {
+    margin: 0 0 1rem; /* Margem inferior */
+}
+
+.contact-info {
+    margin: 1rem 0;
+}
+
+.contact-info p {
+    margin: 0.5rem 0; /* Margens para cada linha de contato */
+}
+
+.nav-links {
+    margin: 1rem 0;
+}
+
+.nav-links a {
+    margin: 0 1rem;
+    color: #fff; /* Cor do link */
+    text-decoration: none; /* Remove sublinhado */
+}
+
+.nav-links a:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center; /* Centraliza os ícones */
+    gap: 1rem; /* Espaçamento entre os ícones */
+    margin: 1rem 0; /* Margem superior e inferior */
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    transition: transform 0.3s; /* Efeito de transição suave */
+}
+
+.social-icon:hover {
+    transform: scale(1.1); /* Aumenta um pouco o ícone ao passar o mouse */
+}
