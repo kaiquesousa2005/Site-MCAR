@@ -18,7 +18,7 @@
             <li><a href="/TELA inicial/index.html">Inicio</a></li>
             <li><a href="/TELAS DO NAV/sobre.html" >Sobre Nós</a></li>
             <li><a href="/TELAS DO NAV/carros.html">Carros Disponíveis</a></li>
-            <li><a href="/TELAS DO NAV/contato.html">Contato</a></li>
+            <li><a href="/TELAS DO NAV/contato.html">Simular</a></li>
         </nav>
 
         <div class="icones-redes-sociais">
@@ -35,20 +35,34 @@
 </header>
 
 <section>
-    <h2>Mande uma mensagem</h2>
-    <form id="form-contato">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+    <h2>Simulação de Financiamento</h2>
+    <form id="form-simulacao">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome">
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <label for="data-nascimento">Data de Nascimento:</label>
+        <input type="date" id="data-nascimento" name="data-nascimento" required>
 
-        <label for="mensagem">Mensagem:</label>
-        <textarea id="mensagem" name="mensagem" required></textarea>
-        
-        <button type="submit">Enviar</button>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" placeholder="xxx.xxx.xxx-xx" required>
+
+        <label for="carro-interesse">Qual carro você possui interesse?</label>
+        <input type="text" id="carro-interesse" name="carro-interesse" placeholder="Ex: Fiat Mobi 2024" required>
+
+        <label for="cnh">Possui CNH?</label>
+        <select id="cnh" name="cnh" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+        </select>
+
+        <label for="whatsapp">WhatsApp para contato:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(xx) xxxx-xxxx" required>
+
+        <button type="submit">Enviar Simulação</button>
     </form>
 </section>
+
 <script src="contato.js" defer></script>
 </body>
 </html>
