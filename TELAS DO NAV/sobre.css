@@ -13,11 +13,11 @@ header {
     background-color: #050b7d;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribui os itens no espaço disponível */
-    padding: 10px 20px;
+    justify-content: space-between;
+    padding: 10px 20px; /* Mantém o padding original do cabeçalho */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra no cabeçalho */
 }
 
-/* Ajustes na imagem do logotipo */
 .mcar {
     padding: 10px 0px;
     width: 250px;
@@ -25,65 +25,6 @@ header {
     position: relative;
     cursor: pointer;
 }
-
-/* Estilo Básico do Link do Mapa */
-.map-link {
-    display: inline-block;
-    background-color: #4285F4;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.map-link:hover {
-    background-color: #2c6ef2;
-    color: #fff;
-    text-decoration: underline;
-}
-
-.map-link:active {
-    background-color: #1a4dab;
-}
-
-/* Estilo das Seções */
-section {
-    padding: 2.5rem;
-    margin: 2rem auto; /* Ajusta o espaço entre seções e centraliza */
-    max-width: 1200px; /* Limita a largura máxima para um layout mais contido */
-    background-color: #f9f9f9; /* Fundo claro para contraste suave */
-    border-radius: 12px; /* Bordas mais arredondadas */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra maior para profundidade */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
-}
-
-/* Efeito de hover nas seções */
-section:hover {
-    transform: translateY(-10px); /* Levanta levemente a seção ao passar o mouse */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Sombra mais forte no hover */
-}
-
-/* Estilo dos títulos das seções */
-section h2 {
-    font-size: 2.4rem;
-    color: #050b7d; /* Cor destacada para o título */
-    margin-bottom: 1.5rem;
-    text-transform: uppercase; /* Tudo em maiúsculo para mais impacto */
-    letter-spacing: 2px; /* Espaçamento entre letras para elegância */
-    text-align: center; /* Centraliza os títulos */
-}
-
-/* Parágrafos dentro das seções */
-section p {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #333; /* Cor de texto padrão */
-    text-align: justify; /* Alinha o texto justificado */
-    margin-bottom: 2.5rem; /* Espaçamento maior após o parágrafo */
-}
-
 /* Estilo da navegação */
 nav {
     display: flex; /* Usa flexbox para alinhar os itens horizontalmente */
@@ -133,17 +74,183 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
 }
 
-/* Responsividade para telas menores */
+/* Estilo da seção principal */
+section {
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Estilo dos títulos das seções */
+section h2 {
+    font-size: 2.6rem;
+    color: #050b7d;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    border-bottom: 4px solid #050b7d;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+/* Estilo dos parágrafos */
+section p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    text-align: justify;
+    padding: 0 1rem;
+}
+
+/* Estilo dos pontos fortes da loja */
+.about-us-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Divide em três colunas */
+    gap: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.about-us-features div {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-features div:hover {
+    background-color: #eaeaea;
+    transform: translateY(-10px);
+}
+
+.about-us-features h3 {
+    font-size: 1.5rem;
+    color: #050b7d;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.about-us-features p {
+    font-size: 1rem;
+    color: #333;
+    text-align: justify;
+    
+}
+.about-us-features ul {
+    line-height: 1.8; /* Aumenta o espaço entre as linhas */
+    padding-left: 20px; /* Adiciona espaço à esquerda da lista */
+}
+
+.about-us-features li {
+    margin-bottom: 10px; /* Adiciona espaço entre os itens da lista */
+}
+
+
+/* Chamada para ação */
+.call-to-action {
+    margin-top: 3rem;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.call-to-action p {
+    font-size: 1.2rem;
+    color: #050b7d;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.call-to-action a {
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.call-to-action a:hover {
+    background-color: #050b7d;
+}
+
+/* Estilo de depoimentos */
+.testimonials {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dividido em 2 colunas */
+    gap: 2rem;
+}
+
+.testimonials blockquote {
+    background: #fff;
+    padding: 20px;
+    border-left: 5px solid #4285F4;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-style: italic;
+    text-align: left;
+}
+
+.testimonials cite {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #050b7d;
+    text-align: right;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .about-us-features {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
-    section {
-        padding: 1.5rem;
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .about-us-features {
+        grid-template-columns: 1fr;
     }
 
     section h2 {
         font-size: 2rem;
     }
 
-    #form-contato {
-        max-width: 100%;
+    section p {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    .call-to-action {
+        padding: 1rem;
     }
 }
