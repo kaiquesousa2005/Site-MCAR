@@ -1,17 +1,30 @@
 
-document.getElementById('form-contato').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById('form-contato').addEventListener('submit', async function (event) {
+  event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+  const nome = document.getElementById('nome').value;
+  const email = document.getElementById('email').value;
+  const mensagem = document.getElementById('mensagem').value;
 
-    let nome = document.getElementById('nome').value;
-    let email = document.getElementById('email').value;
-    let mensagem = document.getElementById('mensagem').value;
+  try {
+      const response = await fetch('http://localhost:3000/contato', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ nome, email, mensagem }),
+      });
 
-    if (nome && email && mensagem) {
-        alert('Obrigado por entrar em contato, ' + nome + '!');
-        document.getElementById('form-contato').reset();
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
+      if (response.ok) {
+          const data = await response.json();
+          alert('Dados enviados com sucesso!'); // Exibir mensagem de sucesso
+          console.log(data);
+      } else {
+          alert('Erro ao enviar os dados.'); // Exibir mensagem de erro
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      alert('Ocorreu um erro ao enviar os dados.');
+  }
 });
 
 let currentIndex = 0;
