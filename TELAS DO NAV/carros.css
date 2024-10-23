@@ -11,11 +11,10 @@ header {
     background-color: #050b7d;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribui os itens no espaço disponível */
+    justify-content: space-between;
     padding: 10px 20px;
 }
 
-/* Ajustes na imagem do logotipo */
 .mcar {
     padding: 10px 0px;
     width: 250px;
@@ -24,7 +23,6 @@ header {
     cursor: pointer;
 }
 
-/* Estilo das Seções */
 section {
     padding: 2rem;
     margin: 2rem auto;
@@ -34,41 +32,39 @@ section {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
-/* Efeito de hover nas seções */
+
 section:hover {
-    transform: translateY(-10px); /* Levanta levemente a seção ao passar o mouse */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Sombra mais forte no hover */
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Estilo dos títulos das seções */
 section h2 {
     font-size: 2.2rem;
-    color: #050b7d; /* Cor destacada para o título */
+    color: #050b7d;
     margin-bottom: 1rem;
-    text-transform: uppercase; /* Tudo em maiúsculo para mais impacto */
-    letter-spacing: 2px; /* Espaçamento entre letras para elegância */
-    text-align: center; /* Centraliza os títulos */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
 }
 
-/* Parágrafos dentro das seções */
 section p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #333; /* Cor de texto padrão */
-    text-align: justify; /* Alinha o texto justificado */
-    margin-bottom: 2rem; /* Espaçamento maior após o parágrafo */
+    color: #333;
+    text-align: justify;
+    margin-bottom: 2rem;
 }
 
 nav {
-    display: flex; /* Usa flexbox para alinhar os itens horizontalmente */
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px; /* Espaçamento entre os itens do menu */
-    margin: 0 auto; /* Centraliza o nav */
+    gap: 20px;
+    margin: 0 auto;
 }
 
 nav li {
-    list-style: none; /* Remove os marcadores das listas */
+    list-style: none;
     display: inline;
 }
 
@@ -80,10 +76,9 @@ nav a {
 }
 
 nav a:hover {
-    color: #cccccc; /* Cor de hover nos links do menu */
+    color: #cccccc;
 }
 
-/* Estilo dos Ícones da Contato */
 .icones-redes-sociais {
     gap: 10px;
     margin-top: 5px;
@@ -97,125 +92,123 @@ nav a:hover {
     justify-content: center;
     width: 50px;
     height: 50px;
-    border-radius: 50%; /* Ícones circulares */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .icones-redes-sociais a:hover {
-    transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo dos Carros */
-
 .carros {
-    display: flex; /* Para alinhar os carros em linha */
-    flex-wrap: wrap; /* Permite que os carros mudem de linha se não houver espaço */
-    justify-content: center; /* Centraliza os carros horizontalmente */
-    gap: 20px; /* Espaço entre os carros */
-    padding: 20px; /* Espaçamento interno da seção */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
 .carro {
-    position: relative; /* Para posicionar os botões corretamente */
-    border: 2px solid #050b7d; /* Borda ao redor do carro */
-    border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    overflow: hidden; /* Para evitar que o conteúdo exceda os limites */
-    width: 350px; /* Largura fixa para o contêiner do carro */
-    background-color: #fff; /* Fundo branco para contraste */
-    padding: 10px; /* Espaçamento interno */
-    text-align: center; /* Centraliza o texto */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+    position: relative;
+    border: 2px solid #050b7d;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 350px;
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .carro:hover {
-    transform: scale(1.05); /* Aumenta levemente o carro ao passar o mouse */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
 .carro img {
-    width: 100%; /* Faz a imagem ocupar toda a largura do contêiner */
-    max-width: 500px; /* Limita a largura da imagem ao máximo de 600px */
-    height: 250px; /* Define a altura para manter a proporção */
-    object-fit: cover; /* Faz a imagem preencher o espaço do contêiner sem distorção */
+    width: 100%;
+    max-width: 500px;
+    height: 250px;
+    object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
-    margin-bottom: 10px; /* Espaço abaixo da imagem */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
 }
 
 .carousel-btn {
-    background-color: #050b7d; /* Cor de fundo dos botões */
-    color: white; /* Cor do texto dos botões */
-    border: none; /* Remove a borda padrão dos botões */
-    border-radius: 50%; /* Botões circulares */
-    cursor: pointer; /* Muda o cursor ao passar sobre o botão */
-    padding: 10px; /* Espaçamento interno do botão */
-    position: absolute; /* Para posicionar os botões corretamente */
-    top: calc(50% - 15px); /* Centraliza verticalmente e move 20px para cima */
-    transform: translateY(-50%); /* Ajusta a posição vertical do botão */
-    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    background-color: #050b7d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: calc(50% - 15px);
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease;
 }
 
-
 .carousel-btn:hover {
-    background-color: #1e3a8a; /* Cor de fundo ao passar o mouse */
+    background-color: #1e3a8a;
 }
 
 .carousel-btn.left {
-    left: 10px; /* Posiciona o botão à esquerda */
+    left: 10px;
 }
 
 .carousel-btn.right {
-    right: 10px; /* Posiciona o botão à direita */
-}
-.car-description {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 15px; /* Espaço entre a descrição e as imagens */
-    font-size: 16px; /* Tamanho da fonte para a descrição */
-    color: #333333; /* Cor do texto */
-    line-height: 1.5; /* Altura da linha para melhor legibilidade */
-    font-weight: 500; /* Peso médio da fonte */
-    background-color: #e4e4e4; /* Fundo suave para destacar a descrição */
-    padding: 10px; /* Espaçamento interno */
-    border-radius: 8px; /* Bordas arredondadas para o fundo da descrição */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311); /* Sombra suave para destacar */
-    text-align: center; /* Centraliza o texto da descrição */
-}
-.car-name {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 15px; /* Espaço entre a descrição e as imagens */
-    font-size: 16px; /* Tamanho da fonte */
-    color: #333333; /* Cor do texto */
-    line-height: 1.5; /* Altura da linha */
-    font-weight: 500; /* Peso da fonte */
-    background-color: #e4e4e4; /* Fundo suave */
-    padding: 10px 20px; /* Espaçamento interno */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311); /* Sombra suave */
-    text-align: center; /* Centraliza o texto */
-    display: inline-block; /* Ajusta o tamanho da box ao tamanho do texto */
-    max-width: 100%; /* Impede que a caixa fique maior que o contêiner pai */
+    right: 10px;
 }
 
-/* Estilo do Footer */
+.car-description {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.5;
+    font-weight: 500;
+    background-color: #e4e4e4;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311);
+    text-align: center;
+}
+
+.car-name {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.5;
+    font-weight: 500;
+    background-color: #e4e4e4;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.311);
+    text-align: center;
+    display: inline-block;
+    max-width: 100%;
+}
+
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 2rem 1rem; /* Mais espaço vertical */
-    position: relative; /* Ajusta a posição se necessário */
+    padding: 2rem 1rem;
+    position: relative;
     width: 100%;
 }
 
 .footer-container {
-    max-width: 1200px; /* Limita a largura do conteúdo */
-    margin: 0 auto; /* Centraliza o conteúdo */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .footer-container p {
-    margin: 0 0 1rem; /* Margem inferior */
+    margin: 0 0 1rem;
 }
 
 .contact-info {
@@ -223,7 +216,7 @@ footer {
 }
 
 .contact-info p {
-    margin: 0.5rem 0; /* Margens para cada linha de contato */
+    margin: 0.5rem 0;
 }
 
 .nav-links {
@@ -232,27 +225,80 @@ footer {
 
 .nav-links a {
     margin: 0 1rem;
-    color: #fff; /* Cor do link */
-    text-decoration: none; /* Remove sublinhado */
+    color: #fff;
+    text-decoration: none;
 }
 
 .nav-links a:hover {
-    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    text-decoration: underline;
 }
 
 .social-icons {
     display: flex;
-    justify-content: center; /* Centraliza os ícones */
-    gap: 1rem; /* Espaçamento entre os ícones */
-    margin: 1rem 0; /* Margem superior e inferior */
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
 .social-icon {
     width: 45px;
     height: 45px;
-    transition: transform 0.3s; /* Efeito de transição suave */
+    transition: transform 0.3s;
 }
 
 .social-icon:hover {
-    transform: scale(1.1); /* Aumenta um pouco o ícone ao passar o mouse */
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .mcar {
+        width: 200px;
+        margin-right: 40px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 20px auto;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    .carros {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .carro {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-info, .nav-links, .social-icons {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-links a {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
 }

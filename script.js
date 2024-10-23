@@ -30,23 +30,35 @@ document.getElementById('form-contato').addEventListener('submit', async functio
 let currentIndex = 0;
 const images = document.querySelector('.carousel-images');
 const totalImages = images.querySelectorAll('img').length;
+const carousel = document.querySelector('.carousel'); // Selecione o carrossel
+const gap = 20; // Espaço entre as imagens
+
+// Função para calcular a largura do carrossel com base na tela
+function getCarouselWidth() {
+  const carouselWidth = carousel.clientWidth; // Largura atual do carrossel
+  return carouselWidth + gap; // Retorna a largura total incluindo o espaço
+}
 
 // Função para deslizar para a próxima imagem
 function slideNext() {
   currentIndex = (currentIndex + 1) % totalImages;
-  const offset = -currentIndex * (800 + 20); // 800px largura da imagem + 20px do gap
+  const offset = -currentIndex * getCarouselWidth(); // Use a largura do carrossel
   images.style.transform = `translateX(${offset}px)`;
 }
 
 // Função para deslizar para a imagem anterior
 function slidePrev() {
   currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-  const offset = -currentIndex * (800 + 20);
+  const offset = -currentIndex * getCarouselWidth(); // Use a largura do carrossel
   images.style.transform = `translateX(${offset}px)`;
 }
 
-// Muda de imagem automaticamente a cada 5 segundos
-setInterval(slideNext, 5000);
+// Muda de imagem automaticamente a cada 3 segundos
+setInterval(slideNext, 3000);
+
+
+
+
 
 
 
