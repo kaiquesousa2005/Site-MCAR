@@ -1,4 +1,3 @@
-/* Estilo global */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +7,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Estilo do cabeçalho */
 header {
     background-color: #050b7d;
     display: flex;
@@ -17,7 +15,6 @@ header {
     padding: 10px 20px;
 }
 
-/* Ajustes na imagem do logotipo */
 .mcar {
     padding: 10px 0px;
     width: 250px;
@@ -25,7 +22,6 @@ header {
     cursor: pointer;
 }
 
-/* Estilo do Navegador */
 nav {
     display: flex;
     justify-content: center;
@@ -48,7 +44,6 @@ nav a:hover {
     color: #cccccc;
 }
 
-/* Estilo dos ícones das redes sociais */
 .icones-redes-sociais {
     gap: 10px;
     margin-top: 5px;
@@ -72,23 +67,22 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo do Footer */
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 2rem 1rem; /* Mais espaço vertical */
-    position: relative; /* Ajusta a posição se necessário */
+    padding: 2rem 1rem;
+    position: relative;
     width: 100%;
 }
 
 .footer-container {
-    max-width: 1200px; /* Limita a largura do conteúdo */
-    margin: 0 auto; /* Centraliza o conteúdo */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .footer-container p {
-    margin: 0 0 1rem; /* Margem inferior */
+    margin: 0 0 1rem;
 }
 
 .contact-info {
@@ -96,7 +90,7 @@ footer {
 }
 
 .contact-info p {
-    margin: 0.5rem 0; /* Margens para cada linha de contato */
+    margin: 0.5rem 0;
 }
 
 .nav-links {
@@ -105,32 +99,31 @@ footer {
 
 .nav-links a {
     margin: 0 1rem;
-    color: #fff; /* Cor do link */
-    text-decoration: none; /* Remove sublinhado */
+    color: #fff;
+    text-decoration: none;
 }
 
 .nav-links a:hover {
-    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    text-decoration: underline;
 }
 
 .social-icons {
     display: flex;
-    justify-content: center; /* Centraliza os ícones */
-    gap: 1rem; /* Espaçamento entre os ícones */
-    margin: 1rem 0; /* Margem superior e inferior */
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
 .social-icon {
     width: 45px;
     height: 45px;
-    transition: transform 0.3s; /* Efeito de transição suave */
+    transition: transform 0.3s;
 }
 
 .social-icon:hover {
-    transform: scale(1.1); /* Aumenta um pouco o ícone ao passar o mouse */
+    transform: scale(1.1);
 }
 
-/* Estilo das seções */
 section {
     padding: 2rem;
     margin: 2rem auto;
@@ -159,7 +152,7 @@ section h2 {
     padding: 2rem;
     margin: 2rem auto;
     max-width: 1200px;
-    background-color: #f9f9f9; /* Cor de fundo semelhante à do formulário */
+    background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -172,7 +165,7 @@ section h2 {
 
 .simulacao-explicacao h2 {
     font-size: 2rem;
-    color: #050b7d; /* Mesma cor do título da seção do formulário */
+    color: #050b7d;
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -186,14 +179,13 @@ section h2 {
 
 .simulacao-explicacao ul {
     margin: 1rem 0;
-    padding-left: 1.5rem; /* Espaçamento para a lista */
+    padding-left: 1.5rem;
 }
 
 .simulacao-explicacao li {
-    margin-bottom: 0.5rem; /* Espaçamento entre os itens da lista */
+    margin-bottom: 0.5rem;
 }
 
-/* Estilo do formulário de simulação */
 #form-simulacao {
     display: flex;
     flex-direction: column;
@@ -202,7 +194,6 @@ section h2 {
     margin: 0 auto;
 }
 
-/* Estilo dos campos do formulário */
 #form-simulacao input,
 #form-simulacao select {
     padding: 1rem;
@@ -213,20 +204,17 @@ section h2 {
     transition: border-color 0.3s ease;
 }
 
-/* Estilo específico para o campo de seleção (CNH) */
 #form-simulacao select:focus {
     border-color: #050b7d;
     outline: none;
 }
 
-/* Muda a cor da borda ao focar */
 #form-simulacao input:focus,
 #form-simulacao select:focus {
     border-color: #050b7d;
     outline: none;
 }
 
-/* Estilo do botão de enviar */
 #form-simulacao button {
     padding: 1rem 2rem;
     background-color: #050b7d;
@@ -241,4 +229,57 @@ section h2 {
 #form-simulacao button:hover {
     background-color: #063dc9;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .mcar {
+        width: 200px;
+        margin-right: 40px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 20px auto;
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+
+    section p {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    #form-simulacao {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-info, .nav-links, .social-icons {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-links a {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
 }
