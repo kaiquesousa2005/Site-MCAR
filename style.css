@@ -390,12 +390,14 @@ footer {
     header {
         flex-direction: column;
         align-items: center;
-        padding: 5px 10px;
+        padding: 5px 8px;
+        list-style-type: none;
     }
 
     .mcar {
-        width: 150px;
+        width: 180px;
         margin-bottom: 10px;
+        margin-right: 10px;
     }
 
     nav {
@@ -412,11 +414,6 @@ footer {
     .icones-redes-sociais {
         justify-content: center;
         gap: 8px;
-    }
-
-    .icones-redes-sociais a {
-        width: 40px;
-        height: 40px;
     }
 
     .welcome-content {
