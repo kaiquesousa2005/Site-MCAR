@@ -467,7 +467,7 @@ footer {
     }
 
     footer {
-        padding: 1.5rem 0.5rem;
+        padding: 1.5rem;
     }
 
     .footer-container {
@@ -499,7 +499,7 @@ footer {
     .carousel {
         position: relative;
         width: 100%;
-        max-width: 200px;
+        max-width: 250px;
         margin: 10px auto;
         padding: 5px;
         border: 3px solid #050b7d;
@@ -510,8 +510,8 @@ footer {
     }
 
     .carousel img {
-        width: 200px;
-        height: 100px;
+        width: 250px;
+        height: 150px;
         margin: 0 4px;
     }
 }
