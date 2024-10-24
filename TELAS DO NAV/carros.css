@@ -199,7 +199,6 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     position: relative;
-    width: 100%;
 }
 
 .footer-container {
@@ -302,3 +301,116 @@ footer {
         justify-content: center;
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    body {
+        font-size: 14px;
+        padding: 0;
+        background-color: #ffff75;
+        color: #333333;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px 8px;
+        list-style-type: none;
+    }
+
+    .mcar {
+        width: 180px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin: 10px auto;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .icones-redes-sociais {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    section {
+        padding: 1rem;
+        margin: 1rem auto;
+        max-width: 100%;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    section p {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    .carros {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .carro {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .carro img {
+        height: 200px;
+    }
+
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .car-description {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .car-name {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    footer {
+        padding: 1rem;
+    }
+
+    .footer-container {
+        max-width: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-info, .nav-links, .social-icons {
+        margin-bottom: 1rem;
+    }
+
+    .nav-links a {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
