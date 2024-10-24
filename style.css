@@ -467,13 +467,15 @@ footer {
     }
 
     footer {
-        padding: 1.5rem;
+        padding: 1;
+        margin: 0;
     }
 
     .footer-container {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        margin: 0;
     }
 
     .contact-info, .nav-links, .social-icons {
