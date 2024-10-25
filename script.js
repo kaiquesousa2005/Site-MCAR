@@ -1,4 +1,3 @@
-
 document.getElementById('form-contato').addEventListener('submit', async function (event) {
   event.preventDefault(); // Evita o comportamento padrão de envio do formulário
   const nome = document.getElementById('nome').value;
@@ -6,7 +5,7 @@ document.getElementById('form-contato').addEventListener('submit', async functio
   const mensagem = document.getElementById('mensagem').value;
 
   try {
-      const response = await fetch('http://localhost:3000/contato', {
+      const response = await fetch('https://site-mcar.railway.app/contato', { // substitua pela URL do seu backend no Railway
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -18,14 +17,16 @@ document.getElementById('form-contato').addEventListener('submit', async functio
           const data = await response.json();
           alert('Dados enviados com sucesso!'); // Exibir mensagem de sucesso
           console.log(data);
+          document.getElementById('form-contato').reset(); // Limpa o formulário após o envio
       } else {
           alert('Erro ao enviar os dados.'); // Exibir mensagem de erro
       }
   } catch (error) {
-      console.error('Error:', error);
+      console.error('Erro:', error);
       alert('Ocorreu um erro ao enviar os dados.');
   }
 });
+
 
 let currentIndex = 0;
 const images = document.querySelector('.carousel-images');
