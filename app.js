@@ -8,8 +8,12 @@ const { Pool } = require('pg');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors({
+    origin: 'https://site-mcar.vercel.app' // substitua pelo domínio público do seu site na Vercel
+}));
+
 app.use(bodyParser.json());
-app.use(cors());
+
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -30,17 +34,18 @@ app.post('/contato', async (req, res) => {
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação.' });
-    }
+        console.error('Database error:', error);  // Melhor logging para o console
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }    
 });
 
 app.post('/simulacao', async (req, res) => {
-    const { nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp } = req.body;
+    const { nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp, mensagem} = req.body;
 
     try {
         const result = await pool.query(
-            'INSERT INTO simulacao (nome_completo, data_nascimento, cpf, carro_interesse, possui_cnh, whatsapp) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp]
+            'INSERT INTO simulacao (nome_completo, data_nascimento, cpf, carro_interesse, possui_cnh, whatsapp, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp, mensagem]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -66,27 +71,6 @@ app.get('/simulacao', async (req, res) => {
         res.status(500).send(error);
     }
 });
-
-app.delete('/contato', async (req, res) => {
-    try {
-        const result = await pool.query('DELETE FROM contato');
-        res.status(200).json({ message: 'Todos os dados da tabela contato foram excluídos.' });
-    } catch (error) {
-        console.error("Erro ao deletar dados:", error);
-        res.status(500).json({ error: 'Erro ao deletar os dados.' });
-    }
-});
-
-app.delete('/simulacao', async (req, res) => {
-    try {
-        const result = await pool.query('DELETE FROM simulacao');
-        res.status(200).json({ message: 'Todos os dados da tabela simulacao foram excluídos.' });
-    } catch (error) {
-        console.error("Erro ao deletar dados:", error);
-        res.status(500).json({ error: 'Erro ao deletar os dados.' });
-    }
-});
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
