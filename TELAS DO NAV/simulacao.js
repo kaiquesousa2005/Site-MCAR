@@ -11,7 +11,7 @@ document.getElementById('form-simulacao').addEventListener('submit', async funct
 
     if (nome && dataNascimento && cpf && carroInteresse && cnh && whatsapp && mensagem) {
         try {
-            const response = await fetch('https://site-mcar.railway.app/simulacao', { // substitua pela URL do seu backend no Railway
+            const response = await fetch('https://site-mcar-production.up.railway.app/simulacao', { // substitua pela URL do seu backend no Railway
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

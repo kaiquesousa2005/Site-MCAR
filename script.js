@@ -5,7 +5,7 @@ document.getElementById('form-contato').addEventListener('submit', async functio
   const mensagem = document.getElementById('mensagem').value;
 
   try {
-      const response = await fetch('https://site-mcar.railway.app/contato', { // substitua pela URL do seu backend no Railway
+      const response = await fetch('https://site-mcar-production.up.railway.app/contato', { // substitua pela URL do seu backend no Railway
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
