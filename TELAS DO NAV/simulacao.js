@@ -7,8 +7,9 @@ document.getElementById('form-simulacao').addEventListener('submit', async funct
     let carroInteresse = document.getElementById('carro-interesse').value;
     let cnh = document.getElementById('cnh').value; // Captura o valor selecionado
     let whatsapp = document.getElementById('whatsapp').value;
+    let mensagem = document.getElementById('mensagem').value;
 
-    if (nome && dataNascimento && cpf && carroInteresse && cnh && whatsapp) {
+    if (nome && dataNascimento && cpf && carroInteresse && cnh && whatsapp && mensagem) {
         try {
             const response = await fetch('http://localhost:3000/simulacao', {
                 method: 'POST',
@@ -21,7 +22,8 @@ document.getElementById('form-simulacao').addEventListener('submit', async funct
                     cpf: cpf,
                     carroInteresse: carroInteresse,
                     possuiCnh: cnh, // Armazena "Sim" ou "Não" diretamente
-                    whatsapp: whatsapp
+                    whatsapp: whatsapp,
+                    mensagem: mensagem
                 })
             });
 
