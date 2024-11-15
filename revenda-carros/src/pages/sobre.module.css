@@ -1,0 +1,219 @@
+.root {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+.backgroundImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../imagens/foto da frente mcar.jpg?height=1080&width=1920');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+.backgroundOverlay {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.aboutUs {
+    position: relative;
+}
+
+.aboutUsSection {
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.aboutUsSection:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.aboutUsTitle {
+    font-size: 2.6rem;
+    color: #050b7d;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.aboutUsText {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    text-align: justify;
+    padding: 0 1rem;
+}
+
+.aboutUsFeatures {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.aboutUsFeatures h3 {
+    font-size: 1.5rem;
+    color: #050b7d;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.aboutUsFeatures ul {
+    line-height: 1.8;
+    padding-left: 20px;
+}
+
+.aboutUsFeatures li {
+    margin-bottom: 10px;
+}
+
+.callToAction {
+    margin-top: 3rem;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.callToAction p {
+    font-size: 1.2rem;
+    color: #050b7d;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.mapLink {
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.mapLink:hover {
+    background-color: #050b7d;
+}
+
+.testimonials {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.testimonials blockquote {
+    background: #fff;
+    padding: 20px;
+    border-left: 5px solid #4285F4;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-style: italic;
+    text-align: left;
+}
+
+.testimonials cite {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #050b7d;
+    text-align: right;
+}
+
+@media (max-width: 1200px) {
+    .aboutUsFeatures {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .aboutUsFeatures {
+        grid-template-columns: 1fr;
+    }
+
+    .aboutUsTitle {
+        font-size: 2rem;
+    }
+
+    .aboutUsText {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    .callToAction {
+        padding: 1rem;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    .aboutUsSection {
+        padding: 1rem;
+        margin: 1rem auto;
+        max-width: 100%;
+    }
+
+    .aboutUsTitle {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .aboutUsText {
+        font-size: 1rem;
+        padding: 0;
+        text-align: justify;
+    }
+
+    .aboutUsFeatures {
+        grid-template-columns: 1fr;
+    }
+
+    .aboutUsFeatures h3 {
+        font-size: 1.3rem;
+    }
+
+    .callToAction {
+        padding: 1rem;
+    }
+
+    .callToAction p {
+        font-size: 1rem;
+    }
+
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials blockquote {
+        padding: 15px;
+    }
+}

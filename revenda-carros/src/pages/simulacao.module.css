@@ -1,0 +1,172 @@
+.root {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+.backgroundImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../imagens/foto da frente mcar.jpg?height=1080&width=1920');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+.backgroundOverlay {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.financingSimulation {
+    position: relative;
+    z-index: 1;
+}
+
+.simulacaoExplicacao,
+.formSection {
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.simulacaoExplicacao:hover,
+.formSection:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.simulacaoExplicacao h2,
+.formSection h2 {
+    font-size: 2.2rem;
+    color: #050b7d;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.simulacaoExplicacao p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.simulacaoExplicacao ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.simulacaoExplicacao li {
+    margin-bottom: 0.5rem;
+}
+
+#formSimulacao {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#formSimulacao input,
+#formSimulacao select {
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease;
+}
+
+#formSimulacao select:focus,
+#formSimulacao input:focus {
+    border-color: #050b7d;
+    outline: none;
+}
+
+#formSimulacao button {
+    padding: 1rem 2rem;
+    background-color: #050b7d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#formSimulacao button:hover {
+    background-color: #063dc9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .simulacaoExplicacao h2,
+    .formSection h2 {
+        font-size: 2rem;
+    }
+
+    .simulacaoExplicacao p,
+    .formSection p {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    #formSimulacao {
+        max-width: 100%;
+        padding: 1rem;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    .simulacaoExplicacao,
+    .formSection {
+        padding: 1rem;
+        margin: 1rem auto;
+        max-width: 100%;
+    }
+
+    .simulacaoExplicacao h2,
+    .formSection h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .simulacaoExplicacao p,
+    .formSection p {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    #formSimulacao {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    #formSimulacao input,
+    #formSimulacao select {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    #formSimulacao button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
