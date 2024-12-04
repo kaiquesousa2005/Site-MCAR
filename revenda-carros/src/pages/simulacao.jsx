@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './simulacao.module.css';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export default function FinancingSimulation() {
   const [formData, setFormData] = useState({
@@ -11,6 +16,18 @@ export default function FinancingSimulation() {
     whatsapp: '',
     mensagem: ''
   });
+
+  const query = useQuery();
+
+  useEffect(() => {
+    const carro = query.get('carro');
+    if (carro) {
+      setFormData(prevState => ({
+        ...prevState,
+        carroInteresse: decodeURIComponent(carro)
+      }));
+    }
+  }, [query]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -209,3 +226,4 @@ export default function FinancingSimulation() {
     </div>
   );
 }
+

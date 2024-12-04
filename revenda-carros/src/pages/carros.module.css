@@ -97,6 +97,7 @@
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
     margin-bottom: 10px;
 }
 
@@ -211,3 +212,131 @@
         padding: 8px 15px;
     }
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #050b7d;
+}
+
+.modalCarousel {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.modalImage {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+.modalDescription {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 15px;
+  }
+
+  .modalTitle {
+    font-size: 1.2rem;
+  }
+
+  .modalDescription {
+    font-size: 0.9rem;
+  }
+}
+
+.modalDetails {
+  margin-top: 20px;
+}
+
+.modalSubtitle {
+  font-size: 1.2rem;
+  color: #050b7d;
+  margin-bottom: 10px;
+}
+
+.modalAdditionalInfo {
+  margin-top: 20px;
+}
+
+.modalAdditionalInfo h4 {
+  font-size: 1rem;
+  color: #050b7d;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.modalAdditionalInfo ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.modalAdditionalInfo li {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .modalSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .modalAdditionalInfo h4 {
+    font-size: 0.9rem;
+  }
+}
+
+.simulationButton {
+  background-color: #050b7d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.simulationButton:hover {
+  background-color: #1e3a8a;
+}
+
