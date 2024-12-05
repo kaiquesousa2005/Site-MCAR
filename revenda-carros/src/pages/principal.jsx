@@ -1,30 +1,19 @@
-// pagina.jsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import LojaFrente from '../imagens/foto da frente mcar.jpg';
-import OFERTA from '../imagens/OFERTA ÚNICA.png';
 import styles from './principal.module.css';
+import { fetchedCars } from '../components/Estoque';
 
 const Principal = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = [
-    { src: LojaFrente, alt: 'Fachada MCAR Veículos' },
-    { src: OFERTA, alt: 'Oferta Especial MCAR' }
-  ];
-
   const contatoRef = useRef(null);
   const location = useLocation();
 
   const slideNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }, [images.length]);
-
-  const slidePrev = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  }, [images.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % fetchedCars.length);
+  }, []);
 
   useEffect(() => {
-    const timer = setInterval(slideNext, 5000);
+    const timer = setInterval(slideNext, 8000);
     return () => clearInterval(timer);
   }, [slideNext]);
 
@@ -38,19 +27,23 @@ const Principal = () => {
   return (
     <div className={styles.root}>
       <div className={styles.carousel}>
-        <button className={`${styles.carouselControl} ${styles.carouselControlPrev}`} onClick={slidePrev}>&#10094;</button>
         <div className={styles.carouselContainer}>
-          {images.map((image, index) => (
+          {fetchedCars.map((car, index) => (
             <div 
               key={index} 
               className={`${styles.carouselItem} ${index === currentIndex ? styles.carouselItemActive : ''}`}
               style={{ transform: `translateX(${100 * (index - currentIndex)}%)` }}
             >
-              <img src={image.src} alt={image.alt} className={styles.carouselImage} />
+              <div className={styles.carCard}>
+                <h3 className={styles.carTitle}>{car.name}</h3>
+                <img src={car.images[0]} alt={car.name} className={styles.carouselImage} />
+                <p className={styles.carPrice}>{car.description}</p>
+              </div>
             </div>
           ))}
+          <button className={`${styles.carouselControl} ${styles.carouselControlPrev}`} onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + fetchedCars.length) % fetchedCars.length)}>&#10094;</button>
+          <button className={`${styles.carouselControl} ${styles.carouselControlNext}`} onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % fetchedCars.length)}>&#10095;</button>
         </div>
-        <button className={`${styles.carouselControl} ${styles.carouselControlNext}`} onClick={slideNext}>&#10095;</button>
       </div>
 
       <section className={styles.section} id="home">
@@ -107,3 +100,4 @@ const Principal = () => {
 };
 
 export default Principal;
+

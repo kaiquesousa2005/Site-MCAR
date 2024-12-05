@@ -2,21 +2,22 @@ export const fetchedCars = [
     {
         name: "Chevrolet Trailblazer LTZ SUV Turbo 7Lugares 2018",
         images: [
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464976206_18252515284257939_4169381818868647370_n.jpg?stp=dst-jpg&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE4tJaa8Db8ILkbxB3DzMfwxaSMWNjMc6_FpIxY2Mxzr5QGw5sEDLANri2qkxDEn1fMH73Mq1Wsh4_jFueU7X5h&_nc_ohc=H8EXMrsd3msQ7kNvgHkbGx1&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AlGg_3_dfnsgHVMyFVtLnKZ&oh=00_AYBT-Vug4_Vl72m0WM-i6GLh4YamLa1esIZ8x1vhUAQSxw&oe=6754ED60",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464893404_18252515293257939_1242233181317915698_n.jpg?stp=dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH7OWSYkUM627WIIuwDWEPCM05Ysi7KObIzTliyLso5sobq-2y-vX9cpvj0GWAtcoidtaaOvOcwgjqBqIMDSZ3D&_nc_ohc=7-Dq76gnZVQQ7kNvgFXv6M2&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=A0gsL77CUh7x6DBntnzEtpL&oh=00_AYCH9IjiSgexPV8trlBnMrYaR8ZVNWMaAuzsgzX_uaZ0qA&oe=6754F810",
-            "https://scontent.fjdo10-1.fna.fbcdn.net/v/t51.75761-15/464773651_18252515305257939_5602749856479305336_n.jpg?stp=dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHxuVvIpOjk7nfsLGGa6MZak9-0uoXduC6T37S6hd24LsFPoxg2K7G8JXRfg6C2bCLiJ_zXywIvs1GDZcA2eih5&_nc_ohc=R3dh30b6cFsQ7kNvgEFbous&_nc_zt=23&_nc_ht=scontent.fjdo10-1.fna&_nc_gid=AqOsRE8NeIAKbPt_y1YEvyG&oh=00_AYBLsJIh4AZo7AjOL9huuG2gZ_5XwVcLYmbiiye_b5HfOQ&oe=6754E9B5",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464777785_18252515317257939_4981925098958310866_n.jpg?stp=dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeF47BSmInRRJW0nyaIbWbOBOf-lnoV72-Y5_6WehXvb5o-dW6BToERXCg6EkDJnygWGjoycFDxuBwejs6hu5qTk&_nc_ohc=7pJ9GmJTJuUQ7kNvgFyec2G&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AYz25xkWK3uFkaULgTVfPLh&oh=00_AYAYySZOGe344XKNElpRI33mgfKZqNre4G0Y0PLgMysbkg&oe=6754DD0B",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464259472_18252515326257939_1553556876530135045_n.jpg?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeERNdSDo9Arj1SwQA7KuYFw3yibAq-v1u3fKJsCr6_W7WGJ_zHV_PC9E-B5zjfsTWaDb0Ehm3Hf3KkZ5erLSC1E&_nc_ohc=M11FIVKwE4cQ7kNvgGRPT4O&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AD3noapXQII2gYv7mMffyXQ&oh=00_AYBa9yhoxC_gj7SPpM6sx-7K-LDINR1ekf8TwfPra3YMRw&oe=6754FB1F",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464777363_18252515368257939_7410268584996683478_n.jpg?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH55vJAcOue4gcXjGYvQ_oPY-_cI7Q-VY1j79wjtD5VjZQV0TgjGaD0vP67DGQDcKJQav0Mywqnlc0y_03SaQZO&_nc_ohc=pmGMdmeLfQYQ7kNvgHyJLIG&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AMAcFA2NSPTIb2MW0y1eutp&oh=00_AYB3f5kwf9ZFnvymNifwd-8lczPHNOqlekJbGWPdR07IPQ&oe=6754E4A3",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464162723_18252515359257939_5731392690275688410_n.jpg?stp=dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEZP5wW34bMwT4oUhMTFrPw_b13JmLgtL39vXcmYuC0vVWU6Ofz_-lDaGc9E4qjeDfRl9NWP1gA5zQbqu3_RI4C&_nc_ohc=7aw8das2ebYQ7kNvgHPGWkE&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=Adv7CrmsTg-FRjOHiX0h7Ih&oh=00_AYA0eeKh15hBk07db3zMJVhgFNj9BoYDAZIlAxP_6BSD4A&oe=6754D95F",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464923896_18252515350257939_2544681286487119269_n.jpg?stp=dst-jpg&_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGFv63Gg9KG9KpKOrIVpnXdn0soi6N98_mfSyiLo33z-TFyLGxnVly6siACPsSQOp2PHd2H-z_H3MukZD9ue2h0&_nc_ohc=LEFzjMB-EpcQ7kNvgGtsnAL&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AsOYkTOhD7_uGNf0wdRuCHW&oh=00_AYD7E7-g5RHXTAccB8mlCAqyt1FgQnRQcmYQu8zMecLN7Q&oe=675502F1",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464406082_18252515401257939_4183084400498869869_n.jpg?stp=dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGEgjOP80PzTUeCB0dFW66jLmM4btQdtv4uYzhu1B22_mfrEJQQTyAIh2ZV0M2LphNiRZLc-LbxvsyhyNY4smhq&_nc_ohc=Cd_1zFfvNCQQ7kNvgGbJiZD&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=A64uwGodwqnXVgaq__VUiVe&oh=00_AYCrJvP3pxLx8Km34fBzgNaRJIFImNRD3riV3WDD4dydOg&oe=6754E430",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464576555_18252515386257939_3048032449337636345_n.jpg?stp=dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHGevf7XrhooQTVk4us892ZG9cL95gS6ngb1wv3mBLqeJB9pPhxk5A0TwZmrkiko1fDNWsqahfPNsy3yRAFKzI0&_nc_ohc=DlviuB4iLc8Q7kNvgEQXQXe&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=Ael-yTogxR9tpU9XVw-xhoV&oh=00_AYCDogT09xl4Bh2kyhSzo7C0Qfit1rRlTDilrCbRmRVwGA&oe=6754EC96",
-            "https://scontent.fjdo10-1.fna.fbcdn.net/v/t51.75761-15/464269470_18252515422257939_7662751461618494659_n.jpg?stp=dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGLTzeeTnul6JBDMNOsYFV8xRl3_HBz5knFGXf8cHPmSeNiYl_Y6uRItMA7jWFceFduyhqK9FDlZBvs2QHiJTMY&_nc_ohc=iFNez9sXGXsQ7kNvgFcnldq&_nc_zt=23&_nc_ht=scontent.fjdo10-1.fna&_nc_gid=ADeDEuM15720nyjBtuq_fzp&oh=00_AYBdHJDAQ6E2qnGdlRWWOHtslZX_29JcPw4XrDxlu8jE7w&oe=6754DCCF",
-            "https://scontent.fjdo10-2.fna.fbcdn.net/v/t51.75761-15/464176076_18252515434257939_6940357448158693149_n.jpg?stp=dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGO16EZm0VRl6voBSMI9TI35rE3u11zVyrmsTe7XXNXKvPbQSoufvwIBD9q3h0opJQH0QYlrtbl8O0w7Pk4XY1K&_nc_ohc=TtN31-dRUPYQ7kNvgHJxH95&_nc_zt=23&_nc_ht=scontent.fjdo10-2.fna&_nc_gid=AHx7QmTQ7cI5VNo1hLWb05M&oh=00_AYDUKODnybUkQFMlGsc83ZKTN8UR88MqXowR37uGfIcf-g&oe=6754F337",
-            "",
+            "https://img.olx.com.br/images/26/263477234936882.jpg",
+            "https://img.olx.com.br/images/26/265452352757935.jpg",
+            "https://img.olx.com.br/images/26/268439359332362.jpg",
+            "https://img.olx.com.br/images/26/260406357153199.jpg",
+            "https://img.olx.com.br/images/26/269479470993120.jpg",
+            "https://img.olx.com.br/images/26/263494953736678.jpg",
+            "https://img.olx.com.br/images/26/260488236912953.jpg",
+            "https://img.olx.com.br/images/26/260471111864660.jpg",
+            "https://img.olx.com.br/images/26/261439236255242.jpg",
+            "https://img.olx.com.br/images/26/269478714588624.jpg",
+            "https://img.olx.com.br/images/26/261467238824859.jpg",
+            "https://img.olx.com.br/images/26/264430359112952.jpg",
+            "https://img.olx.com.br/images/26/261438592370446.jpg",
+            "https://img.olx.com.br/images/26/261469477909918.jpg"
         ],
-        description: "R$ 179.900, 146.000km rodados",
+        description: "R$ 179.900 - 146.000km rodados",
         features: [
             "Chave canivete com partida remota",
             "Ajuste do volante em altura",
@@ -74,7 +75,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/60/602472564310222.jpg",
             "https://img.olx.com.br/images/60/608486803852850.jpg"
         ],
-        description: "R$ 45.900, 83.000km rodados",
+        description: "R$ 45.900 - 83.000km rodados",
         features: [
             "Frente imponente com farol de neblina",
             "Rodas de liga leves 14 polegadas",
@@ -94,7 +95,7 @@ export const fetchedCars = [
         condition: "Bem conservado, Semi-novo, Bem Tecnológico"
     },
     {
-        name: "FIAT MOBI LIKE 1.0 2021",
+        name: "Fiat Mobi Like 1.0 2021",
         images: [
             "https://img.olx.com.br/images/31/311407698526196.jpg",
             "https://img.olx.com.br/images/31/319419216907918.jpg",
@@ -107,7 +108,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/31/316497459291791.jpg",
             "https://img.olx.com.br/images/31/311462695998726.jpg"
         ],
-        description: "R$ 51.900, 49.517km rodados",
+        description: "R$ 51.900 - 49.517km rodados",
         features: [
             "Travas elétricas",
             "Ar condicionado",
@@ -138,7 +139,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/40/402423416141478.jpg",
             "https://img.olx.com.br/images/39/393453290321748.jpg"
         ],
-        description: "R$ 132.900, 154.000km rodados",
+        description: "R$ 132.900 - 154.000km rodados",
         features: [
             "Faróis de neblina",
             "Controle elétrico do vidros traseiros",
@@ -170,7 +171,7 @@ export const fetchedCars = [
         condition: "Bem conservada e Pneus novos"
     },
     {
-        name: "Saveiro Trendline 1.6 CD 2015",
+        name: "Volkswagen Saveiro Trendline 1.6 CD 2015",
         images: [
             "https://img.olx.com.br/images/30/309468920517955.jpg",
             "https://img.olx.com.br/images/30/304416327211871.jpg",
@@ -183,7 +184,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/30/304440808338476.jpg",
             "https://img.olx.com.br/images/30/309454803032644.jpg"
         ],
-        description: "R$ 66.900, 107.000km rodados",
+        description: "R$ 66.900 - 107.000km rodados",
         features: [
             "Ar condicionado",
             "Travas elétricas",
@@ -216,7 +217,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/12/121458932192155.jpg",
             "https://img.olx.com.br/images/12/120474692129224.jpg"
         ],
-        description: "R$ 74.900, 41.000km rodados",
+        description: "R$ 74.900 - 41.000km rodados",
         features: [
             "Travas elétricas",
             "Capota Marítima",
@@ -233,7 +234,7 @@ export const fetchedCars = [
         condition: "Excelente estado, sem detalhes"
     },
     {
-        name: "Gm Onix LT 1.4 2017",
+        name: "Chevrolet GM Onix LT 1.4 2017",
         images: [
             "https://img.olx.com.br/images/10/102440708552753.jpg",
             "https://img.olx.com.br/images/10/109411463815273.jpg",
@@ -247,7 +248,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/10/104403829662788.jpg",
             "https://img.olx.com.br/images/10/104415822263202.jpg"
         ],
-        description: "R$ 54.900, 69.124km rodados",
+        description: "R$ 54.900 - 69.124km rodados",
         features: [
             "Travas elétricas",
             "Direção hidráulica",
@@ -262,7 +263,7 @@ export const fetchedCars = [
         condition: "Excelente estado, sem detalhes"
     },
     {
-        name: "Hilux SR CD 4X4 D4-D 3.0 TDI 2015",
+        name: "Toyota Hilux SR CD 4X4 D4-D 3.0 TDI 2015",
         images: [
             "https://img.olx.com.br/images/38/384439669984235.jpg",
             "https://img.olx.com.br/images/38/389441546801598.jpg",
@@ -276,7 +277,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/38/383423901850969.jpg",
             "https://img.olx.com.br/images/38/389481540889572.jpg"
         ],
-        description: "R$ 137.900, 174.000km rodados",
+        description: "R$ 137.900 - 174.000km rodados",
         features: [
             "Banco do Motorista e Volante com Ajuste de Altura",
             "Bancos em Couro",
@@ -307,7 +308,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/96/969478330336660.jpg",
             "https://img.olx.com.br/images/96/969432091203286.jpg"
         ],
-        description: "R$ 78.900, 90.000km rodados ",
+        description: "R$ 78.900 - 90.000km rodados ",
         features: [
             "Controle de tração",
             "Computador de bordo",
@@ -350,7 +351,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/43/430404460433171.jpg",
             "https://img.olx.com.br/images/43/435420828963390.jpg"
         ],
-        description: "R$ 69.900, 116.000km rodados",
+        description: "R$ 69.900 - 116.000km rodados",
         features: [
             "Direção Hidraulica",
             "Vidros elétricos",
@@ -383,7 +384,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/35/356429221888716.jpg",
             "https://img.olx.com.br/images/35/354440822198523.jpg"
         ],
-        description: "R$ 54.900, 135.000km rodados",
+        description: "R$ 54.900 - 135.000km rodados",
         features: [
             "Travas elétricas",
             "Direção Hidraulica",
@@ -419,7 +420,7 @@ export const fetchedCars = [
             "https://img.olx.com.br/images/52/524457345298598.jpg",
             "https://img.olx.com.br/images/53/538489347293425.jpg"
         ],
-        description: "R$ 66.900, 107.000km rodados",
+        description: "R$ 66.900 - 107.000km rodados",
         features: [
             "Travas elétricas",
             "Direção hidráulica",

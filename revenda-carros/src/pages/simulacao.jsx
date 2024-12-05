@@ -17,17 +17,20 @@ export default function FinancingSimulation() {
     mensagem: ''
   });
 
+  const [autoFillOccurred, setAutoFillOccurred] = useState(false);
+
   const query = useQuery();
 
   useEffect(() => {
     const carro = query.get('carro');
-    if (carro) {
+    if (carro && !autoFillOccurred) {
       setFormData(prevState => ({
         ...prevState,
         carroInteresse: decodeURIComponent(carro)
       }));
+      setAutoFillOccurred(true);
     }
-  }, [query]);
+  }, [query, autoFillOccurred]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

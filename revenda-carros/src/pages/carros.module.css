@@ -111,10 +111,10 @@
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    padding: 10px;
+    padding: 5px;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-75%);
     transition: background-color 0.3s ease;
 }
 
@@ -123,11 +123,11 @@
 }
 
 .carouselBtn.left {
-    left: 10px;
+    left: 5px;
 }
 
 .carouselBtn.right {
-    right: 10px;
+    right: 5px;
 }
 
 .carDescription {
@@ -159,6 +159,63 @@
     display: inline-block;
     max-width: 100%;
 }
+.searchAndFilter {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  padding: 5px;
+  width: 200px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.priceFilter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.priceFilter input {
+  width: 80px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filters select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.noResults {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
+
 
 @media (max-width: 768px) {
     .carsSection h2 {
@@ -173,6 +230,27 @@
     .carro {
         width: 100%;
         max-width: 350px;
+    }
+    .searchAndFilter {
+      width: 100%;
+    }
+  
+    .searchBar {
+      width: 100%;
+    }
+  
+    .searchBar input {
+      width: 100%;
+    }
+  
+    .filters {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .priceFilter {
+      flex-wrap: wrap;
+      justify-content: center;
     }
 }
 
@@ -197,10 +275,7 @@
         height: 200px;
     }
 
-    .carouselBtn {
-        width: 35px;
-        height: 35px;
-    }
+
 
     .carDescription {
         font-size: 0.9rem;
@@ -211,6 +286,7 @@
         font-size: 1rem;
         padding: 8px 15px;
     }
+
 }
 
 .modalOverlay {
@@ -230,10 +306,14 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  max-width: 90%;
-  max-height: 90%;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 800px;
   overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .closeButton {
@@ -255,11 +335,25 @@
 .modalCarousel {
   position: relative;
   margin-bottom: 15px;
+  flex: 0 0 auto;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalImageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .modalImage {
-  width: 100%;
-  max-height: 60vh;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
