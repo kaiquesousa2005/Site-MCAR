@@ -31,11 +31,13 @@ function CarModal({ car, onClose }) {
           <button className={`${styles.carouselBtn} ${styles.left}`} onClick={slidePrev}>
             <ChevronLeft size={24} />
           </button>
-          <img
-            src={car.images[currentIndex]}
-            alt={`${car.name}, vista ${currentIndex + 1}`}
-            className={styles.modalImage}
-          />
+          <div className={styles.modalImageContainer}>
+            <img
+              src={car.images[currentIndex]}
+              alt={`${car.name}, vista ${currentIndex + 1}`}
+              className={styles.modalImage}
+            />
+          </div>
           <button className={`${styles.carouselBtn} ${styles.right}`} onClick={slideNext}>
             <ChevronRight size={24} />
           </button>

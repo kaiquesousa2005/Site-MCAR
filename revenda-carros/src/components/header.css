@@ -77,6 +77,14 @@ nav a:hover {
     .icones-redes-sociais {
         justify-content: center;
     }
+    .icone-rede-social {
+        width: 40px;
+        height: 40px;
+    }
+    .icone-rede-social img {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -101,4 +109,13 @@ nav a:hover {
     .icones-redes-sociais {
         gap: 8px;
     }
+    .icone-rede-social {
+        width: 30px;
+        height: 30px;
+    }
+    .icone-rede-social img {
+        width: 30px;
+        height: 30px;
+    }
 }
+
