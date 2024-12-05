@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CarModal from '../components/CarModal';
-import {  Search } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import styles from './carros.module.css';
 import { fetchedCars } from '../components/Estoque';
 
@@ -32,7 +32,21 @@ function CarShowcase() {
     setFilteredCars(filtered);
   }, [searchTerm, priceRange, selectedBrand, selectedYear, cars]);
 
+  const slideNext = (carIndex) => {
+    setCurrentIndices(prevIndices => {
+      const newIndices = [...prevIndices];
+      newIndices[carIndex] = (newIndices[carIndex] + 1) % filteredCars[carIndex].images.length;
+      return newIndices;
+    });
+  };
 
+  const slidePrev = (carIndex) => {
+    setCurrentIndices(prevIndices => {
+      const newIndices = [...prevIndices];
+      newIndices[carIndex] = (newIndices[carIndex] - 1 + filteredCars[carIndex].images.length) % filteredCars[carIndex].images.length;
+      return newIndices;
+    });
+  };
 
   const openModal = (car) => {
     setSelectedCar(car);
@@ -59,10 +73,8 @@ function CarShowcase() {
     setSelectedYear(e.target.value);
   };
 
-  const brands = [...new Set(cars.map(car => car.name.split(' ')[0]))];
-  const years = [...new Set(cars.flatMap(car => 
-    car.features.filter(feature => /^\d{4}\/\d{4}$/.test(feature))
-  ))];
+  const brands = ['Fiat', 'Chevrolet', 'Toyota', 'Volkswagen', 'Jeep', 'Honda', 'BMW', 'Mitsubishi', 'Nissan', 'Hyundai', 'Renault', 'Ford'];
+  const years = Array.from({length: 26}, (_, i) => (2000 + i).toString());
 
   return (
     <div className={styles.root}>
@@ -119,7 +131,9 @@ function CarShowcase() {
                   <div key={index} className={styles.carro}>
                     <p className={styles.carName}>{car.name}</p>
                     <div className={styles.carousel}>
-
+                      <button className={`${styles.carouselBtn} ${styles.left}`} onClick={() => slidePrev(index)}>
+                        <ChevronLeft size={24} />
+                      </button>
                       <img
                         src={car.images[currentIndices[index]]}
                         alt={`${car.name}, vista ${currentIndices[index] + 1}`}
@@ -127,7 +141,9 @@ function CarShowcase() {
                         onError={(e) => { e.target.src = "fallback-image.jpg"; }}
                         style={{ cursor: 'pointer' }}
                       />
-
+                      <button className={`${styles.carouselBtn} ${styles.right}`} onClick={() => slideNext(index)}>
+                        <ChevronRight size={24} />
+                      </button>
                     </div>
                     <p className={styles.carDescription}>{car.description}</p>
                   </div>

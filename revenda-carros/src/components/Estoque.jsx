@@ -56,7 +56,7 @@ export const fetchedCars = [
             "Limpador e lavador do vidro traseiro",
             "Sensores de estacionamento traseiro",
             "Travamento central das portas",
-            "2017/2018"
+            "2018"
         ],
         history: "Único dono, todas as revisões feitas na concessionária",
         condition: "Excelente estado de conservação, pneus novos, "
@@ -89,10 +89,11 @@ export const fetchedCars = [
             "Multimidia com conexão Bluetooth , Usb, E Auxiliar",
             "Luz internas",
             "Sensor de estacionamento",
-            "Porta mala compacto com capacidade de 235LTS"
+            "Porta mala compacto com capacidade de 235LTS",
+            "2017"
         ],
         history: "Segundo dono, manual e chave reserva",
-        condition: "Bem conservado, Semi-novo, Bem Tecnológico"
+        condition: "Bem conservado, Semi-novo, Bem Tecnológico, Semi-novo, Muito Conservada"
     },
     {
         name: "Fiat Mobi Like 1.0 2021",
@@ -120,7 +121,7 @@ export const fetchedCars = [
             "Freios abs",
             "Airbag para motorista",
             "Som",
-            "2020/2021"
+            "2021"
         ],
         history: "Todas as revisões realizadas, IPVA pago",
         condition: "Ótimo estado, sem detalhes, semi-novo"
@@ -165,10 +166,10 @@ export const fetchedCars = [
             "Alarme",
             "Rádio",
             "Ajuste elétrico dos retrovisores",
-            "2012/2013"
+            "2013"
         ],
-        history: "Veículo de único dono, todas as revisões na concessionária",
-        condition: "Bem conservada e Pneus novos"
+        history: "Semi-novo, Muito Conservada, Todas as revisões na concessionária",
+        condition: "Bem conservada, Pneus novos e Revisão Completa"
     },
     {
         name: "Volkswagen Saveiro Trendline 1.6 CD 2015",
@@ -196,10 +197,10 @@ export const fetchedCars = [
             "Som",
             "Volante multifuncional",
             "Sensor de Ré",
-            "2015/2015"
+            "2015"
         ],
         history: "Dois donos, todas as revisões em dia",
-        condition: "Bom estado geral, Muito conservada, Som de Fabrica"
+        condition: "Bom estado geral, Muito conservada, Som de Fabrica, Revisão Completa"
     },
     {
         name: "Volkswagen Saveiro Robust CD 2018",
@@ -228,10 +229,10 @@ export const fetchedCars = [
             "Rodas de liga leve",
             "Banco de Courino",
             "Pneus novos",
-            "2018/2018"
+            "2018"
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Baixa quilometragem, Semi-novo, Muito Conservada",
+        condition: "Excelente estado, sem detalhes, Revisão Completa"
     },
     {
         name: "Chevrolet GM Onix LT 1.4 2017",
@@ -257,10 +258,10 @@ export const fetchedCars = [
             "Ar condicionado",
             "Som My link",
             "Câmera de ré",
-            "2017/2017"
+            "2017"
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Baixa quilometragem, Semi-novo, Muito Conservada",
+        condition: "Excelente estado, Sem detalhes, Revisão Completa"
     },
     {
         name: "Toyota Hilux SR CD 4X4 D4-D 3.0 TDI 2015",
@@ -287,10 +288,11 @@ export const fetchedCars = [
             "Conexão Bluetooth",
             "Vidro Elétrico",
             "Ar-Condicionado",
-            "Direção Hidráulica"
+            "Direção Hidráulica",
+            "2015"
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Semi-novo e Muito Conservada",
+        condition: "Excelente estado, sem detalhes e Revisão Completa"
     },
     {
         name: "Fiat 500 Cabrio Conversível 1.4 8V 2015",
@@ -330,44 +332,10 @@ export const fetchedCars = [
             "Rádio",
             "Distribuição eletrônica de frenagem (ebd)",
             "Limpador do vidro traseiro",
-            "2014/2015"
+            "2015"
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
-    },
-    {
-        name: "Toyota COROLLA XEi 2.0 2013 AUT",
-        images: [
-            "https://img.olx.com.br/images/43/436489585073238.jpg",
-            "https://img.olx.com.br/images/43/436497222408777.jpg",
-            "https://img.olx.com.br/images/43/432405701462111.jpg",
-            "https://img.olx.com.br/images/43/439495827289988.jpg",
-            "https://img.olx.com.br/images/43/437493944492909.jpg",
-            "https://img.olx.com.br/images/43/438492466021512.jpg",
-            "https://img.olx.com.br/images/43/434496463351523.jpg",
-            "https://img.olx.com.br/images/43/431492227460926.jpg",
-            "https://img.olx.com.br/images/43/437481228754156.jpg",
-            "https://img.olx.com.br/images/43/437404465578377.jpg",
-            "https://img.olx.com.br/images/43/430404460433171.jpg",
-            "https://img.olx.com.br/images/43/435420828963390.jpg"
-        ],
-        description: "R$ 69.900 - 116.000km rodados",
-        features: [
-            "Direção Hidraulica",
-            "Vidros elétricos",
-            "Freios ABS",
-            "Travas elétricas",
-            "Banco do motorista com ajuste de altura",
-            "Rodas de Liga leve",
-            "Desembaçador traseiro",
-            "Ar condicionado",
-            "Som multimídia",
-            "Volante multifuncional",
-            "Câmera de ré",
-            "2012/2013"
-        ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Baixa quilometragem, Semi-novo, Muito Conservada e Conversível",
+        condition: "Excelente estado, sem detalhes, Revisão Completa"
     },
     {
         name: "Toyota Corolla XLi 1.8 2010",
@@ -397,10 +365,10 @@ export const fetchedCars = [
             "Som multimídia",
             "Volante multifuncional",
             "Câmera de ré",
-            "2009/2010",
+            "2010",
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Baixa quilometragem, Semi-novo, Muito Conservada",
+        condition: "Excelente estado, sem detalhes, Revisão Completo"
     },
     {
         name: "Fiat Strada Working 1.4 CD 3portas 2014",
@@ -429,10 +397,33 @@ export const fetchedCars = [
             "Rodas de Liga leve",
             "Ar condicionado",
             "Cabine dupla 3 portas",
-            "2014/2014"
+            "2014"
         ],
-        history: "Único dono, baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes"
+        history: "Baixa quilometragem, Pneus Semi-novos, Muito Conservada",
+        condition: "Excelente estado, Revisão Completa"
+    },
+    {
+        name: "Volkswagen Gol 1.0 2PORTAS BASICO 2002",
+        images: [
+            "https://img.olx.com.br/images/67/678473465401158.jpg",
+            "https://img.olx.com.br/images/67/673437468259764.jpg",
+            "https://img.olx.com.br/images/67/672486223140746.jpg",
+            "https://img.olx.com.br/images/67/670422222805671.jpg",
+            "https://img.olx.com.br/images/67/677497341075894.jpg",
+            "https://img.olx.com.br/images/67/678411103068319.jpg",
+            "https://img.olx.com.br/images/67/677461584248583.jpg",
+            "https://img.olx.com.br/images/67/676411346927016.jpg",
+            "https://img.olx.com.br/images/67/672455705235201.jpg"
+        ],
+        description: "R$ 13.900 - 91.000km rodados",
+        features: [
+            "Ar-condicionado",
+            "Alarme",
+            "Sensor de Ré",
+            "2002"
+        ],
+        history: "baixa quilometragem, Muito Conservada",
+        condition: "Excelente estado, Revisão Completa"
     },
 ];
 
