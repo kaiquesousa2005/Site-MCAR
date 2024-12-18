@@ -6,19 +6,33 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Configura o CORS para permitir acesso do front-end
+// Configuração do CORS
+const allowedOrigins = [process.env.FRONTEND_URL || 'https://site-mcar.vercel.app'];
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'https://site-mcar.vercel.app/' // Defina a URL do front-end no Railway ou deixe '*' para permitir todas as origens
+    origin: function (origin, callback) {
+        // Permitir origens permitidas ou permitir requisições sem origem (Postman, Insomnia)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    credentials: true // Habilita envio de cookies, se necessário
 }));
 
 app.use(express.json());
 
-// Configura a conexão com o PostgreSQL usando DATABASE_URL
+// Configuração da conexão com o banco de dados PostgreSQL
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // Variável fornecida pelo Railway
-    ssl: {
-        rejectUnauthorized: false // Necessário para conexão segura no Railway
-    }
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
+
+// Rota de saúde (health check) para testes
+app.get('/', (req, res) => {
+    res.send('Servidor rodando!');
 });
 
 // Rota para buscar todos os contatos
@@ -43,7 +57,7 @@ app.get('/simulacoes', async (req, res) => {
     }
 });
 
-// POST DO CONTATO
+// POST do contato
 app.post('/contato', async (req, res) => {
     const { nome, email, mensagem } = req.body;
 
@@ -59,7 +73,7 @@ app.post('/contato', async (req, res) => {
     }
 });
 
-// POST DA SIMULAÇÃO
+// POST da simulação
 app.post('/simulacao', async (req, res) => {
     const { nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp, mensagem } = req.body;
 
@@ -68,7 +82,7 @@ app.post('/simulacao', async (req, res) => {
         INSERT INTO simulacao (nome_completo, data_nascimento, cpf, carro_interesse, possui_cnh, whatsapp, mensagem)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-      `;
+        `;
         const values = [nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp, mensagem];
         const result = await pool.query(query, values);
 
@@ -77,6 +91,11 @@ app.post('/simulacao', async (req, res) => {
         console.error('Erro ao salvar simulação:', error);
         res.status(500).json({ message: 'Erro ao salvar simulação' });
     }
+});
+
+// Tratamento para requisições preflight (CORS)
+app.options('*', (req, res) => {
+    res.sendStatus(204); // Resposta OK sem corpo para requisições preflight
 });
 
 // Inicializa o servidor
