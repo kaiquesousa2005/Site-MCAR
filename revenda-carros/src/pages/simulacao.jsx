@@ -45,7 +45,7 @@ export default function FinancingSimulation() {
     
     if (Object.values(formData).every(value => value)) {
       try {
-        const response = await fetch('http://localhost:3001/simulacao', {
+        const response = await fetch('site-mcar-production.up.railway.app/simulacao', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
