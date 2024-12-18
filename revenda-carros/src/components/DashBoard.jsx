@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs, query, orderBy, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { Trash2 } from 'lucide-react';
+
+const longContentClass = "max-w-xs break-words whitespace-normal";
 
 export default function Dashboard() {
   const [contatos, setContatos] = useState([])
@@ -9,29 +14,35 @@ export default function Dashboard() {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  const fetchContatos = async () => {
+    try {
+      const q = query(collection(db, "contatos"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      const contatosData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setContatos(contatosData);
+    } catch (error) {
+      console.error('Erro ao buscar contatos:', error);
+    }
+  }
+
+  const fetchSimulacoes = async () => {
+    try {
+      const q = query(collection(db, "simulação"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      const simulacoesData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setSimulacoes(simulacoesData);
+    } catch (error) {
+      console.error('Erro ao buscar simulações:', error);
+    }
+  }
+
   useEffect(() => {
-    const fetchContatos = async () => {
-      try {
-        const response = await fetch('site-mcar-production.up.railway.app/contatos')
-        if (!response.ok) throw new Error('Erro ao buscar contatos')
-        const data = await response.json()
-        setContatos(data)
-      } catch (error) {
-        console.error('Erro:', error)
-      }
-    }
-
-    const fetchSimulacoes = async () => {
-      try {
-        const response = await fetch('site-mcar-production.up.railway.app/simulacoes')
-        if (!response.ok) throw new Error('Erro ao buscar simulações')
-        const data = await response.json()
-        setSimulacoes(data)
-      } catch (error) {
-        console.error('Erro:', error)
-      }
-    }
-
     fetchContatos()
     fetchSimulacoes()
   }, [])
@@ -41,8 +52,26 @@ export default function Dashboard() {
     navigate('/login');
   };
 
+  const handleDelete = async (id, type) => {
+    if (window.confirm('Tem certeza que deseja excluir este item?')) {
+      try {
+        const collectionName = type === 'contato' ? 'contatos' : 'simulação';
+        await deleteDoc(doc(db, collectionName, id));
+        if (type === 'contato') {
+          setContatos(contatos.filter(contato => contato.id !== id));
+        } else {
+          setSimulacoes(simulacoes.filter(simulacao => simulacao.id !== id));
+        }
+        alert('Item excluído com sucesso!');
+      } catch (error) {
+        console.error('Erro ao excluir item:', error);
+        alert('Erro ao excluir item. Por favor, tente novamente.');
+      }
+    }
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 overflow-x-auto w-full">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Dashboard do Usuário-Controlador</h1>
         <button 
@@ -77,14 +106,25 @@ export default function Dashboard() {
                 <th className="text-left p-2">Nome</th>
                 <th className="text-left p-2">Email</th>
                 <th className="text-left p-2">Mensagem</th>
+                <th className="text-left p-2">Data</th>
+                <th className="text-left p-2">Ações</th>
               </tr>
             </thead>
             <tbody>
-              {contatos.map((contato, index) => (
-                <tr key={index} className="border-b">
+              {contatos.map((contato) => (
+                <tr key={contato.id} className="border-b">
                   <td className="p-2">{contato.nome}</td>
                   <td className="p-2">{contato.email}</td>
-                  <td className="p-2">{contato.mensagem}</td>
+                  <td className={`p-2 ${longContentClass}`}>{contato.mensagem}</td>
+                  <td className="p-2">{new Date(contato.createdAt).toLocaleString()}</td>
+                  <td className="p-2">
+                    <button
+                      onClick={() => handleDelete(contato.id, 'contato')}
+                      className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -106,18 +146,29 @@ export default function Dashboard() {
                 <th className="text-left p-2">Possui CNH</th>
                 <th className="text-left p-2">WhatsApp</th>
                 <th className="text-left p-2">Mensagem</th>
+                <th className="text-left p-2">Data</th>
+                <th className="text-left p-2">Ações</th>
               </tr>
             </thead>
             <tbody>
-              {simulacoes.map((simulacao, index) => (
-                <tr key={index} className="border-b">
-                  <td className="p-2">{simulacao.nome_completo}</td>
-                  <td className="p-2">{new Date(simulacao.data_nascimento).toLocaleDateString()}</td>
+              {simulacoes.map((simulacao) => (
+                <tr key={simulacao.id} className="border-b">
+                  <td className="p-2">{simulacao.nome}</td>
+                  <td className="p-2">{simulacao.dataNascimento}</td>
                   <td className="p-2">{simulacao.cpf}</td>
-                  <td className="p-2">{simulacao.carro_interesse}</td>
-                  <td className="p-2">{simulacao.possui_cnh ? 'Sim' : 'Não'}</td>
+                  <td className="p-2">{simulacao.carroInteresse}</td>
+                  <td className="p-2">{simulacao.possuiCnh}</td>
                   <td className="p-2">{simulacao.whatsapp}</td>
-                  <td className="p-2">{simulacao.mensagem}</td>
+                  <td className={`p-2 ${longContentClass}`}>{simulacao.mensagem}</td>
+                  <td className="p-2">{new Date(simulacao.createdAt).toLocaleString()}</td>
+                  <td className="p-2">
+                    <button
+                      onClick={() => handleDelete(simulacao.id, 'simulacao')}
+                      className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -127,3 +178,4 @@ export default function Dashboard() {
     </div>
   )
 }
+

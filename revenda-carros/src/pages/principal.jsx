@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 import styles from './principal.module.css';
 import { fetchedCars } from '../components/Estoque';
 
@@ -73,25 +75,24 @@ const Principal = () => {
             e.preventDefault();
             const formData = new FormData(e.target);
             try {
-              const response = await fetch('https://site-mcar-production.up.railway.app/contato', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  nome: formData.get('nome'),
-                  email: formData.get('email'),
-                  mensagem: formData.get('mensagem'),
-                }),
+              await addDoc(collection(db, "contatos"), {
+                tipo: 'contato',
+                nome: formData.get('nome'),
+                email: formData.get('email'),
+                mensagem: formData.get('mensagem'),
+                createdAt: new Date().toISOString()
               });
-              if (!response.ok) throw new Error('Erro no envio');
               alert('Mensagem enviada com sucesso!');
+              e.target.reset();
             } catch (error) {
+              console.error("Erro ao salvar no Firebase:", error);
               alert('Erro: Tente novamente mais tarde.');
             }
           }}
         >
-          <input type="text" name="nome" placeholder="Seu Nome" className={styles.inputField} />
-          <input type="email" name="email" placeholder="Seu Email" className={styles.inputField} />
-          <textarea name="mensagem" placeholder="Sua Mensagem" className={styles.textAreaField}></textarea>
+          <input type="text" name="nome" placeholder="Seu Nome" className={styles.inputField} required />
+          <input type="email" name="email" placeholder="Seu Email" className={styles.inputField} required />
+          <textarea name="mensagem" placeholder="Sua Mensagem" className={styles.textAreaField} required></textarea>
           <button type="submit" className={styles.submitButton}>Enviar</button>
         </form>
       </section>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 import styles from './simulacao.module.css';
 
 function useQuery() {
@@ -42,47 +44,38 @@ export default function FinancingSimulation() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    if (Object.values(formData).every(value => value)) {
+
+    if (Object.values(formData).every((value) => value)) {
       try {
-        const response = await fetch('https://site-mcar-production.up.railway.app/simulacao', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            nomeCompleto: formData.nome,
-            dataNascimento: formData.dataNascimento,
-            cpf: formData.cpf,
-            carroInteresse: formData.carroInteresse,
-            possuiCnh: formData.cnh,
-            whatsapp: formData.whatsapp,
-            mensagem: formData.mensagem
-          })
+        // Salvar os dados no Firestore
+        await addDoc(collection(db, "simulação"), {
+          tipo: 'simulacao',
+          nome: formData.nome,
+          dataNascimento: formData.dataNascimento,
+          cpf: formData.cpf,
+          carroInteresse: formData.carroInteresse,
+          possuiCnh: formData.cnh,
+          whatsapp: formData.whatsapp,
+          mensagem: formData.mensagem,
+          createdAt: new Date().toISOString()
         });
 
-        if (response.ok) {
-          const result = await response.json();
-          alert(`Obrigado, ${formData.nome}! Sua solicitação de simulação para o carro "${formData.carroInteresse}" foi enviada.`);
-          setFormData({
-            nome: '',
-            dataNascimento: '',
-            cpf: '',
-            carroInteresse: '',
-            cnh: '',
-            whatsapp: '',
-            mensagem: ''
-          });
-          console.log(result);
-        } else {
-          alert('Ocorreu um erro ao enviar sua solicitação.');
-        }
+        alert(`Obrigado, ${formData.nome}! Sua solicitação de simulação foi enviada com sucesso, em breve entraremos em contato.`);
+        setFormData({
+          nome: "",
+          dataNascimento: "",
+          cpf: "",
+          carroInteresse: "",
+          cnh: "",
+          whatsapp: "",
+          mensagem: ""
+        });
       } catch (error) {
-        console.error('Erro:', error);
-        alert('Ocorreu um erro ao enviar sua solicitação.');
+        console.error("Erro ao salvar no Firebase:", error);
+        alert("Ocorreu um erro ao enviar sua solicitação.");
       }
     } else {
-      alert('Por favor, preencha todos os campos.');
+      alert("Por favor, preencha todos os campos.");
     }
   };
 
