@@ -6,19 +6,19 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Configura o CORS para permitir acesso do front-end na porta 3000
+// Configura o CORS para permitir acesso do front-end
 app.use(cors({
-    origin: 'http://localhost:3000' // Origem do front-end
+    origin: process.env.FRONTEND_URL || 'https://site-mcar.vercel.app/' // Defina a URL do front-end no Railway ou deixe '*' para permitir todas as origens
 }));
 
 app.use(express.json());
 
+// Configura a conexão com o PostgreSQL usando DATABASE_URL
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    connectionString: process.env.DATABASE_URL, // Variável fornecida pelo Railway
+    ssl: {
+        rejectUnauthorized: false // Necessário para conexão segura no Railway
+    }
 });
 
 // Rota para buscar todos os contatos
@@ -43,7 +43,7 @@ app.get('/simulacoes', async (req, res) => {
     }
 });
 
-//POST DO CONTATO
+// POST DO CONTATO
 app.post('/contato', async (req, res) => {
     const { nome, email, mensagem } = req.body;
 
@@ -59,7 +59,7 @@ app.post('/contato', async (req, res) => {
     }
 });
 
-//POST DA SIMULAÇÃO
+// POST DA SIMULAÇÃO
 app.post('/simulacao', async (req, res) => {
     const { nomeCompleto, dataNascimento, cpf, carroInteresse, possuiCnh, whatsapp, mensagem } = req.body;
 
@@ -79,6 +79,7 @@ app.post('/simulacao', async (req, res) => {
     }
 });
 
+// Inicializa o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
