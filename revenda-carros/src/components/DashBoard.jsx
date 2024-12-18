@@ -12,7 +12,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchContatos = async () => {
       try {
-        const response = await fetch('http://localhost:3001/contatos')
+        const response = await fetch('site-mcar-production.up.railway.app/contatos')
         if (!response.ok) throw new Error('Erro ao buscar contatos')
         const data = await response.json()
         setContatos(data)
@@ -23,7 +23,7 @@ export default function Dashboard() {
 
     const fetchSimulacoes = async () => {
       try {
-        const response = await fetch('http://localhost:3001/simulacoes')
+        const response = await fetch('site-mcar-production.up.railway.app/simulacoes')
         if (!response.ok) throw new Error('Erro ao buscar simulações')
         const data = await response.json()
         setSimulacoes(data)
