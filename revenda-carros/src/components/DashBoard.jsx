@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, orderBy, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { Trash2 } from 'lucide-react';
+import CarShowcase from '../pages/carros';
 
 const longContentClass = "max-w-xs break-words whitespace-normal";
 
@@ -73,7 +74,7 @@ export default function Dashboard() {
   return (
     <div className="container mx-auto p-4 overflow-x-auto w-full">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Dashboard do Usuário-Controlador</h1>
+        <h1 className="text-2xl font-bold text-blue-600">Dashboard do Usuário-Controlador</h1>
         <button 
           onClick={handleLogout}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -175,6 +176,9 @@ export default function Dashboard() {
           </table>
         </div>
       )}
+      <div>
+        {<CarShowcase/>}
+      </div>
     </div>
   )
 }

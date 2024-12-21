@@ -62,6 +62,52 @@ export const fetchedCars = [
         condition: "Excelente estado de conservação, pneus novos, "
     },
     {
+        name: "Toyota Corolla XEi 2.0 2018",
+        images: [
+            "https://img.olx.com.br/images/89/897495710407413.webp",
+            "https://img.olx.com.br/images/90/901459472230771.webp",
+            "https://img.olx.com.br/images/89/891453834607827.webp",
+            "https://img.olx.com.br/images/89/896493353232301.webp",
+            "https://img.olx.com.br/images/90/906463593679948.webp",
+            "https://img.olx.com.br/images/90/905469238187279.webp",
+            "https://img.olx.com.br/images/90/908495597447203.webp",
+            "https://img.olx.com.br/images/90/904466472472424.webp",
+            "https://img.olx.com.br/images/90/907485232723685.webp",
+            "https://img.olx.com.br/images/89/893436235968377.webp",
+            "https://img.olx.com.br/images/89/894405597434579.webp",
+            "https://img.olx.com.br/images/90/901433474389002.webp",
+            "https://img.olx.com.br/images/90/900462837527835.webp",
+            "https://img.olx.com.br/images/90/903437596103009.webp"
+        ],
+        description: "R$ 104.900 - 83.000km rodados",
+        features: [
+            "VOLANTE MULTIFUNCIONAL",
+            "Controle elétrico do vidros traseiros",
+            "Computador de bordo",
+            "Cd player  ",
+            " Bancos revestidos de couro",
+            "Travas elétricas",
+            "Airbags frontais ",
+            "Conexão usb  ",
+            "Freios abs",
+            "Airbag para motorista  ",
+            "Volante com ajuste de altura",
+            "Desembaçador do vidro traseiro  ",
+            "Airbags laterais",
+            "Controle elétrico do vidros dianteiros ",
+            "Ar condicionado",
+            "Câmbio automático",
+            "Rodas de liga leve",
+            "Alarme",
+            "Som CARPLAY 9polegada",
+            "Câmera de ré",
+            "2018",
+            "83.000km"
+        ],
+        history: "Excelente Estado, Muito Conservada, 2 donos",
+        condition: "Revisão Completa, Semi-novo, Baixa Quilometragem"
+    },
+    {
         name: "Fiat Mobi Like 2017",
         images: [
             "https://img.olx.com.br/images/60/601483446225616.jpg",
@@ -172,67 +218,67 @@ export const fetchedCars = [
         condition: "Bem conservada, Pneus novos e Revisão Completa"
     },
     {
-        name: "Volkswagen Saveiro Trendline 1.6 CD 2015",
+        name: "Toyota Corolla XEi 1.8 AUT 2008",
         images: [
-            "https://img.olx.com.br/images/30/309468920517955.jpg",
-            "https://img.olx.com.br/images/30/304416327211871.jpg",
-            "https://img.olx.com.br/images/30/306463806315681.jpg",
-            "https://img.olx.com.br/images/30/307483684546781.jpg",
-            "https://img.olx.com.br/images/30/303470809259693.jpg",
-            "https://img.olx.com.br/images/30/302459565481992.jpg",
-            "https://img.olx.com.br/images/30/300475688460817.jpg",
-            "https://img.olx.com.br/images/30/305434321788295.jpg",
-            "https://img.olx.com.br/images/30/304440808338476.jpg",
-            "https://img.olx.com.br/images/30/309454803032644.jpg"
+            "https://img.olx.com.br/images/19/191418956968715.webp",
+            "https://img.olx.com.br/images/19/191442239093098.webp",
+            "https://img.olx.com.br/images/19/199497591101383.webp",
+            "https://img.olx.com.br/images/19/199407593305346.webp",
+            "https://img.olx.com.br/images/19/191444834413785.webp",
+            "https://img.olx.com.br/images/19/195440837710620.webp",
+            "https://img.olx.com.br/images/19/191420233251615.webp",
+            "https://img.olx.com.br/images/19/198468954654836.webp",
+            "https://img.olx.com.br/images/19/191439592565851.webp",
+            "https://img.olx.com.br/images/19/192407830996568.webp",
+            "https://img.olx.com.br/images/19/198486357546809.webp",
+            "https://img.olx.com.br/images/19/190453239076097.webp"
         ],
-        description: "R$ 66.900 - 107.000km rodados",
+        description: "R$ 43.900 - 132.700km rodados",
         features: [
-            "Ar condicionado",
+            "Automático",
             "Travas elétricas",
-            "Direção Hidráulica",
-            "Cabine dupla",
-            "Freios abs",
-            "Airbag para motorista",
-            "Capota Marítima",
-            "Som",
-            "Volante multifuncional",
-            "Sensor de Ré",
-            "2015"
-        ],
-        history: "Dois donos, todas as revisões em dia",
-        condition: "Bom estado geral, Muito conservada, Som de Fabrica, Revisão Completa"
-    },
-    {
-        name: "Volkswagen Saveiro Robust CD 2018",
-        images: [
-            "https://img.olx.com.br/images/13/135487578529610.jpg",
-            "https://img.olx.com.br/images/13/133420575716074.jpg",
-            "https://img.olx.com.br/images/13/133479330449403.jpg",
-            "https://img.olx.com.br/images/13/135429451025513.jpg",
-            "https://img.olx.com.br/images/13/137416815731173.jpg",
-            "https://img.olx.com.br/images/12/122482816664758.jpg",
-            "https://img.olx.com.br/images/13/130481335223863.jpg",
-            "https://img.olx.com.br/images/12/121488330003140.jpg",
-            "https://img.olx.com.br/images/73/736440348803402.jpg",
-            "https://img.olx.com.br/images/13/136401213489871.jpg",
-            "https://img.olx.com.br/images/12/121458932192155.jpg",
-            "https://img.olx.com.br/images/12/120474692129224.jpg"
-        ],
-        description: "R$ 74.900 - 41.000km rodados",
-        features: [
-            "Travas elétricas",
-            "Capota Marítima",
+            "Direção hidráulica",
             "Vidros elétricos",
             "Ar condicionado",
-            "Direção Hidráulica",
-            "Cabine dupla",
-            "Rodas de liga leve",
-            "Banco de Courino",
-            "Pneus novos",
-            "2018"
+            "Câmera de ré",
+            "Som Mp8 7polegas",
+            "2008",
+            "132.668km"
         ],
-        history: "Baixa quilometragem, Semi-novo, Muito Conservada",
-        condition: "Excelente estado, sem detalhes, Revisão Completa"
+        history: "Revisão Completa, Documentação em dias",
+        condition: "Bom estado geral, Muito conservada, Excelente estado"
+    },
+    {
+        name: "CELTA 1.0 LT 2012 COMPLETO",
+        images: [
+            "https://img.olx.com.br/images/33/331401959926505.webp",
+            "https://img.olx.com.br/images/33/330496713836785.webp",
+            "https://img.olx.com.br/images/33/330445713647996.webp",
+            "https://img.olx.com.br/images/33/338470715127069.webp",
+            "https://img.olx.com.br/images/33/332456473648602.webp",
+            "https://img.olx.com.br/images/34/343448834959321.webp",
+            "https://img.olx.com.br/images/33/335445354552430.webp",
+            "https://img.olx.com.br/images/33/332494719484241.webp",
+            "https://img.olx.com.br/images/33/334461590512033.webp",
+            "https://img.olx.com.br/images/33/337434350987361.webp",
+            "https://img.olx.com.br/images/33/331411111913850.webp",
+            "https://img.olx.com.br/images/33/333420113376182.webp",
+            "https://img.olx.com.br/images/33/332419593018211.webp",
+            "https://img.olx.com.br/images/34/349469593773683.webp"
+        ],
+        description: "R$ 32.900 - 70.108km rodados",
+        features: [
+            "Travas elétricas",
+            "Direção hidráulica ",
+            "Limpador e Desembaçador traseiro",
+            "Controle elétrico do vidros dianteiros ",
+            "Ar condicionado",
+            "Sensor de ré ",
+            "2012",
+            "70.108km"
+        ],
+        history: "Baixa quilometragem, Chave Reserva, Muito Conservada",
+        condition: "Excelente estado, Revisão Completa"
     },
     {
         name: "Chevrolet GM Onix LT 1.4 2017",
@@ -422,8 +468,63 @@ export const fetchedCars = [
             "Sensor de Ré",
             "2002"
         ],
-        history: "baixa quilometragem, Muito Conservada",
+        history: "Baixa quilometragem, Muito Conservada",
         condition: "Excelente estado, Revisão Completa"
     },
+    {
+        name: "FIAT SIENA EL 1.0 2016",
+        images: [
+            "https://img.olx.com.br/images/47/479414357940952.webp",
+            "https://img.olx.com.br/images/47/474404357681208.webp",
+            "https://img.olx.com.br/images/47/478494712672588.webp",
+            "https://img.olx.com.br/images/47/471446710557924.webp",
+            "https://img.olx.com.br/images/47/477428593650812.webp",
+            "https://img.olx.com.br/images/47/472403716689010.webp",
+            "https://img.olx.com.br/images/47/479447239380912.webp",
+            "https://img.olx.com.br/images/47/475426233751667.webp",
+            "https://img.olx.com.br/images/47/478465236407841.webp",
+            "https://img.olx.com.br/images/47/473462718926652.webp",
+            "https://img.olx.com.br/images/47/471407111926839.webp",
+            "https://img.olx.com.br/images/47/475495477378281.webp",
+            "https://img.olx.com.br/images/47/478466476269479.webp"
+        ],
+        description: "R$ 41.900 - 92.497km rodados",
+        features: [
+            "Travas elétricas",
+            "Direção hidráulica ",
+            "Desembaçador traseiro  ",
+            "Controle elétrico do vidros dianteiros ",
+            "Ar condicionado",
+            "2016",
+            "92.497KM"
+        ],
+        history: "Excelente Estado, Muito Conservada, Baixa Quilometragem",
+        condition: "Revisão Completa, Semi-novo, Pneus Novos"
+    },
+    {
+        name: "KOMBI 1.4 STANDART 2007 (Repasse)",
+        images: [
+            "https://img.olx.com.br/images/30/306425946156296.webp",
+            "https://img.olx.com.br/images/30/306467823042967.webp",
+            "https://img.olx.com.br/images/30/307417829700764.webp",
+            "https://img.olx.com.br/images/30/309492827954426.webp",
+            "https://img.olx.com.br/images/30/309421947501987.webp",
+            "https://img.olx.com.br/images/30/308449829566505.webp",
+            "https://img.olx.com.br/images/30/309459588158551.webp",
+            "https://img.olx.com.br/images/30/302413344803675.webp",
+            "https://img.olx.com.br/images/30/305433705375117.webp",
+            "https://img.olx.com.br/images/30/304420826758499.webp",
+            "https://img.olx.com.br/images/30/308440100764538.webp"
+        ],
+        description: "R$ 26.900",
+        features: [
+            "Veículo de Repasse",
+            "Documentação em Dias",
+            "Ponto de Venda",
+            "Tudo Direito",
+            "2007",
+        ],
+        history: "Excelente Estado, Muito Conservada",
+        condition: "Documentação em Dias",
+    },
 ];
-

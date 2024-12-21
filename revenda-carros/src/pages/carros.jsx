@@ -22,11 +22,22 @@ function CarShowcase() {
 
   useEffect(() => {
     const filtered = cars.filter(car => {
-      const matchesSearch = car.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const price = parseInt(car.description.split('R$ ')[1].split(',')[0].replace('.', ''));
+      if (!car || typeof car !== 'object') return false;
+
+      const matchesSearch = car.name && car.name.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      let price = 0;
+      if (car.description) {
+        const priceMatch = car.description.match(/R\$\s*([\d.,]+)/);
+        if (priceMatch) {
+          price = parseInt(priceMatch[1].replace(/\D/g, ''));
+        }
+      }
       const matchesPrice = price >= priceRange.min && price <= priceRange.max;
-      const matchesBrand = selectedBrand === '' || car.name.toLowerCase().includes(selectedBrand.toLowerCase());
-      const matchesYear = selectedYear === '' || car.features.some(feature => feature.includes(selectedYear));
+      
+      const matchesBrand = selectedBrand === '' || (car.name && car.name.toLowerCase().includes(selectedBrand.toLowerCase()));
+      const matchesYear = selectedYear === '' || (car.features && Array.isArray(car.features) && car.features.some(feature => feature.includes(selectedYear)));
+      
       return matchesSearch && matchesPrice && matchesBrand && matchesYear;
     });
     setFilteredCars(filtered);
@@ -35,7 +46,9 @@ function CarShowcase() {
   const slideNext = (carIndex) => {
     setCurrentIndices(prevIndices => {
       const newIndices = [...prevIndices];
-      newIndices[carIndex] = (newIndices[carIndex] + 1) % filteredCars[carIndex].images.length;
+      if (filteredCars[carIndex] && filteredCars[carIndex].images) {
+        newIndices[carIndex] = (newIndices[carIndex] + 1) % filteredCars[carIndex].images.length;
+      }
       return newIndices;
     });
   };
@@ -43,7 +56,9 @@ function CarShowcase() {
   const slidePrev = (carIndex) => {
     setCurrentIndices(prevIndices => {
       const newIndices = [...prevIndices];
-      newIndices[carIndex] = (newIndices[carIndex] - 1 + filteredCars[carIndex].images.length) % filteredCars[carIndex].images.length;
+      if (filteredCars[carIndex] && filteredCars[carIndex].images) {
+        newIndices[carIndex] = (newIndices[carIndex] - 1 + filteredCars[carIndex].images.length) % filteredCars[carIndex].images.length;
+      }
       return newIndices;
     });
   };
@@ -129,23 +144,31 @@ function CarShowcase() {
               {filteredCars.length > 0 ? (
                 filteredCars.map((car, index) => (
                   <div key={index} className={styles.carro}>
-                    <p className={styles.carName}>{car.name}</p>
+                    <p className={styles.carName}>{car.name || 'Nome não disponível'}</p>
                     <div className={styles.carousel}>
                       <button className={`${styles.carouselBtn} ${styles.left}`} onClick={() => slidePrev(index)}>
                         <ChevronLeft size={24} />
                       </button>
-                      <img
-                        src={car.images[currentIndices[index]]}
-                        alt={`${car.name}, vista ${currentIndices[index] + 1}`}
-                        onClick={() => openModal(car)}
-                        onError={(e) => { e.target.src = "fallback-image.jpg"; }}
-                        style={{ cursor: 'pointer' }}
-                      />
+                      {car.images && car.images.length > 0 ? (
+                        <img
+                          src={car.images[currentIndices[index]]}
+                          alt={`${car.name || 'Carro'}, vista ${currentIndices[index] + 1}`}
+                          onClick={() => openModal(car)}
+                          onError={(e) => { e.target.src = "/fallback-image.jpg"; }}
+                          style={{ cursor: 'pointer' }}
+                        />
+                      ) : (
+                        <img
+                          src="/fallback-image.jpg"
+                          alt="Imagem não disponível"
+                          style={{ cursor: 'pointer' }}
+                        />
+                      )}
                       <button className={`${styles.carouselBtn} ${styles.right}`} onClick={() => slideNext(index)}>
                         <ChevronRight size={24} />
                       </button>
                     </div>
-                    <p className={styles.carDescription}>{car.description}</p>
+                    <p className={styles.carDescription}>{car.description || 'Descrição não disponível'}</p>
                   </div>
                 ))
               ) : (
