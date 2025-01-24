@@ -10,7 +10,7 @@ function Footer() {
     return (
         <footer>
             <div className="footer-container">
-                <p>&copy; 2024 MCar Veículos. Todos os direitos reservados.</p>
+                <p>&copy; 2025 MCar Veículos. Todos os direitos reservados.</p>
 
                 <div className="contact-info">
                     <p>Telefone: (85) 3232-4632</p>
