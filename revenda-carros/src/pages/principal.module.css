@@ -1,44 +1,27 @@
-/* principal.module.css */
-
 .root {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('../imagens/foto da frente mcar.jpg?height=1080&width=1920');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     color: #333333;
     overflow-x: hidden;
-}
-
-.root::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Ajuste a opacidade conforme necessário */
-    z-index: -1;
-}
-
-.carousel {
+  }
+  
+  .carousel {
     position: relative;
     max-width: 800px;
     margin: 20px auto;
     overflow: hidden;
     padding: 10px;
-}
-
-.carouselContainer {
+  }
+  
+  .carouselContainer {
     position: relative;
     width: 100%;
     height: 600px;
     overflow: hidden;
-}
-
-.carouselItem {
+  }
+  
+  .carouselItem {
     position: absolute;
     top: 0;
     left: 0;
@@ -49,13 +32,13 @@
     align-items: center;
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.carouselItemActive {
+  }
+  
+  .carouselItemActive {
     opacity: 1;
-}
-
-.carCard {
+  }
+  
+  .carCard {
     background: white;
     border: 2px solid #050b7d;
     border-radius: 15px;
@@ -67,64 +50,62 @@
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
-}
-
-.carTitle {
+  }
+  
+  .carTitle {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 15px;
     text-align: center;
     font-weight: bold;
-}
-
-.carouselImage {
+  }
+  
+  .carouselImage {
     width: 100%;
     max-height: 400px;
     object-fit: contain;
     border-radius: 8px;
     margin: 10px 0;
-}
-
-.carPrice {
+  }
+  
+  .carPrice {
     font-size: 1.2rem;
     color: #333;
     margin-top: 15px;
     text-align: center;
     font-weight: 500;
-}
-
-.carouselControl {
+  }
+  
+  .carouselControl {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    font-size: 24px;
     cursor: pointer;
-    padding: 10px 15px;
+    padding: 10px;
     z-index: 1000;
     border-radius: 50%;
     transition: background-color 0.3s ease;
-}
-
-.carouselControlPrev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .carouselControlPrev {
     left: 10px;
-}
-
-.carouselControlNext {
+  }
+  
+  .carouselControlNext {
     right: 10px;
-}
-
-.carouselControl:hover {
+  }
+  
+  .carouselControl:hover {
     background-color: rgba(0, 0, 0, 0.8);
-}
-
-.carouselControlHover:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.section {
+  }
+  
+  .section {
     padding: 2rem;
     margin: 2rem auto;
     max-width: 1200px;
@@ -132,28 +113,28 @@
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.sectionHover:hover {
+  }
+  
+  .section:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-}
-
-.welcomeContent {
+  }
+  
+  .welcomeContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-}
-
-.welcomeText {
+  }
+  
+  .welcomeText {
     flex: 1;
     margin-right: 20px;
-}
-
-.btnVisit {
+  }
+  
+  .btnVisit {
     display: inline-block;
     padding: 10px 20px;
     background-color: #050b7d;
@@ -162,109 +143,70 @@
     border-radius: 8px;
     margin-top: 15px;
     transition: background-color 0.3s;
-}
-
-.btnVisitHover:hover {
+  }
+  
+  .btnVisit:hover {
     background-color: #063dc9;
-}
-
-.sectionTitle {
+  }
+  
+  .sectionTitle {
     font-size: 2.2rem;
     color: #050b7d;
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
-}
-
-.sectionText {
+  }
+  
+  .sectionText {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #333;
     text-align: justify;
     margin-bottom: 2rem;
-}
-
-.formContato {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.inputField,
-.textAreaField {
-    padding: 1rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.3s ease;
-}
-
-.inputFieldFocus:focus,
-.textAreaFieldFocus:focus {
-    border-color: #050b7d;
-    outline: none;
-}
-
-.submitButton {
-    padding: 1rem 2rem;
-    background-color: #050b7d;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.submitButtonHover:hover {
-    background-color: #063dc9;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsividade */
-@media screen and (max-width: 768px) {
+  }
+  
+  /* Responsividade */
+  @media screen and (max-width: 768px) {
     .welcomeContent {
-        flex-direction: column;
-        text-align: center;
+      flex-direction: column;
+      text-align: center;
     }
     .carouselContainer {
-        height: auto;
-        min-height: 450px;
+      height: auto;
+      min-height: 450px;
     }
     .carCard {
-        padding: 10px;
+      padding: 10px;
     }
     .carouselImage {
-        max-height: 300px;
+      max-height: 300px;
     }
     .carTitle {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
     }
-}
-
-@media screen and (max-width: 480px) {
+  }
+  
+  @media screen and (max-width: 480px) {
     .carousel {
-        max-width: 100%;
-        padding: 5px;
+      max-width: 100%;
+      padding: 5px;
     }
     .carouselContainer {
-        min-height: 400px;
+      min-height: 400px;
     }
     .carCard {
-        max-width: 100%;
+      max-width: 100%;
     }
     .carouselImage {
-        max-height: 250px;
+      max-height: 250px;
     }
     .carTitle {
-        font-size: 1rem;
+      font-size: 1rem;
     }
     .carPrice {
-        font-size: 1rem;
+      font-size: 1rem;
     }
-}
-
+  }
+  
+  

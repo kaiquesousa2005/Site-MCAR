@@ -1,95 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import CarModal from '../components/CarModal';
-import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import styles from './carros.module.css';
-import { fetchedCars } from '../components/Estoque';
+import React, { useState, useEffect } from "react"
+import CarModal from "../components/CarModal"
+import { Search } from "lucide-react"
+import styles from "./carros.module.css"
+import { collection, getDocs, query, orderBy } from "firebase/firestore"
+import { db } from "../firebaseConfig"
 
 function CarShowcase() {
-  const [cars, setCars] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]);
-  const [currentIndices, setCurrentIndices] = useState([]);
-  const [selectedCar, setSelectedCar] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000000 });
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedYear, setSelectedYear] = useState('');
+  const [cars, setCars] = useState([])
+  const [filteredCars, setFilteredCars] = useState([])
+  const [selectedCar, setSelectedCar] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000000 })
+  const [selectedBrand, setSelectedBrand] = useState("")
+  const [selectedYear, setSelectedYear] = useState("")
 
   useEffect(() => {
-    setCars(fetchedCars);
-    setFilteredCars(fetchedCars);
-    setCurrentIndices(new Array(fetchedCars.length).fill(0));
-  }, []);
+    fetchCars()
+  }, [])
+
+  const fetchCars = async () => {
+    try {
+      const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"))
+      const querySnapshot = await getDocs(q)
+      const carsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setCars(carsData)
+      setFilteredCars(carsData)
+    } catch (error) {
+      console.error("Error fetching cars:", error)
+    }
+  }
 
   useEffect(() => {
-    const filtered = cars.filter(car => {
-      if (!car || typeof car !== 'object') return false;
+    const filtered = cars.filter((car) => {
+      const matchesSearch = car.name.toLowerCase().includes(searchTerm.toLowerCase())
+      const price = Number.parseInt(car.price)
+      const matchesPrice = price >= priceRange.min && price <= priceRange.max
+      const matchesBrand = selectedBrand === "" || car.name.toLowerCase().includes(selectedBrand.toLowerCase())
+      const matchesYear =
+        selectedYear === "" || (car.features && car.features.some((feature) => feature.includes(selectedYear)))
 
-      const matchesSearch = car.name && car.name.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      let price = 0;
-      if (car.description) {
-        const priceMatch = car.description.match(/R\$\s*([\d.,]+)/);
-        if (priceMatch) {
-          price = parseInt(priceMatch[1].replace(/\D/g, ''));
-        }
-      }
-      const matchesPrice = price >= priceRange.min && price <= priceRange.max;
-      
-      const matchesBrand = selectedBrand === '' || (car.name && car.name.toLowerCase().includes(selectedBrand.toLowerCase()));
-      const matchesYear = selectedYear === '' || (car.features && Array.isArray(car.features) && car.features.some(feature => feature.includes(selectedYear)));
-      
-      return matchesSearch && matchesPrice && matchesBrand && matchesYear;
-    });
-    setFilteredCars(filtered);
-  }, [searchTerm, priceRange, selectedBrand, selectedYear, cars]);
-
-  const slideNext = (carIndex) => {
-    setCurrentIndices(prevIndices => {
-      const newIndices = [...prevIndices];
-      if (filteredCars[carIndex] && filteredCars[carIndex].images) {
-        newIndices[carIndex] = (newIndices[carIndex] + 1) % filteredCars[carIndex].images.length;
-      }
-      return newIndices;
-    });
-  };
-
-  const slidePrev = (carIndex) => {
-    setCurrentIndices(prevIndices => {
-      const newIndices = [...prevIndices];
-      if (filteredCars[carIndex] && filteredCars[carIndex].images) {
-        newIndices[carIndex] = (newIndices[carIndex] - 1 + filteredCars[carIndex].images.length) % filteredCars[carIndex].images.length;
-      }
-      return newIndices;
-    });
-  };
+      return matchesSearch && matchesPrice && matchesBrand && matchesYear
+    })
+    setFilteredCars(filtered)
+  }, [searchTerm, priceRange, selectedBrand, selectedYear, cars])
 
   const openModal = (car) => {
-    setSelectedCar(car);
-  };
+    setSelectedCar(car)
+  }
 
   const closeModal = () => {
-    setSelectedCar(null);
-  };
+    setSelectedCar(null)
+  }
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+    setSearchTerm(e.target.value)
+  }
 
   const handlePriceRangeChange = (e) => {
-    const { name, value } = e.target;
-    setPriceRange(prev => ({ ...prev, [name]: parseInt(value) }));
-  };
+    const { name, value } = e.target
+    setPriceRange((prev) => ({ ...prev, [name]: Number.parseInt(value) }))
+  }
 
   const handleBrandChange = (e) => {
-    setSelectedBrand(e.target.value);
-  };
+    setSelectedBrand(e.target.value)
+  }
 
   const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-  };
+    setSelectedYear(e.target.value)
+  }
 
-  const brands = ['Fiat', 'Chevrolet', 'Toyota', 'Volkswagen', 'Jeep', 'Honda', 'BMW', 'Mitsubishi', 'Nissan', 'Hyundai', 'Renault', 'Ford'];
-  const years = Array.from({length: 26}, (_, i) => (2000 + i).toString());
+  const brands = [
+    "Fiat",
+    "Chevrolet",
+    "Toyota",
+    "Volkswagen",
+    "Jeep",
+    "Honda",
+    "BMW",
+    "Mitsubishi",
+    "Nissan",
+    "Hyundai",
+    "Renault",
+    "Ford",
+  ]
+  const years = Array.from({ length: 26 }, (_, i) => (2000 + i).toString())
 
   return (
     <div className={styles.root}>
@@ -101,74 +98,44 @@ function CarShowcase() {
             <h2>Veículos Disponíveis no Estoque</h2>
             <div className={styles.searchAndFilter}>
               <div className={styles.searchBar}>
-                <input
-                  type="text"
-                  placeholder="Buscar veículo..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
+                <input type="text" placeholder="Buscar veículo..." value={searchTerm} onChange={handleSearchChange} />
                 <Search size={20} />
               </div>
               <div className={styles.filters}>
                 <div className={styles.priceFilter}>
                   <label>Preço Mínimo:</label>
-                  <input
-                    type="number"
-                    name="min"
-                    value={priceRange.min}
-                    onChange={handlePriceRangeChange}
-                  />
+                  <input type="number" name="min" value={priceRange.min} onChange={handlePriceRangeChange} />
                   <label>Preço Máximo:</label>
-                  <input
-                    type="number"
-                    name="max"
-                    value={priceRange.max}
-                    onChange={handlePriceRangeChange}
-                  />
+                  <input type="number" name="max" value={priceRange.max} onChange={handlePriceRangeChange} />
                 </div>
                 <select value={selectedBrand} onChange={handleBrandChange}>
                   <option value="">Todas as Marcas</option>
-                  {brands.map(brand => (
-                    <option key={brand} value={brand}>{brand}</option>
+                  {brands.map((brand) => (
+                    <option key={brand} value={brand}>
+                      {brand}
+                    </option>
                   ))}
                 </select>
                 <select value={selectedYear} onChange={handleYearChange}>
                   <option value="">Todos os Anos</option>
-                  {years.map(year => (
-                    <option key={year} value={year}>{year}</option>
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
             <div className={styles.carros}>
               {filteredCars.length > 0 ? (
-                filteredCars.map((car, index) => (
-                  <div key={index} className={styles.carro}>
-                    <p className={styles.carName}>{car.name || 'Nome não disponível'}</p>
-                    <div className={styles.carousel}>
-                      <button className={`${styles.carouselBtn} ${styles.left}`} onClick={() => slidePrev(index)}>
-                        <ChevronLeft size={24} />
-                      </button>
-                      {car.images && car.images.length > 0 ? (
-                        <img
-                          src={car.images[currentIndices[index]]}
-                          alt={`${car.name || 'Carro'}, vista ${currentIndices[index] + 1}`}
-                          onClick={() => openModal(car)}
-                          onError={(e) => { e.target.src = "/fallback-image.jpg"; }}
-                          style={{ cursor: 'pointer' }}
-                        />
-                      ) : (
-                        <img
-                          src="/fallback-image.jpg"
-                          alt="Imagem não disponível"
-                          style={{ cursor: 'pointer' }}
-                        />
-                      )}
-                      <button className={`${styles.carouselBtn} ${styles.right}`} onClick={() => slideNext(index)}>
-                        <ChevronRight size={24} />
-                      </button>
-                    </div>
-                    <p className={styles.carDescription}>{car.description || 'Descrição não disponível'}</p>
+                filteredCars.map((car) => (
+                  <div key={car.id} className={styles.carro} onClick={() => openModal(car)}>
+                    <p className={styles.carName}>{car.name}</p>
+                    {car.images && car.images.length > 0 && (
+                      <img src={car.images[0]} alt={car.name} className={styles.carImage} />
+                      
+                    )}
+                    <p className={styles.carPrice}>R$ {Number(car.price).toLocaleString("pt-BR")}</p>
                   </div>
                 ))
               ) : (
@@ -178,12 +145,10 @@ function CarShowcase() {
           </section>
         </main>
       </div>
-      {selectedCar && (
-        <CarModal car={selectedCar} onClose={closeModal} />
-      )}
+      {selectedCar && <CarModal car={selectedCar} onClose={closeModal} />}
     </div>
-  );
+  )
 }
 
-export default CarShowcase;
+export default CarShowcase
 

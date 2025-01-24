@@ -6,30 +6,6 @@
     overflow-x: hidden;
 }
 
-.backgroundImage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../imagens/foto da frente mcar.jpg?height=1080&width=1920');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    z-index: -2;
-}
-
-.backgroundOverlay {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-}
-
 .carShowcase {
     min-height: 100vh;
     display: flex;
@@ -101,34 +77,59 @@
     margin-bottom: 10px;
 }
 
-.carousel {
-    position: relative;
+.modalCarousel {
+  position: relative;
+  margin-bottom: 15px;
+  flex: 0 0 auto;
+  height: 50%;
+  overflow: hidden;
+}
+
+.modalImageWrapper {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .carouselBtn {
-    background-color: #050b7d;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 5px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-75%);
-    transition: background-color 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
 }
 
 .carouselBtn:hover {
-    background-color: #1e3a8a;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .carouselBtn.left {
-    left: 5px;
+  left: 10px;
 }
 
 .carouselBtn.right {
-    right: 5px;
+  right: 10px;
 }
+
+
 
 .carDescription {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

@@ -1,33 +1,22 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
-const AuthContext = createContext(null);
+const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
+  const auth = getAuth()
 
   useEffect(() => {
-    // Check if user is logged in on initial load
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user)
+    })
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-  };
+    return () => unsubscribe()
+  }, [auth])
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
+  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+}
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+export const useAuth = () => useContext(AuthContext)
 
-export const useAuth = () => useContext(AuthContext);
