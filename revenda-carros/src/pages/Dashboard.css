@@ -40,6 +40,16 @@
   background-color: white;
 }
 
+.form-input-description{
+  height: 200px;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+
 .form-input:focus {
   outline: none;
   border-color: #4299e1;

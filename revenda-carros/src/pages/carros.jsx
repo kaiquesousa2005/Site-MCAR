@@ -39,8 +39,7 @@ function CarShowcase() {
       const price = Number.parseInt(car.price)
       const matchesPrice = price >= priceRange.min && price <= priceRange.max
       const matchesBrand = selectedBrand === "" || car.name.toLowerCase().includes(selectedBrand.toLowerCase())
-      const matchesYear =
-        selectedYear === "" || (car.features && car.features.some((feature) => feature.includes(selectedYear)))
+      const matchesYear = selectedYear === "" || car.name.includes(selectedYear)
 
       return matchesSearch && matchesPrice && matchesBrand && matchesYear
     })
@@ -132,10 +131,9 @@ function CarShowcase() {
                   <div key={car.id} className={styles.carro} onClick={() => openModal(car)}>
                     <p className={styles.carName}>{car.name}</p>
                     {car.images && car.images.length > 0 && (
-                      <img src={car.images[0]} alt={car.name} className={styles.carImage} />
-                      
+                      <img src={car.images[0] || "/placeholder.svg"} alt={car.name} className={styles.carImage} />
                     )}
-                    <p className={styles.carPrice}>R$ {Number(car.price).toLocaleString("pt-BR")}</p>
+                    <p className={styles.carPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")} </p>
                   </div>
                 ))
               ) : (

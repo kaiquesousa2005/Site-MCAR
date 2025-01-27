@@ -12,9 +12,6 @@ export default function Dashboard() {
     description: "",
     price: "",
     condition: "",
-    features: [],
-    history: "",
-    featured: false,
   })
   const [images, setImages] = useState([])
   const [imagePreviews, setImagePreviews] = useState([])
@@ -67,9 +64,6 @@ export default function Dashboard() {
         description: "",
         price: "",
         condition: "",
-        features: [],
-        history: "",
-        featured: false,
       })
       setImages([])
       setImagePreviews([])
@@ -106,9 +100,6 @@ export default function Dashboard() {
         description: "",
         price: "",
         condition: "",
-        features: [],
-        history: "",
-        featured: false,
       })
       setImages([])
       setImagePreviews([])
@@ -164,7 +155,7 @@ export default function Dashboard() {
           placeholder="Descrição"
           value={newVehicle.description}
           onChange={(e) => setNewVehicle({ ...newVehicle, description: e.target.value })}
-          className="form-input"
+          className="form-input-description"
           required
         />
         <input
@@ -175,18 +166,12 @@ export default function Dashboard() {
           className="form-input"
           required
         />
-        <textarea
-          placeholder="Histórico"
-          value={newVehicle.history}
-          onChange={(e) => setNewVehicle({ ...newVehicle, history: e.target.value })}
-          className="form-input"
-        />
         <input type="file" multiple onChange={handleImageChange} className="form-input" />
         <div className="image-previews">
           {imagePreviews.map((preview, index) => (
             <img
               key={index}
-              src={preview || "/placeholder.svg"}
+              src={preview}
               alt={`Preview ${index + 1}`}
               className="image-preview"
             />
@@ -208,7 +193,7 @@ export default function Dashboard() {
                     {vehicle.images.map((image, index) => (
                       <img
                         key={index}
-                        src={image || "/placeholder.svg"}
+                        src={image}
                         alt={vehicle.name}
                         className={`vehicle-image ${index === currentImageIndices[vehicle.id] ? "active" : ""}`}
                         style={{
@@ -230,7 +215,6 @@ export default function Dashboard() {
             <p className="vehicle-price">Preço: R$ {Number(vehicle.price).toLocaleString("pt-BR")}</p>
             <p className="vehicle-description">{vehicle.description}</p>
             <p className="vehicle-condition">Condição: {vehicle.condition}</p>
-            <p className="vehicle-history">Histórico: {vehicle.history}</p>
             <div className="vehicle-actions">
               <button onClick={() => handleDeleteVehicle(vehicle.id)} className="action-button delete">
                 <Trash2 size={16} />

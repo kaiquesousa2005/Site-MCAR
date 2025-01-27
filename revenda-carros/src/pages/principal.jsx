@@ -61,9 +61,8 @@ const Principal = () => {
                 <div className={styles.carCard}>
                   <h3 className={styles.carTitle}>{car.name}</h3>
                   {car.images && car.images.length > 0 && (
-                    <img src={car.images[0] || "/placeholder.svg"} alt={car.name} className={styles.carouselImage} />
+                    <img src={car.images[0]} alt={car.name} className={styles.carouselImage} />
                   )}
-                  <p className={styles.carPrice}>R$ {Number(car.price).toLocaleString("pt-BR")}</p>
                 </div>
               </div>
             ))
@@ -95,48 +94,52 @@ const Principal = () => {
       </div>
 
       <section className={styles.section} id="home">
-        <h2 className={styles.sectionTitle}>Bem-vindo à nossa loja!</h2>
-        <div className={styles.welcomeContent}>
-          <div className={styles.welcomeText}>
-            <p className={styles.sectionText}>
-              Na MCar Veículos, nossa prioridade é oferecer uma experiência de compra de veículos sem complicações, com
-              total transparência e confiança. Contamos com um portfólio diversificado de carros seminovos e usados,
-              criteriosamente selecionados para garantir a melhor qualidade e custo-benefício.
-            </p>
-            <p>
-              Seja você um comprador de primeira viagem ou um conhecedor de carros, nossa equipe está pronta para te
-              ajudar a encontrar o veículo ideal que atenda suas necessidades e expectativas.
-            </p>
-            <p>
-              <strong>Por que escolher a MCar Veículos?</strong>
-            </p>
-            <ul>
-              <li>
-                🛠️ <strong>Carros Inspecionados</strong>: Todos os nossos veículos passam por uma rigorosa inspeção de
-                qualidade.
-              </li>
-              <li>
-                📜 <strong>Documentação Completa</strong>: Garantimos que toda a documentação dos veículos está em dia.
-              </li>
-              <li>
-                💬 <strong>Atendimento Personalizado</strong>: Nossa equipe está sempre pronta para esclarecer suas
-                dúvidas e ajudar na escolha do seu carro.
-              </li>
-              <li>
-                🌟 <strong>Financiamento Facilitado</strong>: Oferecemos opções de financiamento que se encaixam no seu
-                orçamento.
-              </li>
-            </ul>
-            <p>
-              Visite nossa loja e descubra por que somos referência em atendimento e credibilidade no mercado de
-              automóveis!
-            </p>
-            <a href="/carros" className={styles.btnVisit}>
-              Ver Carros Disponíveis
-            </a>
-          </div>
-        </div>
-      </section>
+  <h2 className={styles.sectionTitle}>Bem-vindo à MCar Veículos!</h2>
+  <div className={styles.welcomeContent}>
+    <div className={styles.welcomeText}>
+      <p className={styles.sectionText}>
+        Na MCar Veículos, nossa missão é transformar a compra de carros em uma experiência prazerosa, prática e confiável. Sabemos que adquirir um veículo é mais do que uma compra — é uma conquista que precisa ser acompanhada de segurança e satisfação. Por isso, oferecemos um serviço que vai além das expectativas.
+      </p>
+      <p>
+        Nosso catálogo conta com uma ampla variedade de veículos seminovos e usados, cuidadosamente selecionados para garantir a mais alta qualidade. Desde modelos compactos ideais para o dia a dia até SUVs espaçosos e elegantes, aqui você encontra o carro perfeito para o seu estilo de vida.
+      </p>
+      <p>
+        Na MCar Veículos, você não apenas escolhe um carro, mas também conta com o suporte de uma equipe especializada, pronta para te guiar em todas as etapas do processo. Seja sua primeira compra ou a atualização do seu carro atual, estamos ao seu lado para ajudar na melhor decisão.
+      </p>
+      <p>
+        <strong>Por que escolher a MCar Veículos?</strong>
+      </p>
+      <ul>
+        <li>
+          🛠️ <strong>Carros Inspecionados:</strong> Cada veículo é submetido a uma rigorosa inspeção para garantir que você dirija com total tranquilidade e segurança.
+        </li>
+        <li>
+          📜 <strong>Documentação Regularizada:</strong> Toda a documentação dos veículos é verificada e entregue em dia, sem complicações.
+        </li>
+        <li>
+          💬 <strong>Atendimento Personalizado:</strong> Nossa equipe está sempre à disposição para responder suas dúvidas, entender suas necessidades e oferecer a melhor orientação.
+        </li>
+        <li>
+          🌟 <strong>Facilidade no Financiamento:</strong> Trabalhamos com condições de pagamento flexíveis que cabem no seu bolso, facilitando sua conquista.
+        </li>
+        <li>
+          🚗 <strong>Ampla Variedade:</strong> Desde veículos econômicos a modelos premium, temos opções para atender aos mais variados gostos e objetivos.
+        </li>
+      </ul>
+      <p>
+        Além disso, oferecemos um ambiente acolhedor em nossa loja física, onde você pode explorar os veículos, conversar com nossa equipe e tomar decisões com total confiança. Se preferir, também disponibilizamos um catálogo online atualizado, para você conferir nossas opções no conforto de sua casa.
+      </p>
+      <p>
+        Venha descobrir por que somos referência no mercado de automóveis. Na MCar Veículos, qualidade, credibilidade e transparência são nossos compromissos com você. Aqui, seu próximo carro está mais perto do que você imagina.
+      </p>
+      <a href="/carros" className={styles.btnVisit}>
+        Explore Nossos Carros Agora
+      </a>
+    </div>
+  </div>
+</section>
+
+
     </div>
   )
 }

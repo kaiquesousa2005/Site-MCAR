@@ -49,14 +49,16 @@ function CarModal({ car, onClose }) {
         <div className={styles.modalDetails}>
           <h3 className={styles.modalSubtitle}>Detalhes do Veículo</h3>
           <p className={styles.modalPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")}</p>
-          <p className={styles.modalDescription}>{car.description}</p>
+          <div className={styles.modalDescription}>
+            <ul>
+              {car.description.split("\n").map((paragraph, index) => (
+                <li key={index}>{paragraph}</li>
+              ))}
+            </ul>
+          </div>
           <div className={styles.modalAdditionalInfo}>
             <h4>Condição</h4>
             <p>{car.condition || "Informações não disponíveis"}</p>
-            <h4>Histórico</h4>
-            <p>{car.history || "Informações não disponíveis"}</p>
-            <h4>Características</h4>
-            <ul>{car.features && car.features.map((feature, index) => <li key={index}>{feature}</li>)}</ul>
           </div>
         </div>
         <button className={styles.simulationButton} onClick={handleSimulationClick}>
