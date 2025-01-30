@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { collection, getDocs, query, orderBy, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db } from "../firebaseConfig"
-import { Trash2, Edit, ChevronLeft, ChevronRight } from "lucide-react"
+import { Trash2, Edit, ChevronLeft, ChevronRight, X } from "lucide-react"
 import "./Dashboard.css"
 
 export default function Dashboard() {
@@ -42,6 +42,37 @@ export default function Dashboard() {
     }
   }
 
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData("text/plain", index)
+  }
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault()
+    const dragIndex = Number.parseInt(e.dataTransfer.getData("text/plain"), 10)
+    if (dragIndex === dropIndex) return
+
+    const updatedPreviews = [...imagePreviews]
+    const [movedImage] = updatedPreviews.splice(dragIndex, 1)
+    updatedPreviews.splice(dropIndex, 0, movedImage)
+    setImagePreviews(updatedPreviews)
+
+    if (editingVehicle) {
+      setNewVehicle((prev) => ({
+        ...prev,
+        images: updatedPreviews,
+      }))
+    } else {
+      const updatedImages = [...images]
+      const [movedFile] = updatedImages.splice(dragIndex, 1)
+      updatedImages.splice(dropIndex, 0, movedFile)
+      setImages(updatedImages)
+    }
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  }
+
   const handleAddVehicle = async (e) => {
     e.preventDefault()
     try {
@@ -73,6 +104,21 @@ export default function Dashboard() {
     }
   }
 
+  const handleDeleteImage = async (index) => {
+    if (editingVehicle) {
+      const updatedImages = [...newVehicle.images]
+      updatedImages.splice(index, 1)
+      setNewVehicle((prev) => ({
+        ...prev,
+        images: updatedImages,
+      }))
+      setImagePreviews(updatedImages)
+    } else {
+      setImagePreviews((prev) => prev.filter((_, i) => i !== index))
+      setImages((prev) => prev.filter((_, i) => i !== index))
+    }
+  }
+
   const handleDeleteVehicle = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir esse veículo?")) {
       try {
@@ -93,7 +139,25 @@ export default function Dashboard() {
   const handleUpdateVehicle = async (e) => {
     e.preventDefault()
     try {
-      await updateDoc(doc(db, "vehicles", editingVehicle.id), newVehicle)
+      const storage = getStorage()
+      let imageUrls = [...newVehicle.images]
+
+      // Upload new images
+      const newImageUrls = await Promise.all(
+        images.map(async (image) => {
+          const imageRef = ref(storage, `vehicles/${image.name}`)
+          await uploadBytes(imageRef, image)
+          return getDownloadURL(imageRef)
+        }),
+      )
+
+      imageUrls = [...imageUrls, ...newImageUrls]
+
+      await updateDoc(doc(db, "vehicles", editingVehicle.id), {
+        ...newVehicle,
+        images: imageUrls,
+      })
+
       setEditingVehicle(null)
       setNewVehicle({
         name: "",
@@ -111,10 +175,10 @@ export default function Dashboard() {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
-    setImages(files)
+    setImages((prevImages) => [...prevImages, ...files])
 
     const previews = files.map((file) => URL.createObjectURL(file))
-    setImagePreviews(previews)
+    setImagePreviews((prevPreviews) => [...prevPreviews, ...previews])
   }
 
   const handleImageNav = (vehicleId, direction) => {
@@ -132,7 +196,6 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <h1 className="dashboard-title">Administrador</h1>
-      
 
       <form onSubmit={editingVehicle ? handleUpdateVehicle : handleAddVehicle} className="vehicle-form">
         <input
@@ -169,12 +232,19 @@ export default function Dashboard() {
         <input type="file" multiple onChange={handleImageChange} className="form-input" />
         <div className="image-previews">
           {imagePreviews.map((preview, index) => (
-            <img
+            <div
+              className="image-preview-container"
               key={index}
-              src={preview}
-              alt={`Preview ${index + 1}`}
-              className="image-preview"
-            />
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, index)}
+            >
+              <img src={preview || "/placeholder.svg"} alt={`Preview ${index + 1}`} className="image-preview" />
+              <button type="button" className="delete-image-button" onClick={() => handleDeleteImage(index)}>
+                <X size={16} />
+              </button>
+            </div>
           ))}
         </div>
 
@@ -193,7 +263,7 @@ export default function Dashboard() {
                     {vehicle.images.map((image, index) => (
                       <img
                         key={index}
-                        src={image}
+                        src={image || "/placeholder.svg"}
                         alt={vehicle.name}
                         className={`vehicle-image ${index === currentImageIndices[vehicle.id] ? "active" : ""}`}
                         style={{

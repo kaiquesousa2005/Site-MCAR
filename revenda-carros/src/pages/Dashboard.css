@@ -11,6 +11,44 @@
   color: #ffffff;
 }
 
+.image-preview-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: move;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.image-preview-container:hover {
+  border-color: #4299e1;
+}
+
+.delete-image-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.2s;
+}
+
+.delete-image-button:hover {
+  background-color: rgba(255, 0, 0, 0.9);
+}
+
 .vehicle-count {
   font-size: 1.2rem;
   margin-bottom: 1rem;
@@ -40,7 +78,7 @@
   background-color: white;
 }
 
-.form-input-description{
+.form-input-description {
   height: 200px;
   padding: 0.75rem;
   border: 1px solid #e2e8f0;
@@ -48,7 +86,6 @@
   font-size: 1rem;
   background-color: white;
 }
-
 
 .form-input:focus {
   outline: none;
@@ -228,4 +265,3 @@
     padding: 1rem;
   }
 }
-
