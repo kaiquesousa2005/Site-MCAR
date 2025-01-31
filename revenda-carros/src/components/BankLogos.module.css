@@ -1,0 +1,68 @@
+.bankLogosContainer {
+  padding: 2rem 0;
+  background-color: blue;
+  margin-top: 25px;
+}
+
+.bankLogosContainer h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: whitesmoke;
+}
+
+.logoGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.logoItem {
+  width: 130px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoItem:hover {
+  transform: scale(1.1);
+}
+
+.logoItem img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .bankLogosContainer h3 {
+    font-size: 1.25rem;
+  }
+
+  .logoItem {
+    width: 100px;
+    height: 80px;
+  }
+
+  .logoGrid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bankLogosContainer h3 {
+    font-size: 1rem;
+  }
+
+  .logoItem {
+    width: 80px;
+    height: 60px;
+  }
+
+  .logoGrid {
+    gap: 0.5rem;
+  }
+}

@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import styles from "../pages/carros.module.css"
+import styles from "./CarModal.module.css"
+
 
 function CarModal({ car, onClose }) {
   const navigate = useNavigate()
@@ -26,16 +27,15 @@ function CarModal({ car, onClose }) {
         <button className={styles.closeButton} onClick={onClose}>
           <X size={24} />
         </button>
-        <h2 className={styles.modalTitle}>{car.name}</h2>
+        <h2 className={styles.modalTitle}>{`${car.brand} ${car.model} ${car.version}`}</h2>
         <div className={styles.modalCarousel}>
-          <div className={styles.modalImageWrapper}>
+          <div className={styles.modalImageWrapper} style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
             {car.images.map((image, index) => (
               <img
                 key={index}
                 src={image || "/placeholder.svg"}
-                alt={`${car.name}, vista ${index + 1}`}
-                className={`${styles.modalImage} ${index === currentIndex ? styles.active : ""}`}
-                style={{ transform: `translateX(${-100 * currentIndex}%)` }}
+                alt={`${car.brand} ${car.model}, vista ${index + 1}`}
+                className={styles.modalImage}
               />
             ))}
           </div>
@@ -47,18 +47,31 @@ function CarModal({ car, onClose }) {
           </button>
         </div>
         <div className={styles.modalDetails}>
-          <h3 className={styles.modalSubtitle}>Detalhes do Veículo</h3>
+          <div className={styles.modalInfo}>
+            <p>
+              <strong>Ano:</strong> {car.year}
+            </p>
+            <p>
+              <strong>Kilometragem:</strong> {car.mileage} km
+            </p>
+            <p>
+              <strong>Câmbio:</strong> {car.transmission}
+            </p>
+            <p>
+              <strong>Portas:</strong> {car.doors}
+            </p>
+            <p>
+              <strong>Condição:</strong> {car.condition}
+            </p>
+          </div>
           <p className={styles.modalPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")}</p>
           <div className={styles.modalDescription}>
+            <h4>Descrição</h4>
             <ul>
-              {car.description.split("\n").map((paragraph, index) => (
-                <li key={index}>{paragraph}</li>
+              {car.description.split("\n").map((item, index) => (
+                <li key={index}>{item}</li>
               ))}
             </ul>
-          </div>
-          <div className={styles.modalAdditionalInfo}>
-            <h4>Condição</h4>
-            <p>{car.condition || "Informações não disponíveis"}</p>
           </div>
         </div>
         <button className={styles.simulationButton} onClick={handleSimulationClick}>

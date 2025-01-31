@@ -1,18 +1,18 @@
-import React from "react"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import "./App.css"
-import Principal from "./pages/principal"
-import CarShowcase from "./pages/carros"
-import Header from "./components/header"
-import Footer from "./footer/footer"
-import FinancingSimulation from "./pages/simulacao"
-import AboutUs from "./pages/sobre"
-import PrivacyPolicy from "./footer/politica"
-import TermsOfUse from "./footer/termos"
-import Dashboard from "./pages/DashBoard"
-import Login from "./components/Login"
-import ProtectedRoute from "./components/ProtectedRoute"
-import { AuthProvider } from "./components/AuthContext"
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Principal from "./pages/sobre";
+import CarShowcase from "./pages/Home";
+import Header from "./components/header";
+import Footer from "./footer/footer";
+import FinancingSimulation from "./pages/simulacao";
+import PrivacyPolicy from "./footer/politica";
+import TermsOfUse from "./footer/termos";
+import Dashboard from "./pages/DashBoard";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./components/AuthContext";
+import "./styles/global.css";
 
 function App() {
   return (
@@ -22,9 +22,8 @@ function App() {
           <Header />
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={<Principal />} />
-              <Route path="/sobre" element={<AboutUs />} />
-              <Route path="/carros" element={<CarShowcase />} />
+              <Route path="/" element={<CarShowcase />} />
+              <Route path="/sobre" element={<Principal />} />
               <Route path="/simulação" element={<FinancingSimulation />} />
               <Route path="/termos-uso" element={<TermsOfUse />} />
               <Route path="/politica-privacidade" element={<PrivacyPolicy />} />
@@ -43,8 +42,7 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
-
+export default App;

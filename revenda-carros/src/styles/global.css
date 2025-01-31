@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #050b7d;
+    --secondary-color: #4285f4;
+    --background-color: #f9f9f9;
+    --text-color: #333333;
+    --accent-color: #e4e4e4;
+  }
+  
+  body {
+    font-family: "Roboto", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 15px;
+    }
+  }
+  
+  

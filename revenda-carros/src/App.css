@@ -1,6 +1,24 @@
 body {
+    position: relative; 
     background-image: url('./imagens/foto da frente mcar.jpg?height=1080&width=1920');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    margin: 0; 
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1; 
+}
+
+body * {
+    position: relative; 
+    z-index: 2; 
 }

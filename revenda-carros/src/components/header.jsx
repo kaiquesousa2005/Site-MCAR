@@ -14,9 +14,8 @@ export default function Header() {
 
       <nav>
         <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/sobre">Sobre Nós</a></li>
-          <li><a href="/carros">Veiculos Disponíveis</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/sobre">Empresa</a></li>
           <li><a href="/simulação">Simulação</a></li>
         </ul>
       </nav>

@@ -1,0 +1,176 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.carShowcase {
+  flex-grow: 1;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carsSection {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.carsSection h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.searchAndFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.filters select,
+.filters input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.carros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.carro {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.carro:hover {
+  transform: scale(1.2);
+}
+
+.carImageContainer {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.carImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.imageNavButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.imageNavButton:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.imageNavButton.left {
+  left: 10px;
+}
+
+.imageNavButton.right {
+  right: 10px;
+}
+
+.carInfo {
+  padding: 1rem;
+}
+
+.carTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.carDetails {
+  font-size: 0.875rem;
+  color: #4a5568;
+  margin-bottom: 0.25rem;
+}
+
+.carPrice {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .searchAndFilter {
+    padding: 0.5rem;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+  .carros {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+

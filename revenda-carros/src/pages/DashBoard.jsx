@@ -2,76 +2,41 @@ import { useState, useEffect } from "react"
 import { collection, getDocs, query, orderBy, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db } from "../firebaseConfig"
-import { Trash2, Edit, ChevronLeft, ChevronRight, X } from "lucide-react"
+import { Trash2, Edit, X, ChevronLeft, ChevronRight } from "lucide-react"
 import "./Dashboard.css"
+
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
   const [newVehicle, setNewVehicle] = useState({
-    name: "",
-    description: "",
+    brand: "",
+    model: "",
+    version: "",
+    year: "",
+    mileage: "",
     price: "",
+    transmission: "",
+    doors: "",
+    description: "",
     condition: "",
   })
   const [images, setImages] = useState([])
   const [imagePreviews, setImagePreviews] = useState([])
   const [editingVehicle, setEditingVehicle] = useState(null)
-  const [currentImageIndices, setCurrentImageIndices] = useState({})
+
+  const fetchVehicles = async () => {
+    const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"))
+    const querySnapshot = await getDocs(q)
+    const vehiclesData = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    setVehicles(vehiclesData)
+  }
 
   useEffect(() => {
     fetchVehicles()
   }, [])
-
-  const fetchVehicles = async () => {
-    try {
-      const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"))
-      const querySnapshot = await getDocs(q)
-      const vehiclesData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setVehicles(vehiclesData)
-      setCurrentImageIndices(
-        vehiclesData.reduce((acc, vehicle) => {
-          acc[vehicle.id] = 0
-          return acc
-        }, {}),
-      )
-    } catch (error) {
-      console.error("Error fetching vehicles:", error)
-    }
-  }
-
-  const handleDragStart = (e, index) => {
-    e.dataTransfer.setData("text/plain", index)
-  }
-
-  const handleDrop = (e, dropIndex) => {
-    e.preventDefault()
-    const dragIndex = Number.parseInt(e.dataTransfer.getData("text/plain"), 10)
-    if (dragIndex === dropIndex) return
-
-    const updatedPreviews = [...imagePreviews]
-    const [movedImage] = updatedPreviews.splice(dragIndex, 1)
-    updatedPreviews.splice(dropIndex, 0, movedImage)
-    setImagePreviews(updatedPreviews)
-
-    if (editingVehicle) {
-      setNewVehicle((prev) => ({
-        ...prev,
-        images: updatedPreviews,
-      }))
-    } else {
-      const updatedImages = [...images]
-      const [movedFile] = updatedImages.splice(dragIndex, 1)
-      updatedImages.splice(dropIndex, 0, movedFile)
-      setImages(updatedImages)
-    }
-  }
-
-  const handleDragOver = (e) => {
-    e.preventDefault()
-  }
 
   const handleAddVehicle = async (e) => {
     e.preventDefault()
@@ -79,21 +44,34 @@ export default function Dashboard() {
       const storage = getStorage()
       const imageUrls = await Promise.all(
         images.map(async (image) => {
-          const imageRef = ref(storage, `vehicles/${image.name}`)
-          await uploadBytes(imageRef, image)
-          return getDownloadURL(imageRef)
+          try {
+            const imageRef = ref(storage, `vehicles/${image.name}`)
+            await uploadBytes(imageRef, image)
+            return getDownloadURL(imageRef)
+          } catch (error) {
+            console.error("Error uploading image:", error)
+            return null
+          }
         }),
       )
 
+      const validImageUrls = imageUrls.filter((url) => url !== null)
+
       await addDoc(collection(db, "vehicles"), {
         ...newVehicle,
-        images: imageUrls,
+        images: validImageUrls,
         createdAt: new Date(),
       })
       setNewVehicle({
-        name: "",
-        description: "",
+        brand: "",
+        model: "",
+        version: "",
+        year: "",
+        mileage: "",
         price: "",
+        transmission: "",
+        doors: "",
+        description: "",
         condition: "",
       })
       setImages([])
@@ -104,92 +82,125 @@ export default function Dashboard() {
     }
   }
 
-  const handleDeleteImage = async (index) => {
-    if (editingVehicle) {
-      const updatedImages = [...newVehicle.images]
-      updatedImages.splice(index, 1)
-      setNewVehicle((prev) => ({
-        ...prev,
-        images: updatedImages,
-      }))
-      setImagePreviews(updatedImages)
-    } else {
-      setImagePreviews((prev) => prev.filter((_, i) => i !== index))
-      setImages((prev) => prev.filter((_, i) => i !== index))
-    }
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files)
+    setImages(files)
+    setImagePreviews(files.map((file) => URL.createObjectURL(file)))
   }
 
-  const handleDeleteVehicle = async (id) => {
-    if (window.confirm("Tem certeza que deseja excluir esse veículo?")) {
-      try {
-        await deleteDoc(doc(db, "vehicles", id))
-        fetchVehicles()
-      } catch (error) {
-        console.error("Error em deletar veículo", error)
-      }
-    }
+  const handleDeleteImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index)
+    const updatedPreviews = imagePreviews.filter((_, i) => i !== index)
+    setImages(updatedImages)
+    setImagePreviews(updatedPreviews)
   }
 
-  const handleEditVehicle = (vehicle) => {
-    setEditingVehicle(vehicle)
-    setNewVehicle(vehicle)
-    setImagePreviews(vehicle.images || [])
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData("index", index)
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  }
+
+  const handleDrop = (e, overIndex) => {
+    e.preventDefault()
+    const draggedIndex = Number.parseInt(e.dataTransfer.getData("index"))
+    const updatedImages = arrayMove(images, draggedIndex, overIndex)
+    const updatedPreviews = arrayMove(imagePreviews, draggedIndex, overIndex)
+    setImages(updatedImages)
+    setImagePreviews(updatedPreviews)
+  }
+
+  const arrayMove = (arr, fromIndex, toIndex) => {
+    const newArr = [...arr]
+    const element = newArr.splice(fromIndex, 1)[0]
+    newArr.splice(toIndex, 0, element)
+    return newArr
   }
 
   const handleUpdateVehicle = async (e) => {
     e.preventDefault()
     try {
       const storage = getStorage()
-      let imageUrls = [...newVehicle.images]
-
-      // Upload new images
-      const newImageUrls = await Promise.all(
+      const imageUrls = await Promise.all(
         images.map(async (image) => {
-          const imageRef = ref(storage, `vehicles/${image.name}`)
-          await uploadBytes(imageRef, image)
-          return getDownloadURL(imageRef)
+          if (image.url) {
+            return image.url // Return existing image URL
+          }
+          try {
+            const imageRef = ref(storage, `vehicles/${image.name}`)
+            await uploadBytes(imageRef, image)
+            return getDownloadURL(imageRef)
+          } catch (error) {
+            console.error("Error uploading image:", error)
+            return null
+          }
         }),
       )
 
-      imageUrls = [...imageUrls, ...newImageUrls]
+      const validImageUrls = imageUrls.filter((url) => url !== null)
 
       await updateDoc(doc(db, "vehicles", editingVehicle.id), {
         ...newVehicle,
-        images: imageUrls,
+        images: validImageUrls,
+        updatedAt: new Date(),
       })
-
       setEditingVehicle(null)
       setNewVehicle({
-        name: "",
-        description: "",
+        brand: "",
+        model: "",
+        version: "",
+        year: "",
+        mileage: "",
         price: "",
+        transmission: "",
+        doors: "",
+        description: "",
         condition: "",
       })
       setImages([])
       setImagePreviews([])
       fetchVehicles()
     } catch (error) {
-      console.error("Error em atualizar o veículo:", error)
+      console.error("Error updating vehicle:", error)
     }
   }
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files)
-    setImages((prevImages) => [...prevImages, ...files])
+  const handleEditVehicle = (vehicle) => {
+    setNewVehicle(vehicle)
+    setEditingVehicle(vehicle)
+    if (vehicle.images) {
+      setImages(vehicle.images.map((url) => ({ name: url.split("/").pop(), url })))
+      setImagePreviews(vehicle.images)
+    } else {
+      setImages([])
+      setImagePreviews([])
+    }
+  }
 
-    const previews = files.map((file) => URL.createObjectURL(file))
-    setImagePreviews((prevPreviews) => [...prevPreviews, ...previews])
+  const handleDeleteVehicle = async (id) => {
+    try {
+      await deleteDoc(doc(db, "vehicles", id))
+      fetchVehicles()
+    } catch (error) {
+      console.error("Error deleting vehicle:", error)
+    }
   }
 
   const handleImageNav = (vehicleId, direction) => {
-    setCurrentImageIndices((prev) => {
-      const vehicle = vehicles.find((v) => v.id === vehicleId)
-      const currentIndex = prev[vehicleId]
-      const newIndex =
-        direction === "next"
-          ? (currentIndex + 1) % vehicle.images.length
-          : (currentIndex - 1 + vehicle.images.length) % vehicle.images.length
-      return { ...prev, [vehicleId]: newIndex }
+    setVehicles((prevVehicles) => {
+      return prevVehicles.map((vehicle) => {
+        if (vehicle.id === vehicleId) {
+          const currentIndex = vehicle.currentImageIndex || 0
+          const newIndex =
+            direction === "next"
+              ? (currentIndex + 1) % vehicle.images.length
+              : (currentIndex - 1 + vehicle.images.length) % vehicle.images.length
+          return { ...vehicle, currentImageIndex: newIndex }
+        }
+        return vehicle
+      })
     })
   }
 
@@ -200,9 +211,41 @@ export default function Dashboard() {
       <form onSubmit={editingVehicle ? handleUpdateVehicle : handleAddVehicle} className="vehicle-form">
         <input
           type="text"
-          placeholder="Nome do Veículo"
-          value={newVehicle.name}
-          onChange={(e) => setNewVehicle({ ...newVehicle, name: e.target.value })}
+          placeholder="Marca"
+          value={newVehicle.brand}
+          onChange={(e) => setNewVehicle({ ...newVehicle, brand: e.target.value })}
+          className="form-input"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Modelo"
+          value={newVehicle.model}
+          onChange={(e) => setNewVehicle({ ...newVehicle, model: e.target.value })}
+          className="form-input"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Versão"
+          value={newVehicle.version}
+          onChange={(e) => setNewVehicle({ ...newVehicle, version: e.target.value })}
+          className="form-input"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Ano"
+          value={newVehicle.year}
+          onChange={(e) => setNewVehicle({ ...newVehicle, year: e.target.value })}
+          className="form-input"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Kilometragem"
+          value={newVehicle.mileage}
+          onChange={(e) => setNewVehicle({ ...newVehicle, mileage: e.target.value })}
           className="form-input"
           required
         />
@@ -211,6 +254,24 @@ export default function Dashboard() {
           placeholder="Preço"
           value={newVehicle.price}
           onChange={(e) => setNewVehicle({ ...newVehicle, price: e.target.value })}
+          className="form-input"
+          required
+        />
+        <select
+          value={newVehicle.transmission}
+          onChange={(e) => setNewVehicle({ ...newVehicle, transmission: e.target.value })}
+          className="form-input"
+          required
+        >
+          <option value="">Selecione o tipo de câmbio</option>
+          <option value="Manual">Manual</option>
+          <option value="Automático">Automático</option>
+        </select>
+        <input
+          type="number"
+          placeholder="Quantidade de portas"
+          value={newVehicle.doors}
+          onChange={(e) => setNewVehicle({ ...newVehicle, doors: e.target.value })}
           className="form-input"
           required
         />
@@ -252,49 +313,62 @@ export default function Dashboard() {
           {editingVehicle ? "Atualizar Veículo" : "Adicionar Veículo"}
         </button>
       </form>
-      <p className="vehicle-count">Total de veículos: {vehicles.length}</p>
-      <div className="vehicles-grid">
-        {vehicles.map((vehicle) => (
-          <div key={vehicle.id} className="vehicle-card">
-            <div className="vehicle-image-container">
-              {vehicle.images && vehicle.images.length > 0 && (
-                <>
-                  <div className="image-wrapper">
-                    {vehicle.images.map((image, index) => (
-                      <img
-                        key={index}
-                        src={image || "/placeholder.svg"}
-                        alt={vehicle.name}
-                        className={`vehicle-image ${index === currentImageIndices[vehicle.id] ? "active" : ""}`}
-                        style={{
-                          transform: `translateX(${-100 * currentImageIndices[vehicle.id]}%)`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <button className="image-nav-button left" onClick={() => handleImageNav(vehicle.id, "prev")}>
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button className="image-nav-button right" onClick={() => handleImageNav(vehicle.id, "next")}>
-                    <ChevronRight size={20} />
-                  </button>
-                </>
-              )}
+
+      <div className="vehicles-section">
+        <h2 className="vehicles-count">Veículos Disponíveis: {vehicles.length}</h2>
+        <div className="vehicles-grid">
+          {vehicles.map((vehicle) => (
+            <div className="vehicle-card" key={vehicle.id}>
+              <div className="vehicle-image-container">
+                {vehicle.images && vehicle.images.length > 0 ? (
+                  <>
+                    <div
+                      className="image-wrapper"
+                      style={{ transform: `translateX(-${vehicle.currentImageIndex * 100}%)` }}
+                    >
+                      {vehicle.images.map((image, index) => (
+                        <img
+                          key={index}
+                          src={image}
+                          alt={`${vehicle.brand} ${vehicle.model}`}
+                          className="vehicle-image"
+                        />
+                      ))}
+                    </div>
+                    {vehicle.images.length > 1 && (
+                      <>
+                        <button className="image-nav-button left" onClick={() => handleImageNav(vehicle.id, "prev")}>
+                          <ChevronLeft size={20} />
+                        </button>
+                        <button className="image-nav-button right" onClick={() => handleImageNav(vehicle.id, "next")}>
+                          <ChevronRight size={20} />
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <img src="/placeholder.svg" alt={`${vehicle.brand} ${vehicle.model}`} className="vehicle-image" />
+                )}
+              </div>
+              <div className="vehicle-info">
+                <h3 className="vehicle-title">
+                  {vehicle.brand} {vehicle.model}
+                </h3>
+                <p className="vehicle-details">Versão: {vehicle.version}</p>
+                <p className="vehicle-details">Ano: {vehicle.year}</p>
+                <p className="vehicle-price">R$ {Number(vehicle.price).toLocaleString("pt-BR")}</p>
+              </div>
+              <div className="vehicle-actions">
+                <button className="action-button edit" onClick={() => handleEditVehicle(vehicle)}>
+                  <Edit size={20} />
+                </button>
+                <button className="action-button delete" onClick={() => handleDeleteVehicle(vehicle.id)}>
+                  <Trash2 size={20} />
+                </button>
+              </div>
             </div>
-            <h2 className="vehicle-name">{vehicle.name}</h2>
-            <p className="vehicle-price">Preço: R$ {Number(vehicle.price).toLocaleString("pt-BR")}</p>
-            <p className="vehicle-description">{vehicle.description}</p>
-            <p className="vehicle-condition">Condição: {vehicle.condition}</p>
-            <div className="vehicle-actions">
-              <button onClick={() => handleDeleteVehicle(vehicle.id)} className="action-button delete">
-                <Trash2 size={16} />
-              </button>
-              <button onClick={() => handleEditVehicle(vehicle)} className="action-button edit">
-                <Edit size={16} />
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
