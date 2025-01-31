@@ -85,9 +85,6 @@
   cursor: pointer;
 }
 
-.carro:hover {
-  transform: scale(1.2);
-}
 
 .carImageContainer {
   position: relative;

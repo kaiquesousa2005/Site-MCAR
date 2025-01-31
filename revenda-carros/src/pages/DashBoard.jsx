@@ -243,7 +243,7 @@ export default function Dashboard() {
         />
         <input
           type="number"
-          placeholder="Kilometragem"
+          placeholder="Quilometragem"
           value={newVehicle.mileage}
           onChange={(e) => setNewVehicle({ ...newVehicle, mileage: e.target.value })}
           className="form-input"
