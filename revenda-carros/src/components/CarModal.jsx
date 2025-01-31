@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import styles from "./CarModal.module.css"
 
@@ -18,7 +18,7 @@ function CarModal({ car, onClose }) {
 
   const handleSimulationClick = () => {
     onClose()
-    navigate(`/simulação?carro=${encodeURIComponent(car.name)}`)
+    navigate(`/simulação?carro=${encodeURIComponent(car.brand + car.model + car.year)}`)
   }
 
   return (
