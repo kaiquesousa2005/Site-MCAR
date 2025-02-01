@@ -1,12 +1,18 @@
-import { useState } from "react"
-import { X, ChevronLeft, ChevronRight, } from "lucide-react"
+import { useState, useEffect } from "react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import styles from "./CarModal.module.css"
-
 
 function CarModal({ car, onClose }) {
   const navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    document.body.classList.add(styles.bodyOverflow)
+    return () => {
+      document.body.classList.remove(styles.bodyOverflow)
+    }
+  }, [])
 
   const slideNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % car.images.length)
@@ -18,7 +24,7 @@ function CarModal({ car, onClose }) {
 
   const handleSimulationClick = () => {
     onClose()
-    navigate(`/simulação?carro=${encodeURIComponent(car.brand + car.model + car.year)}`)
+    navigate(`/simulação?carro=${encodeURIComponent(car.name)}`)
   }
 
   return (
@@ -67,11 +73,11 @@ function CarModal({ car, onClose }) {
           <p className={styles.modalPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")}</p>
           <div className={styles.modalDescription}>
             <h4>Descrição</h4>
-            <ul>
+            <ol>
               {car.description.split("\n").map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
-            </ul>
+            </ol>
           </div>
         </div>
         <button className={styles.simulationButton} onClick={handleSimulationClick}>

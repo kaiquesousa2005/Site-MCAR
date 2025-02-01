@@ -1,151 +1,155 @@
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.modalTitle {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.modalCarousel {
+  position: relative;
+  margin-bottom: 1rem;
+  height: 300px;
+  overflow: hidden;
+}
+
+.modalImageWrapper {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carouselBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.carouselBtn.left {
+  left: 1rem;
+}
+
+.carouselBtn.right {
+  right: 1rem;
+}
+
+.modalDetails {
+  margin-top: 1rem;
+}
+
+.modalInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalPrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.modalDescription {
+  margin-top: 1rem;
+}
+
+.modalDescription h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.simulationButton {
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.simulationButton:hover {
+  background-color: #3182ce;
+}
+
+@media (max-width: 768px) {
   .modalContent {
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
+    padding: 1rem;
     width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
   }
-  
-  .closeButton {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-  }
-  
+
   .modalTitle {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 1rem;
-  }
-  
-  .modalCarousel {
-    position: relative;
-    margin-bottom: 1rem;
-    height: 300px;
-    overflow: hidden;
-  }
-  
-  .modalImageWrapper {
-    display: flex;
-    height: 100%;
-    transition: transform 0.3s ease;
-  }
-  
-  .modalImage {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-  
-  .carouselBtn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  .carouselBtn.left {
-    left: 1rem;
-  }
-  
-  .carouselBtn.right {
-    right: 1rem;
-  }
-  
-  .modalDetails {
-    margin-top: 1rem;
-  }
-  
-  .modalInfo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .modalPrice {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #4a5568;
-    margin-bottom: 1rem;
   }
-  
-  .modalDescription {
-    margin-top: 1rem;
+
+  .modalCarousel {
+    height: 200px;
   }
-  
-  .modalDescription h4 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+
+  .modalInfo {
+    grid-template-columns: 1fr;
   }
-  
-  .simulationButton {
-    background-color: #4299e1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 1rem;
-    width: 100%;
+
+  .modalPrice {
+    font-size: 1.3rem;
   }
-  
-  .simulationButton:hover {
-    background-color: #3182ce;
-  }
-  
-  @media (max-width: 768px) {
-    .modalContent {
-      padding: 1rem;
-    }
-  
-    .modalTitle {
-      font-size: 1.5rem;
-    }
-  
-    .modalCarousel {
-      height: 200px;
-    }
-  
-    .modalInfo {
-      grid-template-columns: 1fr;
-    }
-  
-    .modalPrice {
-      font-size: 1.3rem;
-    }
-  }
-  
-  
+}
+
+.bodyOverflow {
+  overflow: hidden;
+}
+

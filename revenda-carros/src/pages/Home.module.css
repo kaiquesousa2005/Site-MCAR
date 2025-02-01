@@ -60,9 +60,17 @@
   gap: 1rem;
 }
 
-.filters select,
-.filters input {
+.filters select {
   width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.filters input{
+  width: 90%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
