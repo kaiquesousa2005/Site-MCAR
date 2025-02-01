@@ -85,7 +85,6 @@
   cursor: pointer;
 }
 
-
 .carImageContainer {
   position: relative;
   height: 200px;
@@ -168,6 +167,19 @@
   }
   .carros {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+.mapSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .mapSection {
+    margin: 1rem auto;
   }
 }
 

@@ -1,68 +1,83 @@
 .bankLogosContainer {
-  padding: 2rem 0;
-  background-color: blue;
-  margin-top: 25px;
-}
-
-.bankLogosContainer h3 {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: whitesmoke;
-}
-
-.logoGrid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.logoItem {
-  width: 130px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logoItem:hover {
-  transform: scale(1.1);
-}
-
-.logoItem img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-@media (max-width: 768px) {
-  .bankLogosContainer h3 {
-    font-size: 1.25rem;
+    padding: 1rem 0;
+    background-color: #f0f0f0;
+    margin-top: 40px;
+    border: 2px solid black;
   }
-
+  
+  .bankLogosContainer h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .logoGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
   .logoItem {
     width: 100px;
-    height: 80px;
-  }
-
-  .logoGrid {
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .bankLogosContainer h3 {
-    font-size: 1rem;
-  }
-
-  .logoItem {
-    width: 80px;
     height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
   }
-
-  .logoGrid {
-    gap: 0.5rem;
+  
+  .logoItem:hover {
+    transform: scale(1.05);
   }
-}
+  
+  .logoItem img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  @media (max-width: 768px) {
+    .bankLogosContainer h3 {
+      font-size: 1rem;
+    }
+  
+    .logoItem {
+      width: 80px;
+      height: 50px;
+    }
+  
+    .logoGrid {
+      gap: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .bankLogosContainer {
+      padding: 0.5rem 0;
+    }
+  
+    .bankLogosContainer h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .logoItem {
+      width: 60px;
+      height: 40px;
+    }
+  
+    .logoGrid {
+      gap: 0.25rem;
+    }
+  }
+  
+  

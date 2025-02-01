@@ -1,0 +1,15 @@
+.mapContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .mapContainer {
+      margin: 1rem auto;
+      width: 90%;
+    }
+  }
+  
+  
