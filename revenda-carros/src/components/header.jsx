@@ -26,12 +26,15 @@ export default function Header() {
             <img src={WhatsApp || "/placeholder.svg"} alt="WhatsApp" width={24} height={24} />
             <span>(85) 3232-4632</span>
           </a>
+          <div className={styles.horario}>
+          <span>Horario de funcionamento: 8h as 17h Segunda a Sexta e de 8h as 14h aos Sábados</span>
+          </div>
           <div className={styles.socialIcons}>
             <a href="https://www.instagram.com/mcarveiculos/" target="_blank" rel="noopener noreferrer">
-              <img src={Instagram || "/placeholder.svg"} alt="Instagram" width={20} height={20} />
+              <img src={Instagram} alt="Instagram" width={28} height={28} />
             </a>
             <a href="https://www.facebook.com/mcarveiculos3/" target="_blank" rel="noopener noreferrer">
-              <img src={Facebook || "/placeholder.svg"} alt="Facebook" width={20} height={20} />
+              <img src={Facebook} alt="Facebook" width={28} height={28} />
             </a>
           </div>
         </div>
@@ -40,7 +43,7 @@ export default function Header() {
       <div className={styles.mainHeader}>
         <div className={styles.container}>
           <a href="/" className={styles.logoLink}>
-            <img src={LOGO || "/placeholder.svg"} alt="MCAR Logo" className={styles.logo} />
+            <img src={LOGO} alt="MCAR Logo" className={styles.logo} />
           </a>
 
           <button className={styles.menuButton} onClick={toggleMenu}>
