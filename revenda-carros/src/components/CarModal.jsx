@@ -73,11 +73,11 @@ function CarModal({ car, onClose }) {
           <p className={styles.modalPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")}</p>
           <div className={styles.modalDescription}>
             <h4>Descrição</h4>
-            <ol>
+            <ul>
               {car.description.split("\n").map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
-            </ol>
+            </ul>
           </div>
         </div>
         <button className={styles.simulationButton} onClick={handleSimulationClick}>
