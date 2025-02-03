@@ -49,7 +49,8 @@ export default function FinancingSimulation() {
 
 
         const message = `
-Nova solicitação de simulação:
+Olá, vi esse veículo pelo site e queria que fosse feito uma simulação, aqui abaixo estão meus dados:
+
 Nome: ${formData.nome}
 Data de Nascimento: ${formData.dataNascimento}
 CPF: ${formData.cpf}

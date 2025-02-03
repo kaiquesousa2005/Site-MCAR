@@ -22,10 +22,16 @@ function CarModal({ car, onClose }) {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + car.images.length) % car.images.length)
   }
 
+
   const handleSimulationClick = () => {
-    onClose()
-    navigate(`/simulação?carro=${encodeURIComponent(car.name)}`)
-  }
+    onClose();
+    
+    // Formata a string corretamente antes de codificar
+    const carroInfo = `${car.brand} ${car.model} ${car.year} ${car.version}`;
+  
+    // Gera a URL com os parâmetros corretamente codificados
+    navigate(`/simulação?carro=${encodeURIComponent(carroInfo)}`);
+  };
 
   return (
     <div className={styles.modalOverlay}>
@@ -39,7 +45,7 @@ function CarModal({ car, onClose }) {
             {car.images.map((image, index) => (
               <img
                 key={index}
-                src={image || "/placeholder.svg"}
+                src={image}
                 alt={`${car.brand} ${car.model}, vista ${index + 1}`}
                 className={styles.modalImage}
               />
