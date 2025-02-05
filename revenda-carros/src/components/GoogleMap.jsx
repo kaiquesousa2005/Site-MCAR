@@ -8,8 +8,8 @@ const MapComponent = () => {
   }
 
   const defaultCenter = {
-    lat: -3.76529,
-    lng: -38.56771,
+    lat: -3.7608144344169085,
+    lng: -38.5649556176291,
   }
 
   return (
