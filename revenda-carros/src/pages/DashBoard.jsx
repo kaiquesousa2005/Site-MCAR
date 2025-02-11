@@ -1,10 +1,9 @@
-"use client"
-
 import { useState, useEffect, useCallback } from "react"
 import { collection, getDocs, query, orderBy, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db } from "../firebaseConfig"
 import { Trash2, Edit, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { v4 as uuidv4 } from "uuid";  // Importando o uuidv4
 import "./Dashboard.css"
 
 export default function Dashboard() {
@@ -19,55 +18,61 @@ export default function Dashboard() {
     transmission: "",
     doors: "",
     description: "",
-    condition: "",
   })
   const [images, setImages] = useState([])
   const [imagePreviews, setImagePreviews] = useState([])
   const [editingVehicle, setEditingVehicle] = useState(null)
 
   const fetchVehicles = useCallback(async () => {
-    const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"))
-    const querySnapshot = await getDocs(q)
-    const vehiclesData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
-    setVehicles(vehiclesData)
-  }, [])
-
+    try {
+      const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      const vehiclesData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        images: doc.data().images || [] // Garante que 'images' sempre tenha um array
+      }));
+      setVehicles(vehiclesData);
+    } catch (error) {
+      console.error("Erro ao buscar veículos:", error);
+    }
+  }, []);
   useEffect(() => {
-    fetchVehicles()
-    const timer = setTimeout(() => fetchVehicles(), 1000)
-    return () => clearTimeout(timer)
-  }, [fetchVehicles])
+    fetchVehicles();
+  }, [fetchVehicles]);
+
 
   const handleAddVehicle = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const storage = getStorage()
+      const storage = getStorage();
       const imageUrls = await Promise.all(
         images.map(async (image) => {
           if (typeof image === "string") {
-            return image // URL já existente
+            return image; // Retorna a URL se já existir
           }
           try {
-            const imageRef = ref(storage, `vehicles/${image.name}`)
-            await uploadBytes(imageRef, image)
-            return getDownloadURL(imageRef)
+            const imageRef = ref(storage, `vehicles/${Date.now()}_${image.name}`);
+            await uploadBytes(imageRef, image);
+            return await getDownloadURL(imageRef); // Aguarde o download da URL
           } catch (error) {
-            console.error("Erro ao enviar imagem:", error)
-            return null
+            console.error("Erro ao enviar imagem:", error);
+            return null;
           }
-        }),
-      )
+        })
+      );
 
-      const validImageUrls = imageUrls.filter((url) => url !== null)
+      const validImageUrls = imageUrls.filter((url) => url !== null);
 
+      // Adiciona o novo veículo no Firestore
       await addDoc(collection(db, "vehicles"), {
+        id: uuidv4(),  // Adicionando o UUID
         ...newVehicle,
         images: validImageUrls,
         createdAt: new Date(),
-      })
+      });
+
+      // Limpa os estados
       setNewVehicle({
         brand: "",
         model: "",
@@ -78,30 +83,34 @@ export default function Dashboard() {
         transmission: "",
         doors: "",
         description: "",
-        condition: "",
-      })
-      setImages([])
-      setImagePreviews([])
-      fetchVehicles()
+      });
+      setImages([]);
+      setImagePreviews([]);
+
+      // Aguarda o carregamento dos veículos após a adição
+      await fetchVehicles();
     } catch (error) {
-      console.error("Error adding vehicle:", error)
+      console.error("Erro ao adicionar veículo:", error);
     }
-  }
+  };
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files)
+    const files = Array.from(e.target.files);
     const validFiles = files.filter((file) => {
-      const fileType = file.type.toLowerCase()
-      return fileType === "image/jpeg" || fileType === "image/jpg" || fileType === "image/png"
-    })
+      const fileType = file.type.toLowerCase();
+      return fileType === "image/jpeg" || fileType === "image/jpg" || fileType === "image/png";
+    });
 
     if (validFiles.length !== files.length) {
-      alert("Por favor, selecione apenas imagens nos formatos JPG, JPEG ou PNG.")
+      alert("Por favor, selecione apenas imagens nos formatos JPG, JPEG ou PNG.");
     }
 
-    setImages(validFiles)
-    setImagePreviews(validFiles.map((file) => URL.createObjectURL(file)))
-  }
+    setImages(validFiles);
+    setImagePreviews(validFiles.map((file) => URL.createObjectURL(file)));
+
+    console.log("Imagens selecionadas:", validFiles);
+    console.log("Previews das imagens:", validFiles.map((file) => URL.createObjectURL(file)));
+  };
 
   const handleDeleteImage = (index) => {
     const updatedImages = images.filter((_, i) => i !== index)
@@ -121,7 +130,7 @@ export default function Dashboard() {
   const handleDrop = (e, dropIndex) => {
     e.preventDefault();
     const dragIndex = Number.parseInt(e.dataTransfer.getData("text/plain"), 10);
-    
+
     // Usa arrayMove para reorganizar as imagens
     setImages((prevImages) => arrayMove(prevImages, dragIndex, dropIndex));
     setImagePreviews((prevPreviews) => arrayMove(prevPreviews, dragIndex, dropIndex));
@@ -135,33 +144,35 @@ export default function Dashboard() {
   }
 
   const handleUpdateVehicle = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const storage = getStorage()
+      const storage = getStorage();
       const imageUrls = await Promise.all(
         images.map(async (image) => {
           if (image.url) {
-            return image.url // Return existing image URL
+            return image.url;  // Return existing image URL
           }
           try {
-            const imageRef = ref(storage, `vehicles/${image.name}`)
-            await uploadBytes(imageRef, image)
-            return getDownloadURL(imageRef)
+            const imageRef = ref(storage, `vehicles/${image.name}`);
+            await uploadBytes(imageRef, image);
+            return getDownloadURL(imageRef);
           } catch (error) {
-            console.error("Error uploading image:", error)
-            return null
+            console.error("Error uploading image:", error);
+            return null;
           }
         }),
-      )
-
-      const validImageUrls = imageUrls.filter((url) => url !== null)
-
+      );
+  
+      const validImageUrls = imageUrls.filter((url) => url !== null);
+  
+      // Atualiza o veículo sem alterar o ID
       await updateDoc(doc(db, "vehicles", editingVehicle.id), {
         ...newVehicle,
         images: validImageUrls,
         updatedAt: new Date(),
-      })
-      setEditingVehicle(null)
+      });
+  
+      setEditingVehicle(null);
       setNewVehicle({
         brand: "",
         model: "",
@@ -172,27 +183,28 @@ export default function Dashboard() {
         transmission: "",
         doors: "",
         description: "",
-        condition: "",
-      })
-      setImages([])
-      setImagePreviews([])
-      fetchVehicles()
+      });
+      setImages([]);
+      setImagePreviews([]);
+      fetchVehicles();
     } catch (error) {
-      console.error("Error updating vehicle:", error)
+      console.error("Erro ao atualizar o veículo:", error);
     }
-  }
+  };
+  
 
   const handleEditVehicle = (vehicle) => {
-    setNewVehicle(vehicle)
-    setEditingVehicle(vehicle)
+    setNewVehicle(vehicle);
+    setEditingVehicle(vehicle);
+  
     if (vehicle.images) {
-      setImages(vehicle.images.map((url) => ({ name: url.split("/").pop(), url })))
-      setImagePreviews(vehicle.images)
+      setImages(vehicle.images);
+      setImagePreviews(vehicle.images);
     } else {
-      setImages([])
-      setImagePreviews([])
+      setImages([]);
+      setImagePreviews([]);
     }
-  }
+  };
 
   const handleDeleteVehicle = async (id) => {
     try {
@@ -224,14 +236,26 @@ export default function Dashboard() {
       <h1 className="dashboard-title">Administrador</h1>
 
       <form onSubmit={editingVehicle ? handleUpdateVehicle : handleAddVehicle} className="vehicle-form">
-        <input
-          type="text"
-          placeholder="Marca"
+        <select
           value={newVehicle.brand}
           onChange={(e) => setNewVehicle({ ...newVehicle, brand: e.target.value })}
           className="form-input"
           required
-        />
+        >
+          <option value="">Selecione a marca</option>
+          <option value="Fiat">Fiat</option>
+          <option value="Chevrolet">Chevrolet</option>
+          <option value="Toyota">Toyota</option>
+          <option value="Volkswagen">Volkswagen</option>
+          <option value="Jeep">Jeep</option>
+          <option value="Honda">Honda</option>
+          <option value="BMW">BMW</option>
+          <option value="Mitsubishi">Mitsubishi</option>
+          <option value="Nissan">Nissan</option>
+          <option value="Hyundai">Hyundai</option>
+          <option value="Renault">Renault</option>
+          <option value="Ford">Ford</option>
+        </select>
         <input
           type="text"
           placeholder="Modelo"
@@ -297,14 +321,6 @@ export default function Dashboard() {
           className="form-input-description"
           required
         />
-        <input
-          type="text"
-          placeholder="Condição do Veículo"
-          value={newVehicle.condition}
-          onChange={(e) => setNewVehicle({ ...newVehicle, condition: e.target.value })}
-          className="form-input"
-          required
-        />
         <input type="file" multiple onChange={handleImageChange} className="form-input" accept=".jpg,.jpeg,.png" />
         <div className="image-previews">
           {images.map((image, index) => (
@@ -316,7 +332,12 @@ export default function Dashboard() {
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
             >
-              <img src={imagePreviews[index] || "/placeholder.svg"} alt="Preview" className="image-preview" />
+              <img
+                src={imagePreviews[index] ? imagePreviews[index] : "/placeholder.svg"}
+                alt="Preview"
+                className="image-preview"
+                onError={(e) => console.error("Erro ao carregar imagem:", e.target.src)}
+              />
               <button type="button" onClick={() => handleDeleteImage(index)} className="delete-image-button">
                 <X size={16} />
               </button>
@@ -362,7 +383,7 @@ export default function Dashboard() {
                     )}
                   </>
                 ) : (
-                  <img src="/placeholder.svg" alt={`${vehicle.brand} ${vehicle.model}`} className="vehicle-image" />
+                  <img src="" alt={`${vehicle.brand} ${vehicle.model}`} className="vehicle-image" />
                 )}
               </div>
               <div className="vehicle-info">

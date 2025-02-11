@@ -26,7 +26,6 @@ function CarModal({ car, onClose }) {
   const handleSimulationClick = () => {
     onClose();
     
-    // Formata a string corretamente antes de codificar
     const carroInfo = `${car.brand} ${car.model} ${car.year} ${car.version}`;
   
     // Gera a URL com os parâmetros corretamente codificados
@@ -71,9 +70,6 @@ function CarModal({ car, onClose }) {
             </p>
             <p>
               <strong>Portas:</strong> {car.doors}
-            </p>
-            <p>
-              <strong>Condição:</strong> {car.condition}
             </p>
           </div>
           <p className={styles.modalPrice}>Preço: R$ {Number(car.price).toLocaleString("pt-BR")}</p>
