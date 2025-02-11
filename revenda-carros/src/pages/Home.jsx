@@ -59,14 +59,14 @@ function CarShowcase() {
     const filtered = cars.filter((car) => {
       const matchesSearch =
         car.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        car.model.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesBrand = !filters.brand || car.brand === filters.brand
-      const matchesYear = !filters.year || car.year === filters.year
-      const matchesTransmission = !filters.transmission || car.transmission === filters.transmission
-      const matchesDoors = !filters.doors || car.doors === filters.doors
-      const matchesPriceMin = !filters.priceMin || Number(car.price) >= Number(filters.priceMin)
-      const matchesPriceMax = !filters.priceMax || Number(car.price) <= Number(filters.priceMax)
-
+        car.model.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesBrand = !filters.brand || car.brand === filters.brand;
+      const matchesYear = !filters.year || Number(car.year) <= Number(filters.year);
+      const matchesTransmission = !filters.transmission || car.transmission === filters.transmission;
+      const matchesDoors = !filters.doors || car.doors === filters.doors;
+      const matchesPriceMin = !filters.priceMin || Number(car.price) >= Number(filters.priceMin);
+      const matchesPriceMax = !filters.priceMax || Number(car.price) <= Number(filters.priceMax);
+  
       return (
         matchesSearch &&
         matchesBrand &&
@@ -75,10 +75,16 @@ function CarShowcase() {
         matchesDoors &&
         matchesPriceMin &&
         matchesPriceMax
-      )
-    })
-    setFilteredCars(filtered)
-  }, [searchTerm, filters, cars])
+      );
+    });
+  
+    // Ordenar os carros filtrados do maior ano para o menor ano apenas se um ano foi selecionado
+    const sortedFilteredCars = filters.year ? 
+      filtered.sort((a, b) => Number(b.year) - Number(a.year)) : 
+      filtered;
+  
+    setFilteredCars(sortedFilteredCars);
+  }, [searchTerm, filters, cars]);
 
   const openModal = (car) => {
     setSelectedCar(car)
@@ -160,7 +166,9 @@ function CarShowcase() {
                 <select name="doors" value={filters.doors} onChange={handleFilterChange}>
                   <option value="">Todas as Portas</option>
                   <option value="2">2 Portas</option>
+                  <option value="3">3 Portas</option>
                   <option value="4">4 Portas</option>
+                  <option value="5">5 Portas</option>
                 </select>
                 <input
                   type="number"
@@ -194,7 +202,7 @@ function CarShowcase() {
                             {car.images.map((image, index) => (
                               <img
                                 key={index}
-                                src={image || "/placeholder.svg"}
+                                src={image}
                                 alt={`${car.brand} ${car.model}`}
                                 className={styles.carImage}
                               />

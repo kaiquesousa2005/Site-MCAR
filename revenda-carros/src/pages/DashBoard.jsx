@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react"
+"use client"
+
+import { useState, useEffect, useCallback } from "react"
 import { collection, getDocs, query, orderBy, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db } from "../firebaseConfig"
 import { Trash2, Edit, X, ChevronLeft, ChevronRight } from "lucide-react"
 import "./Dashboard.css"
-
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
@@ -24,7 +25,7 @@ export default function Dashboard() {
   const [imagePreviews, setImagePreviews] = useState([])
   const [editingVehicle, setEditingVehicle] = useState(null)
 
-  const fetchVehicles = async () => {
+  const fetchVehicles = useCallback(async () => {
     const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"))
     const querySnapshot = await getDocs(q)
     const vehiclesData = querySnapshot.docs.map((doc) => ({
@@ -32,11 +33,13 @@ export default function Dashboard() {
       ...doc.data(),
     }))
     setVehicles(vehiclesData)
-  }
+  }, [])
 
   useEffect(() => {
     fetchVehicles()
-  }, [])
+    const timer = setTimeout(() => fetchVehicles(), 1000)
+    return () => clearTimeout(timer)
+  }, [fetchVehicles])
 
   const handleAddVehicle = async (e) => {
     e.preventDefault()
@@ -44,12 +47,15 @@ export default function Dashboard() {
       const storage = getStorage()
       const imageUrls = await Promise.all(
         images.map(async (image) => {
+          if (typeof image === "string") {
+            return image // URL já existente
+          }
           try {
             const imageRef = ref(storage, `vehicles/${image.name}`)
             await uploadBytes(imageRef, image)
             return getDownloadURL(imageRef)
           } catch (error) {
-            console.error("Error uploading image:", error)
+            console.error("Erro ao enviar imagem:", error)
             return null
           }
         }),
@@ -84,8 +90,17 @@ export default function Dashboard() {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
-    setImages(files)
-    setImagePreviews(files.map((file) => URL.createObjectURL(file)))
+    const validFiles = files.filter((file) => {
+      const fileType = file.type.toLowerCase()
+      return fileType === "image/jpeg" || fileType === "image/jpg" || fileType === "image/png"
+    })
+
+    if (validFiles.length !== files.length) {
+      alert("Por favor, selecione apenas imagens nos formatos JPG, JPEG ou PNG.")
+    }
+
+    setImages(validFiles)
+    setImagePreviews(validFiles.map((file) => URL.createObjectURL(file)))
   }
 
   const handleDeleteImage = (index) => {
@@ -96,21 +111,21 @@ export default function Dashboard() {
   }
 
   const handleDragStart = (e, index) => {
-    e.dataTransfer.setData("index", index)
+    e.dataTransfer.setData("text/plain", index)
   }
 
   const handleDragOver = (e) => {
     e.preventDefault()
   }
 
-  const handleDrop = (e, overIndex) => {
-    e.preventDefault()
-    const draggedIndex = Number.parseInt(e.dataTransfer.getData("index"))
-    const updatedImages = arrayMove(images, draggedIndex, overIndex)
-    const updatedPreviews = arrayMove(imagePreviews, draggedIndex, overIndex)
-    setImages(updatedImages)
-    setImagePreviews(updatedPreviews)
-  }
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+    const dragIndex = Number.parseInt(e.dataTransfer.getData("text/plain"), 10);
+    
+    // Usa arrayMove para reorganizar as imagens
+    setImages((prevImages) => arrayMove(prevImages, dragIndex, dropIndex));
+    setImagePreviews((prevPreviews) => arrayMove(prevPreviews, dragIndex, dropIndex));
+  };
 
   const arrayMove = (arr, fromIndex, toIndex) => {
     const newArr = [...arr]
@@ -290,19 +305,19 @@ export default function Dashboard() {
           className="form-input"
           required
         />
-        <input type="file" multiple onChange={handleImageChange} className="form-input" />
+        <input type="file" multiple onChange={handleImageChange} className="form-input" accept=".jpg,.jpeg,.png" />
         <div className="image-previews">
-          {imagePreviews.map((preview, index) => (
+          {images.map((image, index) => (
             <div
-              className="image-preview-container"
               key={index}
+              className="image-preview-container"
               draggable
               onDragStart={(e) => handleDragStart(e, index)}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
             >
-              <img src={preview || "/placeholder.svg"} alt={`Preview ${index + 1}`} className="image-preview" />
-              <button type="button" className="delete-image-button" onClick={() => handleDeleteImage(index)}>
+              <img src={imagePreviews[index] || "/placeholder.svg"} alt="Preview" className="image-preview" />
+              <button type="button" onClick={() => handleDeleteImage(index)} className="delete-image-button">
                 <X size={16} />
               </button>
             </div>
@@ -329,7 +344,7 @@ export default function Dashboard() {
                       {vehicle.images.map((image, index) => (
                         <img
                           key={index}
-                          src={image}
+                          src={image || "/placeholder.svg"}
                           alt={`${vehicle.brand} ${vehicle.model}`}
                           className="vehicle-image"
                         />

@@ -64,7 +64,7 @@ function CarModal({ car, onClose }) {
               <strong>Ano:</strong> {car.year}
             </p>
             <p>
-              <strong>Kilometragem:</strong> {car.mileage} km
+              <strong>Quilometragem:</strong> {car.mileage}Km
             </p>
             <p>
               <strong>Câmbio:</strong> {car.transmission}
