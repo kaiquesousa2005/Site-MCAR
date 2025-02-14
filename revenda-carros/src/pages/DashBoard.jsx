@@ -1,122 +1,65 @@
-import { useState, useEffect, useCallback } from "react"
-import { collection, getDocs, query, orderBy, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore"
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { db } from "../firebaseConfig"
-import { Trash2, Edit, X, ChevronLeft, ChevronRight } from "lucide-react"
-import { v4 as uuidv4 } from "uuid";  // Importando o uuidv4
+import { useState, useEffect } from "react"
+import { db, storage } from "../firebaseConfig"
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore"
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage"
+import { v4 as uuidv4 } from "uuid"
 import "./Dashboard.css"
 
-export default function Dashboard() {
-  const [vehicles, setVehicles] = useState([])
-  const [newVehicle, setNewVehicle] = useState({
+const Admin = () => {
+  const [formData, setFormData] = useState({
     brand: "",
     model: "",
     version: "",
     year: "",
     mileage: "",
-    price: "",
-    transmission: "",
     doors: "",
+    transmission: "",
+    price: "",
     description: "",
+    images: [],
   })
-  const [images, setImages] = useState([])
-  const [imagePreviews, setImagePreviews] = useState([])
+  const [vehicles, setVehicles] = useState([])
+  const [previewImages, setPreviewImages] = useState([])
   const [editingVehicle, setEditingVehicle] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  const fetchVehicles = useCallback(async () => {
-    try {
-      const q = query(collection(db, "vehicles"), orderBy("createdAt", "desc"));
-      const querySnapshot = await getDocs(q);
-      const vehiclesData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        images: doc.data().images || [] // Garante que 'images' sempre tenha um array
-      }));
-      setVehicles(vehiclesData);
-    } catch (error) {
-      console.error("Erro ao buscar veículos:", error);
-    }
-  }, []);
   useEffect(() => {
-    fetchVehicles();
-  }, [fetchVehicles]);
+    fetchVehicles()
+  }, [])
 
-
-  const handleAddVehicle = async (e) => {
-    e.preventDefault();
+  const fetchVehicles = async () => {
+    setLoading(true)
     try {
-      const storage = getStorage();
-      const imageUrls = await Promise.all(
-        images.map(async (image) => {
-          if (typeof image === "string") {
-            return image; // Retorna a URL se já existir
-          }
-          try {
-            const imageRef = ref(storage, `vehicles/${Date.now()}_${image.name}`);
-            await uploadBytes(imageRef, image);
-            return await getDownloadURL(imageRef); // Aguarde o download da URL
-          } catch (error) {
-            console.error("Erro ao enviar imagem:", error);
-            return null;
-          }
-        })
-      );
-
-      const validImageUrls = imageUrls.filter((url) => url !== null);
-
-      // Adiciona o novo veículo no Firestore
-      await addDoc(collection(db, "vehicles"), {
-        id: uuidv4(),  // Adicionando o UUID
-        ...newVehicle,
-        images: validImageUrls,
-        createdAt: new Date(),
-      });
-
-      // Limpa os estados
-      setNewVehicle({
-        brand: "",
-        model: "",
-        version: "",
-        year: "",
-        mileage: "",
-        price: "",
-        transmission: "",
-        doors: "",
-        description: "",
-      });
-      setImages([]);
-      setImagePreviews([]);
-
-      // Aguarda o carregamento dos veículos após a adição
-      await fetchVehicles();
+      const vehiclesCollection = collection(db, "vehicles")
+      const vehicleSnapshot = await getDocs(vehiclesCollection)
+      const vehicleList = vehicleSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      setVehicles(vehicleList)
     } catch (error) {
-      console.error("Erro ao adicionar veículo:", error);
+      console.error("Error fetching vehicles:", error)
+      alert("Erro ao carregar veículos. Por favor, tente novamente.")
+    } finally {
+      setLoading(false)
     }
-  };
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    const validFiles = files.filter((file) => {
-      const fileType = file.type.toLowerCase();
-      return fileType === "image/jpeg" || fileType === "image/jpg" || fileType === "image/png";
-    });
+    const files = Array.from(e.target.files)
+    setPreviewImages((prevImages) => [
+      ...prevImages,
+      ...files.map((file) => ({ file, url: URL.createObjectURL(file) })),
+    ])
+  }
 
-    if (validFiles.length !== files.length) {
-      alert("Por favor, selecione apenas imagens nos formatos JPG, JPEG ou PNG.");
-    }
-
-    setImages(validFiles);
-    setImagePreviews(validFiles.map((file) => URL.createObjectURL(file)));
-
-    console.log("Imagens selecionadas:", validFiles);
-    console.log("Previews das imagens:", validFiles.map((file) => URL.createObjectURL(file)));
-  };
-
-  const handleDeleteImage = (index) => {
-    const updatedImages = images.filter((_, i) => i !== index)
-    const updatedPreviews = imagePreviews.filter((_, i) => i !== index)
-    setImages(updatedImages)
-    setImagePreviews(updatedPreviews)
+  const handleImageRemove = (index) => {
+    setPreviewImages((prevImages) => prevImages.filter((_, i) => i !== index))
   }
 
   const handleDragStart = (e, index) => {
@@ -128,285 +71,263 @@ export default function Dashboard() {
   }
 
   const handleDrop = (e, dropIndex) => {
-    e.preventDefault();
-    const dragIndex = Number.parseInt(e.dataTransfer.getData("text/plain"), 10);
-
-    // Usa arrayMove para reorganizar as imagens
-    setImages((prevImages) => arrayMove(prevImages, dragIndex, dropIndex));
-    setImagePreviews((prevPreviews) => arrayMove(prevPreviews, dragIndex, dropIndex));
-  };
+    e.preventDefault()
+    const dragIndex = Number(e.dataTransfer.getData("text/plain"))
+    const newImages = arrayMove(previewImages, dragIndex, dropIndex)
+    setPreviewImages(newImages)
+  }
 
   const arrayMove = (arr, fromIndex, toIndex) => {
     const newArr = [...arr]
-    const element = newArr.splice(fromIndex, 1)[0]
-    newArr.splice(toIndex, 0, element)
+    const [movedItem] = newArr.splice(fromIndex, 1)
+    newArr.splice(toIndex, 0, movedItem)
     return newArr
   }
 
-  const handleUpdateVehicle = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
     try {
-      const storage = getStorage();
-      const imageUrls = await Promise.all(
-        images.map(async (image) => {
-          if (image.url) {
-            return image.url;  // Return existing image URL
-          }
-          try {
-            const imageRef = ref(storage, `vehicles/${image.name}`);
-            await uploadBytes(imageRef, image);
-            return getDownloadURL(imageRef);
-          } catch (error) {
-            console.error("Error uploading image:", error);
-            return null;
-          }
-        }),
-      );
-  
-      const validImageUrls = imageUrls.filter((url) => url !== null);
-  
-      // Atualiza o veículo sem alterar o ID
-      await updateDoc(doc(db, "vehicles", editingVehicle.id), {
-        ...newVehicle,
-        images: validImageUrls,
-        updatedAt: new Date(),
-      });
-  
-      setEditingVehicle(null);
-      setNewVehicle({
+      let imageUrls = []
+
+      if (previewImages.length > 0) {
+        imageUrls = await Promise.all(
+          previewImages.map(async (image) => {
+            if (image.file) {
+              const uniqueFileName = `${uuidv4()}-${image.file.name}`
+              const imageRef = ref(storage, `vehicles/${uniqueFileName}`)
+              await uploadBytes(imageRef, image.file)
+              return getDownloadURL(imageRef)
+            } else {
+              return image.url
+            }
+          }),
+        )
+      }
+
+      const vehicleData = {
+        ...formData,
+        images: imageUrls,
+        mileage: Number(formData.mileage),
+        doors: Number(formData.doors),
+        year: Number(formData.year),
+        price: Number(formData.price),
+        createdAt: new Date(),
+      }
+
+      if (editingVehicle) {
+        await updateDoc(doc(db, "vehicles", editingVehicle.id), vehicleData)
+        alert("Veículo atualizado com sucesso!")
+      } else {
+        await addDoc(collection(db, "vehicles"), vehicleData)
+        alert("Veículo adicionado com sucesso!")
+      }
+
+      setFormData({
         brand: "",
         model: "",
         version: "",
         year: "",
         mileage: "",
-        price: "",
-        transmission: "",
         doors: "",
+        transmission: "",
+        price: "",
         description: "",
-      });
-      setImages([]);
-      setImagePreviews([]);
-      fetchVehicles();
-    } catch (error) {
-      console.error("Erro ao atualizar o veículo:", error);
-    }
-  };
-  
-
-  const handleEditVehicle = (vehicle) => {
-    setNewVehicle(vehicle);
-    setEditingVehicle(vehicle);
-  
-    if (vehicle.images) {
-      setImages(vehicle.images);
-      setImagePreviews(vehicle.images);
-    } else {
-      setImages([]);
-      setImagePreviews([]);
-    }
-  };
-
-  const handleDeleteVehicle = async (id) => {
-    try {
-      await deleteDoc(doc(db, "vehicles", id))
+        images: [],
+      })
+      setPreviewImages([])
+      setEditingVehicle(null)
       fetchVehicles()
     } catch (error) {
-      console.error("Error deleting vehicle:", error)
+      console.error("Erro ao adicionar/atualizar veículo:", error)
+      alert("Erro ao adicionar/atualizar veículo. Tente novamente.")
+    } finally {
+      setLoading(false)
     }
   }
 
-  const handleImageNav = (vehicleId, direction) => {
-    setVehicles((prevVehicles) => {
-      return prevVehicles.map((vehicle) => {
-        if (vehicle.id === vehicleId) {
-          const currentIndex = vehicle.currentImageIndex || 0
-          const newIndex =
-            direction === "next"
-              ? (currentIndex + 1) % vehicle.images.length
-              : (currentIndex - 1 + vehicle.images.length) % vehicle.images.length
-          return { ...vehicle, currentImageIndex: newIndex }
-        }
-        return vehicle
-      })
+  const handleEdit = (vehicle) => {
+    setEditingVehicle(vehicle)
+    setFormData({
+      ...vehicle,
+      year: vehicle.year.toString(),
+      mileage: vehicle.mileage.toString(),
+      doors: vehicle.doors.toString(),
+      price: vehicle.price.toString(),
     })
+    setPreviewImages(vehicle.images.map((url) => ({ url })))
+  }
+
+  const handleDelete = async (id, images) => {
+    if (window.confirm("Tem certeza que deseja excluir este veículo?")) {
+      setLoading(true)
+      try {
+        await deleteDoc(doc(db, "vehicles", id))
+
+        for (const imageUrl of images) {
+          try {
+            const imageRef = ref(storage, imageUrl)
+            await deleteObject(imageRef)
+          } catch (error) {
+            console.warn(`Erro ao excluir a imagem: ${imageUrl}`, error)
+          }
+        }
+
+        alert("Veículo excluído com sucesso!")
+        fetchVehicles()
+      } catch (error) {
+        console.error("Erro ao excluir veículo:", error)
+        alert("Erro ao excluir veículo. Tente novamente.")
+      } finally {
+        setLoading(false)
+      }
+    }
   }
 
   return (
-    <div className="dashboard-container">
-      <h1 className="dashboard-title">Administrador</h1>
-
-      <form onSubmit={editingVehicle ? handleUpdateVehicle : handleAddVehicle} className="vehicle-form">
-        <select
-          value={newVehicle.brand}
-          onChange={(e) => setNewVehicle({ ...newVehicle, brand: e.target.value })}
-          className="form-input"
-          required
-        >
-          <option value="">Selecione a marca</option>
-          <option value="Fiat">Fiat</option>
-          <option value="Chevrolet">Chevrolet</option>
-          <option value="Toyota">Toyota</option>
-          <option value="Volkswagen">Volkswagen</option>
-          <option value="Jeep">Jeep</option>
-          <option value="Honda">Honda</option>
-          <option value="BMW">BMW</option>
-          <option value="Mitsubishi">Mitsubishi</option>
-          <option value="Nissan">Nissan</option>
-          <option value="Hyundai">Hyundai</option>
-          <option value="Renault">Renault</option>
-          <option value="Ford">Ford</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Modelo"
-          value={newVehicle.model}
-          onChange={(e) => setNewVehicle({ ...newVehicle, model: e.target.value })}
-          className="form-input"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Versão"
-          value={newVehicle.version}
-          onChange={(e) => setNewVehicle({ ...newVehicle, version: e.target.value })}
-          className="form-input"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Ano"
-          value={newVehicle.year}
-          onChange={(e) => setNewVehicle({ ...newVehicle, year: e.target.value })}
-          className="form-input"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Quilometragem"
-          value={newVehicle.mileage}
-          onChange={(e) => setNewVehicle({ ...newVehicle, mileage: e.target.value })}
-          className="form-input"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Preço"
-          value={newVehicle.price}
-          onChange={(e) => setNewVehicle({ ...newVehicle, price: e.target.value })}
-          className="form-input"
-          required
-        />
-        <select
-          value={newVehicle.transmission}
-          onChange={(e) => setNewVehicle({ ...newVehicle, transmission: e.target.value })}
-          className="form-input"
-          required
-        >
-          <option value="">Selecione o tipo de câmbio</option>
-          <option value="Manual">Manual</option>
-          <option value="Automático">Automático</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Quantidade de portas"
-          value={newVehicle.doors}
-          onChange={(e) => setNewVehicle({ ...newVehicle, doors: e.target.value })}
-          className="form-input"
-          required
-        />
-        <textarea
-          placeholder="Descrição"
-          value={newVehicle.description}
-          onChange={(e) => setNewVehicle({ ...newVehicle, description: e.target.value })}
-          className="form-input-description"
-          required
-        />
-        <input type="file" multiple onChange={handleImageChange} className="form-input" accept=".jpg,.jpeg,.png" />
-        <div className="image-previews">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="image-preview-container"
-              draggable
-              onDragStart={(e) => handleDragStart(e, index)}
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, index)}
+    <div className="admin-container">
+      {loading && <div className="loading-spinner" />}
+      <div className="admin-header">
+        <h1 className="admin-title">Admin Dashboard</h1>
+      </div>
+      <div className="admin-content">
+        <form onSubmit={handleSubmit} className="admin-form">
+          <div className="form-group">
+            <label htmlFor="brand">Marca</label>
+            <select
+              id="brand"
+              name="brand"
+              value={formData.brand}
+              onChange={handleChange}
+              required
             >
-              <img
-                src={imagePreviews[index] ? imagePreviews[index] : "/placeholder.svg"}
-                alt="Preview"
-                className="image-preview"
-                onError={(e) => console.error("Erro ao carregar imagem:", e.target.src)}
+              <option value="">Selecione a marca</option>
+              <option value="Fiat">Fiat</option>
+              <option value="Chevrolet">Chevrolet</option>
+              <option value="Toyota">Toyota</option>
+              <option value="Volkswagen">Volkswagen</option>
+              <option value="Jeep">Jeep</option>
+              <option value="Honda">Honda</option>
+              <option value="BMW">BMW</option>
+              <option value="Mitsubishi">Mitsubishi</option>
+              <option value="Nissan">Nissan</option>
+              <option value="Hyundai">Hyundai</option>
+              <option value="Renault">Renault</option>
+              <option value="Ford">Ford</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="model">Modelo</label>
+            <input type="text" id="model" name="model" value={formData.model} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="version">Versão</label>
+            <input type="text" id="version" name="version" value={formData.version} onChange={handleChange} required />
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="year">Ano</label>
+              <input type="number" id="year" name="year" value={formData.year} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="mileage">Quilometragem</label>
+              <input
+                type="number"
+                id="mileage"
+                name="mileage"
+                value={formData.mileage}
+                onChange={handleChange}
+                required
               />
-              <button type="button" onClick={() => handleDeleteImage(index)} className="delete-image-button">
-                <X size={16} />
-              </button>
             </div>
-          ))}
-        </div>
-
-        <button type="submit" className="submit-button">
-          {editingVehicle ? "Atualizar Veículo" : "Adicionar Veículo"}
-        </button>
-      </form>
-
-      <div className="vehicles-section">
-        <h2 className="vehicles-count">Veículos Disponíveis: {vehicles.length}</h2>
-        <div className="vehicles-grid">
-          {vehicles.map((vehicle) => (
-            <div className="vehicle-card" key={vehicle.id}>
-              <div className="vehicle-image-container">
-                {vehicle.images && vehicle.images.length > 0 ? (
-                  <>
-                    <div
-                      className="image-wrapper"
-                      style={{ transform: `translateX(-${vehicle.currentImageIndex * 100}%)` }}
-                    >
-                      {vehicle.images.map((image, index) => (
-                        <img
-                          key={index}
-                          src={image || "/placeholder.svg"}
-                          alt={`${vehicle.brand} ${vehicle.model}`}
-                          className="vehicle-image"
-                        />
-                      ))}
-                    </div>
-                    {vehicle.images.length > 1 && (
-                      <>
-                        <button className="image-nav-button left" onClick={() => handleImageNav(vehicle.id, "prev")}>
-                          <ChevronLeft size={20} />
-                        </button>
-                        <button className="image-nav-button right" onClick={() => handleImageNav(vehicle.id, "next")}>
-                          <ChevronRight size={20} />
-                        </button>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <img src="" alt={`${vehicle.brand} ${vehicle.model}`} className="vehicle-image" />
-                )}
-              </div>
-              <div className="vehicle-info">
-                <h3 className="vehicle-title">
-                  {vehicle.brand} {vehicle.model}
-                </h3>
-                <p className="vehicle-details">Versão: {vehicle.version}</p>
-                <p className="vehicle-details">Ano: {vehicle.year}</p>
-                <p className="vehicle-price">R$ {Number(vehicle.price).toLocaleString("pt-BR")}</p>
-              </div>
-              <div className="vehicle-actions">
-                <button className="action-button edit" onClick={() => handleEditVehicle(vehicle)}>
-                  <Edit size={20} />
-                </button>
-                <button className="action-button delete" onClick={() => handleDeleteVehicle(vehicle.id)}>
-                  <Trash2 size={20} />
+            <div className="form-group">
+              <label htmlFor="doors">Portas</label>
+              <input type="number" id="doors" name="doors" value={formData.doors} onChange={handleChange} required />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="transmission">Câmbio</label>
+              <select
+                id="transmission"
+                name="transmission"
+                value={formData.transmission}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecione</option>
+                <option value="manual">Manual</option>
+                <option value="automatico">Automático</option>
+              </select>
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Preço</label>
+            <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+          <label htmlFor="description">Descrição</label>
+          <textarea value={formData.description} onChange={handleChange} name="description" type="text" id="description">
+          </textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="images">Imagens do veículo</label>
+            <input type="file" id="images" name="images" onChange={handleImageChange} multiple />
+          </div>
+          <div className="image-previews">
+            {previewImages.map((image, index) => (
+              <div
+                key={index}
+                className="image-preview-container"
+                draggable
+                onDragStart={(e) => handleDragStart(e, index)}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, index)}
+              >
+                <img src={image.url} alt={`Preview ${index + 1}`} className="image-preview" />
+                <button type="button" className="remove-image" onClick={() => handleImageRemove(index)}>
+                  &times;
                 </button>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button type="submit" className="submit-button" disabled={loading}>
+            {editingVehicle ? "Atualizar Veículo" : "Adicionar Veículo"}
+          </button>
+        </form>
+        <div className="vehicle-list">
+          <h2 className="vehicle-list-title">Veículos Cadastrados: {vehicles.length}</h2>
+          <div className="vehicle-grid">
+            {vehicles.map((vehicle) => (
+              <div key={vehicle.id} className="vehicle-card">
+                <img src={vehicle.images[0] || "/placeholder.svg"} alt={vehicle.brand} className="vehicle-image" />
+                <div className="vehicle-info">
+                  <h3 className="vehicle-title">
+                    {vehicle.brand} {vehicle.model}
+                  </h3>
+                  <p className="vehicle-details">Ano: {vehicle.year}</p>
+                  <p className="vehicle-details">Preço: R$ {vehicle.price.toLocaleString()}</p>
+                </div>
+                <div className="vehicle-actions">
+                  <button onClick={() => handleEdit(vehicle)} className="edit-button" disabled={loading}>
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => handleDelete(vehicle.id, vehicle.images)}
+                    className="delete-button"
+                    disabled={loading}
+                  >
+                    Excluir
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
+export default Admin
