@@ -268,7 +268,9 @@ body {
     flex-direction: column;
   }
 
-  .admin-form,
+  .admin-form {
+    width: 88%;
+  }
   .vehicle-list {
     width: 100%;
   }

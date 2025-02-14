@@ -306,6 +306,7 @@ const Admin = () => {
                   <h3 className="vehicle-title">
                     {vehicle.brand} {vehicle.model}
                   </h3>
+                  <p className="vehicle-details">Versão: {vehicle.version}</p>
                   <p className="vehicle-details">Ano: {vehicle.year}</p>
                   <p className="vehicle-details">Preço: R$ {vehicle.price.toLocaleString()}</p>
                 </div>
