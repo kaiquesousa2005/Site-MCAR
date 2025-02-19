@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import CarModal from "../components/CarModal"
 import BankLogos from "../components/BankLogos"
 import MapComponent from "../components/GoogleMap"
@@ -8,6 +9,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore"
 import { db } from "../firebaseConfig"
 
 function CarShowcase() {
+  const navigate = useNavigate()
   const [cars, setCars] = useState([])
   const [filteredCars, setFilteredCars] = useState([])
   const [selectedCar, setSelectedCar] = useState(null)
@@ -118,7 +120,30 @@ function CarShowcase() {
   
   return (
     <div className={styles.root}>
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>Encontre o carro dos seus sonhos</h1>
+          <p className={styles.heroSubtitle}>Qualidade e confiança em cada veículo</p>
+          <div className={styles.heroButtons}>
+            <button
+              className={styles.heroButton}
+              onClick={() => document.getElementById("estoque").scrollIntoView({ behavior: "smooth" })}
+            >
+              Estoque
+            </button>
+            <button className={styles.heroButton} onClick={() => navigate("/simulação")}>
+              Simulação
+            </button>
+          </div>
+          <div className={styles.heroHours}>
+            <p>Horário de funcionamento:</p>
+            <p>Segunda a Sexta: 8h às 17h</p>
+            <p>Sábado: 8h às 14h</p>
+          </div>
       <BankLogos />
+        </div>
+      </section>
+
       <div className={styles.carShowcase} id="estoque">
         <div className="container">
           <section className={styles.carsSection}>

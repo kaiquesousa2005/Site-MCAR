@@ -26,9 +26,7 @@ export default function Header() {
             <img src={WhatsApp || "/placeholder.svg"} alt="WhatsApp" width={24} height={24} />
             <span>(85) 3232-4632</span>
           </a>
-          <div className={styles.horario}>
-          <span>Horario de funcionamento: 8h as 17h Segunda a Sexta e de 8h as 14h aos Sábados</span>
-          </div>
+
           <div className={styles.socialIcons}>
             <a href="https://www.instagram.com/mcarveiculos/" target="_blank" rel="noopener noreferrer">
               <img src={Instagram} alt="Instagram" width={28} height={28} />

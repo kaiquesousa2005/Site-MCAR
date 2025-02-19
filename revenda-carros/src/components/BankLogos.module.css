@@ -1,15 +1,12 @@
 .bankLogosContainer {
     padding: 1rem 0;
-    background-color: #f0f0f0;
-    margin-top: 40px;
-    border: 2px solid black;
   }
   
   .bankLogosContainer h3 {
     text-align: center;
     margin-bottom: 1rem;
     font-size: 1.2rem;
-    color: #333;
+    color: #ffffff;
   }
   
   .logoGrid {
