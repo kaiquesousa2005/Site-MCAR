@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { db, storage } from "../firebaseConfig"
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -159,31 +161,38 @@ const Admin = () => {
     setPreviewImages(vehicle.images.map((url) => ({ url })))
   }
 
-  const handleDelete = async (id, images) => {
-    if (window.confirm("Tem certeza que deseja excluir este veículo?")) {
-      setLoading(true)
-      try {
-        await deleteDoc(doc(db, "vehicles", id))
+ const handleDelete = async (id, images) => {
+  if (window.confirm("Tem certeza que deseja excluir este veículo?")) {
+    setLoading(true);
+    try {
+      // Deletar o documento no Firestore
+      await deleteDoc(doc(db, "vehicles", id));
+      console.log(`Documento ${id} excluído com sucesso do Firestore.`);
 
-        for (const imageUrl of images) {
-          try {
-            const imageRef = ref(storage, imageUrl)
-            await deleteObject(imageRef)
-          } catch (error) {
-            console.warn(`Erro ao excluir a imagem: ${imageUrl}`, error)
-          }
+      // Deletar imagens do Firebase Storage
+      for (const imageUrl of images) {
+        try {
+          const storagePath = decodeURIComponent(imageUrl.split("/o/")[1].split("?")[0]); // Obtendo o caminho relativo
+          const imageRef = ref(storage, storagePath);
+          await deleteObject(imageRef);
+          console.log(`Imagem ${storagePath} excluída com sucesso do Storage.`);
+        } catch (error) {
+          console.error(`Erro ao excluir a imagem ${imageUrl}:`, error);
         }
-
-        alert("Veículo excluído com sucesso!")
-        fetchVehicles()
-      } catch (error) {
-        console.error("Erro ao excluir veículo:", error)
-        alert("Erro ao excluir veículo. Tente novamente.")
-      } finally {
-        setLoading(false)
       }
+
+      // Atualizar estado local
+      setVehicles((prevVehicles) => prevVehicles.filter((vehicle) => vehicle.id !== id));
+      alert("Veículo excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir veículo:", error);
+      alert(`Erro ao excluir veículo. Tente novamente. Detalhes: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   }
+};
+
 
   return (
     <div className="admin-container">
@@ -195,13 +204,7 @@ const Admin = () => {
         <form onSubmit={handleSubmit} className="admin-form">
           <div className="form-group">
             <label htmlFor="brand">Marca</label>
-            <select
-              id="brand"
-              name="brand"
-              value={formData.brand}
-              onChange={handleChange}
-              required
-            >
+            <select id="brand" name="brand" value={formData.brand} onChange={handleChange} required>
               <option value="">Selecione a marca</option>
               <option value="Fiat">Fiat</option>
               <option value="Chevrolet">Chevrolet</option>
@@ -243,7 +246,12 @@ const Admin = () => {
             </div>
             <div className="form-group">
               <label htmlFor="doors">Portas</label>
-              <input type="number" id="doors" name="doors" value={formData.doors} onChange={handleChange} required />
+              <select id="doors" name="doors" value={formData.doors} onChange={handleChange} required>
+                <option value="">Selecione</option>
+                <option value="2">2 Portas</option>
+                <option value="3">3 Portas</option>
+                <option value="4">4 Portas</option>
+              </select>
             </div>
           </div>
           <div className="form-row">
@@ -258,7 +266,7 @@ const Admin = () => {
               >
                 <option value="">Selecione</option>
                 <option value="manual">Manual</option>
-                <option value="automatico">Automático</option>
+                <option value="automatico">Automatico</option>
               </select>
             </div>
           </div>
@@ -267,9 +275,14 @@ const Admin = () => {
             <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} required />
           </div>
           <div className="form-group">
-          <label htmlFor="description">Descrição</label>
-          <textarea value={formData.description} onChange={handleChange} name="description" type="text" id="description">
-          </textarea>
+            <label htmlFor="description">Descrição</label>
+            <textarea
+              value={formData.description}
+              onChange={handleChange}
+              name="description"
+              type="text"
+              id="description"
+            ></textarea>
           </div>
           <div className="form-group">
             <label htmlFor="images">Imagens do veículo</label>
@@ -285,15 +298,15 @@ const Admin = () => {
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, index)}
               >
-                <img src={image.url} alt={`Preview ${index + 1}`} className="image-preview" />
+                <img src={image.url || "/placeholder.svg"} alt={`Preview ${index + 1}`} className="image-preview" />
                 <button type="button" className="remove-image" onClick={() => handleImageRemove(index)}>
                   &times;
                 </button>
               </div>
             ))}
           </div>
-          <button type="submit" className="submit-button" disabled={loading}>
-            {editingVehicle ? "Atualizar Veículo" : "Adicionar Veículo"}
+          <button type="submit" className="submit-button" disabled={loading} aria-label="Salvar veículo">
+            {loading ? "Salvando..." : editingVehicle ? "Atualizar Veículo" : "Adicionar Veículo"}
           </button>
         </form>
         <div className="vehicle-list">
@@ -332,3 +345,4 @@ const Admin = () => {
 }
 
 export default Admin
+

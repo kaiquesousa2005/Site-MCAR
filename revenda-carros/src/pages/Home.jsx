@@ -23,19 +23,6 @@ function CarShowcase() {
 
   const [currentImageIndices, setCurrentImageIndices] = useState({})
 
-  // const banners = [
-  //   {
-  //     image: oferta,
-  //     title: "Ofertas Especiais",
-  //     description: "Confira nossos melhores preços em carros seminovos!",
-  //   },
-  //   {
-  //     image: oferta,
-  //     title: "Financiamento Facilitado",
-  //     description: "Aprove seu crédito em minutos e saia dirigindo!",
-  //   },
-  // ];
-
   useEffect(() => {
     fetchCars()
   }, [])
@@ -63,7 +50,7 @@ function CarShowcase() {
       const matchesBrand = !filters.brand || car.brand === filters.brand;
       const matchesYear = !filters.year || Number(car.year) <= Number(filters.year);
       const matchesTransmission = !filters.transmission || car.transmission === filters.transmission;
-      const matchesDoors = !filters.doors || car.doors === filters.doors;
+      const matchesDoors = !filters.doors || car.doors === Number(filters.doors);
       const matchesPriceMin = !filters.priceMin || Number(car.price) >= Number(filters.priceMin);
       const matchesPriceMax = !filters.priceMax || Number(car.price) <= Number(filters.priceMax);
   
@@ -160,15 +147,14 @@ function CarShowcase() {
                 </select>
                 <select name="transmission" value={filters.transmission} onChange={handleFilterChange}>
                   <option value="">Todos os Câmbios</option>
-                  <option value="Manual">Manual</option>
-                  <option value="Automático">Automático</option>
+                  <option value="manual">Manual</option>
+                  <option value="automatico">Automatico</option>
                 </select>
                 <select name="doors" value={filters.doors} onChange={handleFilterChange}>
                   <option value="">Todas as Portas</option>
                   <option value="2">2 Portas</option>
                   <option value="3">3 Portas</option>
                   <option value="4">4 Portas</option>
-                  <option value="5">5 Portas</option>
                 </select>
                 <input
                   type="number"
