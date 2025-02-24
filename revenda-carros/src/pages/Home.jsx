@@ -7,6 +7,7 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 import styles from "./Home.module.css"
 import { collection, getDocs, query, orderBy } from "firebase/firestore"
 import { db } from "../firebaseConfig"
+import Social from "../components/SocialIcons"
 
 function CarShowcase() {
   const navigate = useNavigate()
@@ -263,6 +264,7 @@ function CarShowcase() {
           </section>
         </div>
       </div>
+      <Social />
       <MapComponent />
       {selectedCar && <CarModal car={selectedCar} onClose={closeModal} />}
     </div>

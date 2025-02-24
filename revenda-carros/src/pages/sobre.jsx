@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./sobre.module.css";
+import Social from "../components/SocialIcons";
 
 const Principal = () => {
   return (
@@ -86,7 +87,7 @@ const Principal = () => {
           <div className={styles.aboutUsText}>
             <p>
               Na <strong>MCar Veículos</strong>, somos apaixonados por oferecer
-              a melhor experiência para nossos clientes. Com mais de 30 anos de
+              a melhor experiência para nossos clientes. Com mais de 25 anos de
               atuação no mercado de revenda, selecionamos os melhores automóveis
               seminovos e usados, garantindo <strong>qualidade</strong>,{" "}
               <strong>procedência</strong> e <strong>preços justos</strong>.
@@ -138,17 +139,15 @@ const Principal = () => {
           <div className={styles.testimonials}>
             <blockquote>
               <p>
-                "A melhor experiência que tive ao comprar um carro. Atendimento
-                excelente e muita confiança!"
+                "Maravilha como sempre, sou cliente a mais de 20 anos. Atendimento, qualidade e transparência sempre, parabéns."
               </p>
-              <cite>- João Silva</cite>
+              <cite>- Grayson Sales</cite>
             </blockquote>
             <blockquote>
               <p>
-                "A MCar me ajudou a encontrar o carro dos meus sonhos com um
-                ótimo preço e atendimento super profissional!"
+                "Empresa maravilhosa, com preços carro justos. Super indico"
               </p>
-              <cite>- Maria Santos</cite>
+              <cite>- Joice Lopes</cite>
             </blockquote>
           </div>
         </div>
@@ -167,6 +166,7 @@ const Principal = () => {
           </a>
         </div>
       </section>
+      <Social />
     </div>
   );
 };

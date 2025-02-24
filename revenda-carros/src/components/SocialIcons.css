@@ -1,0 +1,73 @@
+/* Fixed social media sidebar */
+.social-sidebar {
+    position: fixed;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .social-sidebar.hide {
+    transform: translateX(100%) translateY(-50%);
+  }
+  
+  .toggle-social-icons {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 50% 0 0 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggle-social-icons:hover {
+    background-color: #004080;
+  }
+  
+  .social-icon,
+  .social-icon-olx {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+  }
+  
+  .social-icon-olx {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .social-icon:hover,
+  .social-icon-olx:hover {
+    transform: scale(1.1);
+  }
+  
+  .social-icon img,
+  .social-icon-olx img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  
+  .social-icon-olx img {
+    width: 40px;
+    height: 40px;
+  }

@@ -192,14 +192,13 @@
 }
 
 .heroSection {
-  background-image: url("../imagens/banner carro.jpg");
+  background-image: url("../imagens/carro destaque.jpg");
   height: 550px;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   padding: 1rem;
 }
 .heroSection::before {

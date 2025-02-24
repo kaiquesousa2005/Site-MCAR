@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import styles from "./simulacao.module.css"
+import Social from "../components/SocialIcons"
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -233,6 +234,7 @@ Mensagem: ${formData.mensagem}
             <button type="submit">Enviar Simulação</button>
           </form>
         </section>
+        <Social />
       </div>
     </div>
   )
