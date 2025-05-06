@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { db, storage } from "../firebaseConfig"
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -218,6 +216,7 @@ const Admin = () => {
               <option value="Hyundai">Hyundai</option>
               <option value="Renault">Renault</option>
               <option value="Ford">Ford</option>
+              <option value="Buggy">Buggy</option>
             </select>
           </div>
           <div className="form-group">
