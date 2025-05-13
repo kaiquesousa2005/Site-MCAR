@@ -193,9 +193,8 @@
 
 .heroSection {
   background-image: url("../imagens/carro destaque.jpg");
-  height: 550px;
+  height: 600px;
   background-size: cover;
-  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
